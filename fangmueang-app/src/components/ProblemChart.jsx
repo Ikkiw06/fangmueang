@@ -1,61 +1,80 @@
-import { useState, useEffect } from 'react'
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'
+const CAT_COLORS = {
+  'ถนน/ทางเท้า':'#E58A53',
+  'น้ำท่วม':     '#4F9FE0',
+  'ขยะ':         '#6FC18A',
+  'ไฟส่องสว่าง':'#E9C46A',
+  'ความปลอดภัย':'#D14B3C',
+  'อื่นๆ':       '#8DA0B4',
+}
 
-const COLORS = ['#3b82f6','#06b6d4','#10b981','#f59e0b','#ef4444','#8b5cf6','#ec4899']
-
-const CustomTooltip = ({ active, payload, label }) => {
-  if (!active || !payload?.length) return null
+function BarRow({ label, n, max, color }) {
+  const w = max > 0 ? Math.max(3, (n / max) * 100) : 0
   return (
-    <div style={{background:'rgba(15,23,42,0.95)',border:'1px solid rgba(59,130,246,0.3)',borderRadius:12,padding:'10px 16px',boxShadow:'0 8px 32px rgba(0,0,0,0.5)'}}>
-      <p style={{color:'white',fontWeight:700,fontSize:14,margin:'0 0 4px'}}>{label}</p>
-      <p style={{color:'#60a5fa',fontSize:13,margin:0}}>{payload[0].value.toLocaleString()} ครั้ง</p>
+    <div style={{ display:'grid', gridTemplateColumns:'110px 1fr 60px', alignItems:'center', gap:10, margin:'9px 0' }}>
+      <div style={{ fontSize:13, color:'var(--ink)', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{label}</div>
+      <div style={{ height:13, background:'var(--panel2)', borderRadius:7, overflow:'hidden' }}>
+        <div style={{ height:'100%', borderRadius:7, background:color, width:`${w}%`, transition:'width 0.5s ease' }}/>
+      </div>
+      <div style={{ fontSize:12, color:'var(--muted)', textAlign:'right', fontFamily:'IBM Plex Mono,monospace' }}>
+        {n.toLocaleString()}
+      </div>
     </div>
   )
 }
 
-export default function ProblemChart({ data }) {
-  const [visible, setVisible] = useState(false)
-  useEffect(() => { const t = setTimeout(() => setVisible(true), 300); return () => clearTimeout(t) }, [])
+export default function ProblemChart({ data, selectedDistrict, districts }) {
+  const CARD = {
+    background:'var(--panel)', border:'1px solid var(--line)', borderRadius:'var(--radius)', padding:'16px 17px',
+  }
 
-  if (!data) return null
+  let rows = []
+  let title = 'Top ปัญหาทั่วกรุงเทพฯ'
+  let sub = 'แยกตามประเภท'
 
-  // Aggregate from all districts
-  const agg = {}
-  Object.values(data.districts || {}).forEach(d => {
-    (d.top_problems || []).forEach(p => { agg[p.type] = (agg[p.type]||0) + p.count })
-  })
-  const chartData = Object.entries(agg).map(([name, value]) => ({ name, value })).sort((a,b) => b.value - a.value)
+  if (selectedDistrict && districts?.[selectedDistrict]) {
+    title = `ปัญหาในเขต${selectedDistrict}`
+    sub = 'สัดส่วนแต่ละประเภท'
+    rows = (districts[selectedDistrict].top_problems || [])
+      .map(p => ({ label: p.type, n: p.count, color: CAT_COLORS[p.type] || '#8DA0B4' }))
+      .sort((a, b) => b.n - a.n)
+  } else {
+    title = 'Top ปัญหาทั่วกรุงเทพฯ'
+    const agg = {}
+    Object.values(data?.districts || {}).forEach(d =>
+      (d.top_problems || []).forEach(p => { agg[p.type] = (agg[p.type] || 0) + p.count })
+    )
+    rows = Object.entries(agg)
+      .map(([type, n]) => ({ label: type, n, color: CAT_COLORS[type] || '#8DA0B4' }))
+      .sort((a, b) => b.n - a.n)
+  }
+
+  const max = Math.max(...rows.map(r => r.n), 1)
+
+  // top 5 districts by total for ranking
+  const distRank = Object.entries(data?.districts || {})
+    .map(([name, d]) => ({ name, n: d.total || 0 }))
+    .sort((a, b) => b.n - a.n)
+    .slice(0, 5)
+  const distMax = Math.max(...distRank.map(r => r.n), 1)
 
   return (
-    <div style={{
-      background:'rgba(15,23,42,0.8)',backdropFilter:'blur(16px)',
-      border:'1px solid rgba(59,130,246,0.15)',borderRadius:16,
-      padding:24,height:460,display:'flex',flexDirection:'column',
-      boxShadow:'0 8px 32px rgba(0,0,0,0.3)',
-      opacity:visible?1:0,transform:visible?'translateX(0)':'translateX(24px)',
-      transition:'all 0.5s ease'
-    }}>
-      <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:20}}>
-        <div style={{width:36,height:36,borderRadius:10,background:'linear-gradient(135deg,#3b82f6,#06b6d4)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:18,boxShadow:'0 4px 12px rgba(59,130,246,0.4)'}}>
-          📊
-        </div>
-        <div>
-          <h3 style={{color:'white',fontWeight:700,fontSize:14,margin:0}}>ประเภทปัญหา</h3>
-          <p style={{color:'#475569',fontSize:12,margin:0}}>ทั่วกรุงเทพฯ</p>
-        </div>
+    <section style={CARD}>
+      <h2 style={{ margin:'0 0 2px', fontSize:15, fontWeight:600 }}>{title}</h2>
+      <div style={{ color:'var(--faint)', fontSize:12, marginBottom:14 }}>{sub}</div>
+      <div>
+        {rows.map(r => <BarRow key={r.label} {...r} max={max}/>)}
       </div>
-      <div style={{flex:1}}>
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={chartData} layout="vertical" margin={{top:0,right:24,bottom:0,left:8}}>
-            <XAxis type="number" tick={{fill:'#475569',fontSize:11}} tickLine={false} axisLine={false} tickFormatter={v=>v>=1000?`${(v/1000).toFixed(0)}k`:v} />
-            <YAxis type="category" dataKey="name" tick={{fill:'#94a3b8',fontSize:12}} tickLine={false} axisLine={false} width={90} />
-            <Tooltip content={<CustomTooltip/>} cursor={{fill:'rgba(255,255,255,0.03)'}} />
-            <Bar dataKey="value" radius={[0,8,8,0]}>
-              {chartData.map((_,i) => <Cell key={i} fill={COLORS[i%COLORS.length]} />)}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-    </div>
+
+      {!selectedDistrict && (
+        <>
+          <div style={{ borderTop:'1px solid var(--line)', margin:'16px 0 12px' }}/>
+          <h2 style={{ margin:'0 0 2px', fontSize:15, fontWeight:600 }}>Top 5 เขตร้องเรียนมากสุด</h2>
+          <div style={{ color:'var(--faint)', fontSize:12, marginBottom:10 }}>ทุกประเภทปัญหา</div>
+          {distRank.map(r => (
+            <BarRow key={r.name} label={r.name} n={r.n} max={distMax} color="var(--mint)"/>
+          ))}
+        </>
+      )}
+    </section>
   )
 }
