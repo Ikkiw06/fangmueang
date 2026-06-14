@@ -1,0 +1,49 @@
+{
+  "metadata": { "total": 890000, "last_updated": "2025-06-01", "districts_count": 3 },
+  "districts": {
+    "ลาดกระบัง": {
+      "total": 1200, "resolved": 850, "avg_days": 4.2,
+      "top_problems": [
+        { "type": "ถนน/ทางเท้า", "count": 340 },
+        { "type": "น้ำท่วม", "count": 210 },
+        { "type": "ขยะ", "count": 180 },
+        { "type": "ไฟส่องสว่าง", "count": 150 },
+        { "type": "ความปลอดภัย", "count": 90 }
+      ],
+      "monthly": [
+        { "month": "2024-01", "count": 95, "resolved": 70 },
+        { "month": "2024-02", "count": 110, "resolved": 80 }
+      ]
+    },
+    "บางขุนเทียน": {
+      "total": 980, "resolved": 600, "avg_days": 6.1,
+      "top_problems": [
+        { "type": "น้ำท่วม", "count": 400 },
+        { "type": "ถนน/ทางเท้า", "count": 250 },
+        { "type": "ขยะ", "count": 150 },
+        { "type": "ไฟส่องสว่าง", "count": 100 },
+        { "type": "ความปลอดภัย", "count": 80 }
+      ],
+      "monthly": [
+        { "month": "2024-01", "count": 80, "resolved": 50 },
+        { "month": "2024-02", "count": 90, "resolved": 60 }
+      ]
+    },
+    "จตุจักร": {
+      "total": 750, "resolved": 550, "avg_days": 3.8,
+      "top_problems": [
+        { "type": "ขยะ", "count": 200 },
+        { "type": "ถนน/ทางเท้า", "count": 180 },
+        { "type": "ความปลอดภัย", "count": 150 },
+        { "type": "ไฟส่องสว่าง", "count": 120 },
+        { "type": "น้ำท่วม", "count": 100 }
+      ],
+      "monthly": [
+        { "month": "2024-01", "count": 60, "resolved": 45 },
+        { "month": "2024-02", "count": 70, "resolved": 55 }
+      ]
+    }
+  },
+  "city_avg": { "avg_days": 5.1, "resolve_rate": 0.68, "total": 890000 },
+  "problem_types": ["ถนน/ทางเท้า", "น้ำท่วม", "ขยะ", "ไฟส่องสว่าง", "ความปลอดภัย", "อื่นๆ"]
+}
