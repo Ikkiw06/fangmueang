@@ -1,20 +1,76 @@
 import { useState, useEffect } from 'react'
-import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet'
+import { MapContainer, TileLayer, GeoJSON, Marker } from 'react-leaflet'
+import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-function getColor(count, max) {
-  if (!count || count === 0) return '#1e293b'
-  const r = count / (max || 1)
-  if (r > 0.8) return '#1d4ed8'
-  if (r > 0.6) return '#2563eb'
-  if (r > 0.4) return '#3b82f6'
-  if (r > 0.2) return '#60a5fa'
-  return '#93c5fd'
+const mapStyles = `
+  .leaflet-div-icon.district-label-marker {
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+  .district-label-text-admin {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1e293b; 
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .district-label-text-analytics {
+    font-family: 'Sarabun', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    color: #cbd5e1;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .custom-tooltip {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+  .custom-tooltip::before {
+    display: none !important;
+  }
+`
+
+const CENTRAL_NUMBERS = {
+  'คลองสาน': 1, 'ธนบุรี': 2, 'บางคอแหลม': 3, 'สาทร': 4, 'บางรัก': 5, 'ปทุมวัน': 6,
+  'สัมพันธวงศ์': 7, 'ป้อมปราบศัตรูพ่าย': 8, 'พระนคร': 9
+};
+
+function getCentroid(geometry) {
+  if (!geometry) return null
+  let lat = 0, lng = 0, count = 0
+  if (geometry.type === 'Polygon') {
+    geometry.coordinates.forEach(ring => {
+      ring.forEach(c => { lng += c[0]; lat += c[1]; count++ })
+    })
+  } else if (geometry.type === 'MultiPolygon') {
+    geometry.coordinates.forEach(poly => {
+      poly.forEach(ring => {
+        ring.forEach(c => { lng += c[0]; lat += c[1]; count++ })
+      })
+    })
+  }
+  return count > 0 ? [lat / count, lng / count] : null
 }
 
-export default function DistrictMap({ districts, selectedDistrict, onSelectDistrict }) {
+export default function DistrictMap({ districts = {}, selectedDistrict, onSelectDistrict }) {
   const [geoData, setGeoData] = useState(null)
   const [loadError, setLoadError] = useState(false)
+  const [mapMode, setMapMode] = useState('admin')
+
+  useEffect(() => {
+    const styleElement = document.createElement('style')
+    styleElement.innerHTML = mapStyles
+    document.head.appendChild(styleElement)
+    return () => { document.head.removeChild(styleElement) }
+  }, [])
 
   useEffect(() => {
     fetch('/bangkok_districts.geojson')
@@ -23,19 +79,15 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
       .catch(() => setLoadError(true))
   }, [])
 
-  const counts = Object.values(districts).map(d => d.total || 0)
-  const max = Math.max(...counts, 1)
-
   const styleFeature = (feature) => {
     const name = feature.properties.dname || feature.properties.name
-    const d = districts[name]
-    const count = d?.total || 0
     const isSelected = name === selectedDistrict
+
     return {
-      fillColor: getColor(count, max),
-      weight: isSelected ? 3 : 1,
-      color: isSelected ? '#60a5fa' : '#334155',
-      fillOpacity: isSelected ? 0.95 : 0.75,
+      fillColor: isSelected ? '#3b82f6' : 'transparent',
+      fillOpacity: isSelected ? 0.25 : 0,
+      weight: isSelected ? 2.5 : 0,
+      color: isSelected ? '#3b82f6' : 'transparent',
     }
   }
 
@@ -43,68 +95,119 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
     const name = feature.properties.dname || feature.properties.name
     const d = districts[name]
     const count = d?.total || 0
+
     layer.bindTooltip(`
-      <div style="font-family:Sarabun,sans-serif;padding:8px 12px;background:rgba(15,23,42,0.95);border:1px solid rgba(59,130,246,0.4);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,0.5)">
-        <strong style="color:#93c5fd;font-size:14px">เขต${name}</strong><br/>
-        <span style="color:#64748b;font-size:12px">ร้องเรียน </span>
-        <strong style="color:white;font-size:13px">${count.toLocaleString()}</strong>
-        <span style="color:#64748b;font-size:12px"> ครั้ง</span>
+      <div style="font-family:Sarabun,sans-serif;padding:6px 10px;">
+        <strong style="color:#93c5fd;font-size:13px">เขต${name}</strong><br/>
+        <span style="color:#94a3b8;font-size:11px">ร้องเรียน </span>
+        <strong style="color:white;font-size:12px">${count.toLocaleString()}</strong>
+        <span style="color:#94a3b8;font-size:11px"> ครั้ง</span>
       </div>
-    `, { sticky: true, opacity: 1, className: '' })
+    `, { sticky: true, opacity: 1, className: 'custom-tooltip' })
+
     layer.on({
       click: () => onSelectDistrict(name),
-      mouseover: e => { e.target.setStyle({ fillOpacity: 1, weight: 2.5, color: '#93c5fd' }) },
-      mouseout: e => { e.target.setStyle(styleFeature(feature)) },
+      mouseover: e => {
+        e.target.setStyle({
+          fillColor: '#3b82f6',
+          fillOpacity: 0.25,
+          weight: 2,
+          color: '#2563eb'
+        })
+      },
+      mouseout: e => {
+        e.target.setStyle(styleFeature(feature))
+      },
     })
   }
 
-  const legendSteps = [
-    { color: '#1d4ed8', label: `มาก (>${Math.round(max * 0.8)})` },
-    { color: '#3b82f6', label: 'ปานกลาง' },
-    { color: '#93c5fd', label: `น้อย (<${Math.round(max * 0.2)})` },
-    { color: '#1e293b', label: 'ไม่มีข้อมูล' },
-  ]
-
   return (
     <div style={{
-      background:'rgba(15,23,42,0.8)',backdropFilter:'blur(16px)',
-      border:'1px solid rgba(59,130,246,0.15)',borderRadius:16,
-      overflow:'hidden',height:460,position:'relative',
-      boxShadow:'0 8px 32px rgba(0,0,0,0.3)'
+      background: '#0f172a',
+      overflow: 'hidden', // 👈 จุดสำคัญ: บังคับตัดขอบตัวแผนที่ฐานไม่ให้ทะลุความโค้งมนออกมา
+      height: 460,
+      position: 'relative',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+
+      // 🛠️ ปรับเปลี่ยนมุมกรอบตรงนี้ให้เว้าโค้งแบบพรีเมียมอสมมาตร (สไตล์เหลี่ยมสลับมนลึก)
+      borderTopLeftRadius: '16px',       // ขอบบนซ้าย มนปกติ
+      borderTopRightRadius: '40px',      // ขอบบนขวา เว้าลึกรับกับหน้าต่างข้อมูล
+      borderBottomRightRadius: '16px',   // ขอบล่างขวา มนปกติ
+      borderBottomLeftRadius: '48px',    // ขอบล่างซ้าย เว้าลึกเป็นพิเศษเพิ่มมิติไหลลื่น
+
+      border: '1px solid rgba(255, 255, 255, 0.05)' // เติมเส้นขอบกล่องบาง ๆ เพื่อความคมชัด
     }}>
-      {/* Top overlay */}
-      <div style={{position:'absolute',top:12,left:12,zIndex:1000,background:'rgba(15,23,42,0.9)',backdropFilter:'blur(12px)',border:'1px solid rgba(59,130,246,0.25)',borderRadius:12,padding:'8px 14px',pointerEvents:'none'}}>
-        <p style={{color:'white',fontWeight:700,fontSize:13,margin:'0 0 2px'}}>🗺️ แผนที่กรุงเทพฯ</p>
-        <p style={{color:'#64748b',fontSize:11,margin:0}}>คลิกเขตเพื่อดูรายละเอียด</p>
+
+      {/* ปุ่มสลับโหมดแผนที่ (ปรับปุ่มให้มนขึ้นตามดีไซน์ใหม่) */}
+      <div style={{
+        position: 'absolute', top: 12, right: 12, zIndex: 1000,
+        display: 'flex', gap: 6, background: 'rgba(15,23,42,0.9)',
+        backdropFilter: 'blur(12px)', border: '1px solid rgba(71,85,105,0.3)',
+        borderRadius: '12px', padding: 4
+      }}>
+        <button
+          onClick={() => setMapMode('admin')}
+          style={{
+            background: mapMode === 'admin' ? '#3b82f6' : 'transparent',
+            border: 'none', borderRadius: '8px', padding: '6px 12px', color: 'white', fontSize: 11, fontWeight: 700,
+            cursor: 'pointer', transition: 'all 0.2s'
+          }}
+        >
+          🗺️ แผนที่เขต
+        </button>
+        <button
+          onClick={() => setMapMode('analytics')}
+          style={{
+            background: mapMode === 'analytics' ? '#3b82f6' : 'transparent',
+            border: 'none', borderRadius: '8px', padding: '6px 12px', color: 'white', fontSize: 11, fontWeight: 700,
+            cursor: 'pointer', transition: 'all 0.2s'
+          }}
+        >
+          📊 ความหนาแน่น
+        </button>
       </div>
 
-      {/* Legend */}
-      <div style={{position:'absolute',bottom:12,right:12,zIndex:1000,background:'rgba(15,23,42,0.9)',backdropFilter:'blur(12px)',border:'1px solid rgba(71,85,105,0.3)',borderRadius:12,padding:'10px 14px',pointerEvents:'none'}}>
-        <p style={{color:'#64748b',fontSize:11,fontWeight:600,marginBottom:8,textTransform:'uppercase',letterSpacing:'0.06em'}}>จำนวนร้องเรียน</p>
-        {legendSteps.map(s => (
-          <div key={s.label} style={{display:'flex',alignItems:'center',gap:8,marginBottom:5}}>
-            <div style={{width:12,height:12,borderRadius:3,background:s.color,border:'1px solid rgba(71,85,105,0.5)'}}/>
-            <span style={{fontSize:11,color:'#94a3b8'}}>{s.label}</span>
-          </div>
-        ))}
-      </div>
-
-      {loadError && (
-        <div style={{position:'absolute',bottom:12,left:'50%',transform:'translateX(-50%)',zIndex:999,background:'rgba(234,179,8,0.15)',border:'1px solid rgba(234,179,8,0.4)',borderRadius:10,padding:'6px 14px',fontSize:12,color:'#fde68a',pointerEvents:'none'}}>
-          ⚠️ ไม่พบ GeoJSON — แผนที่ยังใช้งานได้แต่ไม่มีขอบเขตเขต
-        </div>
-      )}
-
-      <MapContainer center={[13.756, 100.502]} zoom={10} style={{height:'100%',width:'100%',background:'#0f172a'}} zoomControl={true}>
-        <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" attribution='&copy; CARTO' />
+      <MapContainer
+        center={[13.756, 100.502]}
+        zoom={10}
+        style={{ height: '100%', width: '100%' }}
+        zoomControl={true}
+      >
+        <TileLayer
+          url={mapMode === 'admin' ? "https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png" : "https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png"}
+          attribution='&copy; CARTO'
+        />
         {geoData && (
           <GeoJSON
-            key={selectedDistrict + JSON.stringify(Object.keys(districts)).slice(0,60)}
+            key={mapMode + selectedDistrict + JSON.stringify(Object.keys(districts)).slice(0, 60)}
             data={geoData}
             style={styleFeature}
             onEachFeature={onEachFeature}
           />
         )}
+
+        {geoData && geoData.features.map((feature, i) => {
+          const name = feature.properties.dname || feature.properties.name
+          const centroid = getCentroid(feature.geometry)
+          if (!centroid) return null
+
+          const isCentral = mapMode === 'admin' && CENTRAL_NUMBERS[name];
+          const displayLabel = isCentral ? CENTRAL_NUMBERS[name].toString() : `เขต${name}`;
+
+          return (
+            <Marker
+              key={`label-${mapMode}-${name}-${i}`}
+              position={centroid}
+              icon={L.divIcon({
+                className: 'district-label-marker',
+                html: `<div class="${mapMode === 'admin' ? 'district-label-text-admin' : 'district-label-text-analytics'}">${displayLabel}</div>`,
+                iconSize: [100, 20],
+                iconAnchor: [50, 10]
+              })}
+              interactive={false}
+            />
+          )
+        })}
       </MapContainer>
     </div>
   )

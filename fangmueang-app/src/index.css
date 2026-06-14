@@ -15,3 +15,42 @@
 @keyframes float { 0%,100% { transform:translateY(0px); } 50% { transform:translateY(-6px); } }
 
 ::-webkit-scrollbar { width:5px; } ::-webkit-scrollbar-track { background:#0f172a; } ::-webkit-scrollbar-thumb { background:#334155; border-radius:99px; }
+
+/* Custom styles for permanent map labels */
+.district-label-marker {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+}
+
+.district-label-text-admin {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  color: #1e293b;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 
+    -1.5px -1.5px 0 #fff,  
+     1.5px -1.5px 0 #fff,
+    -1.5px  1.5px 0 #fff,
+     1.5px  1.5px 0 #fff;
+  pointer-events: none;
+}
+
+.district-label-text-analytics {
+  font-family: 'Sarabun', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  color: #e2e8f0;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: 
+    -1.5px -1.5px 0 #0f172a,  
+     1.5px -1.5px 0 #0f172a,
+    -1.5px  1.5px 0 #0f172a,
+     1.5px  1.5px 0 #0f172a;
+  pointer-events: none;
+}
+
