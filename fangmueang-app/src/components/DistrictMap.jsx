@@ -1,14 +1,30 @@
 import { useState, useEffect } from 'react'
-import { MapContainer, TileLayer, GeoJSON } from 'react-leaflet'
+import { MapContainer, GeoJSON, useMap } from 'react-leaflet'
+import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-const BUCKETS = ['#274156','#3E7D74','#E9C46A','#E58A53','#D14B3C']
+// vibrant palette: low → high
+const BUCKETS = ['#4ECDC4','#45B7D1','#F9CA24','#F0932B','#EB4D4B']
+const LABELS  = ['น้อยมาก','น้อย','ปานกลาง','มาก','มากมาก']
 
 function getBucket(count, max) {
-  if (!count || max <= 0) return '#1C2734'
+  if (!count || max <= 0) return '#1C2B3A'
   const r = count / max
   const i = Math.min(4, Math.floor(r * 5 - 1e-9))
   return BUCKETS[Math.max(0, i)]
+}
+
+// Auto-fit map to Bangkok bounds
+function FitBounds({ geoData }) {
+  const map = useMap()
+  useEffect(() => {
+    if (!geoData) return
+    try {
+      const bounds = L.geoJSON(geoData).getBounds()
+      if (bounds.isValid()) map.fitBounds(bounds, { padding: [16, 16], animate: false })
+    } catch {}
+  }, [geoData, map])
+  return null
 }
 
 export default function DistrictMap({ districts, selectedDistrict, onSelectDistrict }) {
@@ -31,9 +47,9 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
     const isSelected = name === selectedDistrict
     return {
       fillColor: getBucket(count, max),
-      weight: isSelected ? 2 : 0.8,
-      color: isSelected ? '#5BD1B8' : '#2A3848',
-      fillOpacity: isSelected ? 1 : 0.82,
+      weight: isSelected ? 2.5 : 1,
+      color: isSelected ? '#FFFFFF' : 'rgba(255,255,255,0.35)',
+      fillOpacity: isSelected ? 1 : 0.85,
     }
   }
 
@@ -41,57 +57,102 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
     const name = feature.properties.dname || feature.properties.name
     const d = districts[name]
     const count = d?.total || 0
+    const rr = d ? Math.round((d.resolved / d.total) * 100) : 0
+
     layer.bindTooltip(`
-      <div style="font-family:'IBM Plex Sans Thai',sans-serif;padding:6px 12px;background:#161F2B;border:1px solid #2A3848;border-radius:9px;white-space:nowrap">
-        <strong style="color:#E7EEF5;font-size:13px">เขต${name}</strong><br/>
-        <span style="color:#64778C;font-size:11px">ร้องเรียน </span>
-        <strong style="color:#5BD1B8;font-size:13px;font-family:'IBM Plex Mono',monospace">${count.toLocaleString()}</strong>
+      <div style="font-family:'IBM Plex Sans Thai',sans-serif;padding:8px 14px;
+        background:#0E141C;border:1px solid rgba(255,255,255,0.15);
+        border-radius:10px;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.5)">
+        <div style="color:#E7EEF5;font-size:13px;font-weight:600;margin-bottom:3px">เขต${name}</div>
+        <div style="color:#8DA0B4;font-size:11px">
+          ร้องเรียน <span style="color:#F9CA24;font-family:'IBM Plex Mono',monospace;font-size:13px">${count.toLocaleString()}</span> เรื่อง
+        </div>
+        <div style="color:#8DA0B4;font-size:11px">
+          แก้ไขแล้ว <span style="color:#4ECDC4;font-family:'IBM Plex Mono',monospace">${rr}%</span>
+        </div>
       </div>
     `, { sticky: true, opacity: 1 })
+
     layer.on({
       click: () => onSelectDistrict(name === selectedDistrict ? null : name),
-      mouseover: e => e.target.setStyle({ fillOpacity: 1, weight: 1.5, color: '#5BD1B8' }),
+      mouseover: e => e.target.setStyle({
+        fillOpacity: 1,
+        weight: 2,
+        color: 'rgba(255,255,255,0.8)',
+      }),
       mouseout: e => e.target.setStyle(styleFeature(feature)),
     })
   }
 
   const CARD = {
-    background:'var(--panel)', border:'1px solid var(--line)', borderRadius:'var(--radius)',
-    padding:'16px 17px', display:'flex', flexDirection:'column',
+    background: 'var(--panel)',
+    border: '1px solid var(--line)',
+    borderRadius: 'var(--radius)',
+    padding: '16px 17px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 10,
   }
-
-  const legendSteps = [
-    { color:'#274156', label:'น้อย' },
-    { color:'#3E7D74', label:'' },
-    { color:'#E9C46A', label:'ปานกลาง' },
-    { color:'#E58A53', label:'' },
-    { color:'#D14B3C', label:'มาก' },
-  ]
 
   return (
     <section style={CARD}>
-      <h2 style={{ margin:'0 0 2px', fontSize:15, fontWeight:600 }}>แผนที่ปัญหารายเขต</h2>
-      <div style={{ color:'var(--faint)', fontSize:12, marginBottom:12 }}>คลิกที่เขตเพื่อดูรายละเอียด</div>
+      {/* Header */}
+      <div>
+        <h2 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: 'var(--ink)' }}>
+          แผนที่ปัญหารายเขต
+        </h2>
+        <div style={{ color: 'var(--faint)', fontSize: 12, marginTop: 2 }}>
+          คลิกที่เขตเพื่อดูรายละเอียด
+        </div>
+      </div>
 
       {/* Legend */}
-      <div style={{ display:'flex', alignItems:'center', gap:5, fontSize:11, color:'var(--faint)', marginBottom:10 }}>
-        <span>น้อย</span>
-        {legendSteps.map((s,i) => <i key={i} style={{ width:20, height:9, borderRadius:2, background:s.color, display:'inline-block' }}/>)}
-        <span>มาก</span>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+        {BUCKETS.map((c, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <span style={{
+              display: 'inline-block', width: 12, height: 12,
+              borderRadius: 3, background: c,
+            }} />
+            <span style={{ fontSize: 10, color: 'var(--faint)' }}>{LABELS[i]}</span>
+          </div>
+        ))}
       </div>
 
       {/* Map */}
-      <div style={{ flex:1, borderRadius:10, overflow:'hidden', minHeight:380 }}>
-        <MapContainer center={[13.756, 100.502]} zoom={10}
-          style={{ height:'100%', width:'100%', minHeight:380, background:'var(--bg)' }} zoomControl>
-          <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-            attribution='&copy; <a href="https://carto.com/">CARTO</a>'/>
+      <div style={{ flex: 1, borderRadius: 10, overflow: 'hidden', minHeight: 400, position: 'relative' }}>
+        <MapContainer
+          center={[13.756, 100.502]}
+          zoom={10}
+          zoomControl={true}
+          scrollWheelZoom={true}
+          style={{ height: '100%', width: '100%', minHeight: 400, background: '#0E141C' }}
+        >
+          {/* NO TileLayer — pure dark background */}
           {geoData && (
-            <GeoJSON
-              key={selectedDistrict + JSON.stringify(Object.keys(districts)).slice(0,40)}
-              data={geoData} style={styleFeature} onEachFeature={onEachFeature}/>
+            <>
+              <FitBounds geoData={geoData} />
+              <GeoJSON
+                key={selectedDistrict + '-' + Object.keys(districts).length}
+                data={geoData}
+                style={styleFeature}
+                onEachFeature={onEachFeature}
+              />
+            </>
           )}
         </MapContainer>
+
+        {/* Loading overlay */}
+        {!geoData && (
+          <div style={{
+            position: 'absolute', inset: 0, display: 'flex',
+            alignItems: 'center', justifyContent: 'center',
+            background: '#0E141C', borderRadius: 10,
+            color: 'var(--faint)', fontSize: 13,
+          }}>
+            กำลังโหลดแผนที่…
+          </div>
+        )}
       </div>
     </section>
   )
