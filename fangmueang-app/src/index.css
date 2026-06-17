@@ -34,6 +34,8 @@ body {
 .leaflet-control-zoom-in, .leaflet-control-zoom-out { background: var(--panel) !important; color: var(--muted) !important; border: none !important; border-bottom: 1px solid var(--line) !important; }
 .leaflet-control-zoom-in:hover, .leaflet-control-zoom-out:hover { background: var(--panel2) !important; color: var(--ink) !important; }
 .leaflet-bar { border: none !important; box-shadow: none !important; }
+.leaflet-container path:focus { outline: none !important; }
+.leaflet-interactive:focus { outline: none !important; }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
