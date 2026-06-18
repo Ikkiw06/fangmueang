@@ -9,9 +9,10 @@ const SORT_OPTIONS = [
 ]
 
 export default function DistrictRanking({ districts, cityAvg, onSelectDistrict }) {
-  const [sort, setSort]   = useState('score')
-  const [asc,  setAsc]    = useState(false)
-  const [show, setShow]   = useState('all')   // 'all' | 'top' | 'bot'
+  const [sort,   setSort]   = useState('score')
+  const [asc,    setAsc]    = useState(false)
+  const [show,   setShow]   = useState('all')   // 'all' | 'top' | 'bot'
+  const [search, setSearch] = useState('')
 
   if (!districts || Object.keys(districts).length === 0) return null
 
@@ -29,7 +30,11 @@ export default function DistrictRanking({ districts, cityAvg, onSelectDistrict }
     return asc ? va - vb : vb - va
   })
 
-  const displayed = show === 'top' ? sorted.slice(0, 10)
+  const filtered  = search
+    ? sorted.filter(r => r.name.includes(search.trim()))
+    : sorted
+  const displayed = search ? filtered
+                  : show === 'top' ? sorted.slice(0, 10)
                   : show === 'bot' ? sorted.slice(-10).reverse()
                   : sorted
 
@@ -65,6 +70,30 @@ export default function DistrictRanking({ districts, cityAvg, onSelectDistrict }
           </div>
         </div>
 
+        {/* Search box */}
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+          <div style={{ position: 'relative' }}>
+            <input
+              type="text"
+              placeholder="ค้นหาเขต..."
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              style={{
+                background: 'var(--panel2)', border: '1px solid var(--line)',
+                borderRadius: 8, padding: '5px 10px 5px 28px',
+                color: 'var(--ink)', fontSize: 12, fontFamily: 'inherit',
+                outline: 'none', width: 130,
+                transition: 'border-color 0.15s',
+              }}
+              onFocus={e => e.target.style.borderColor = 'var(--mint-d)'}
+              onBlur={e => e.target.style.borderColor = 'var(--line)'}
+            />
+            <span style={{
+              position: 'absolute', left: 9, top: '50%', transform: 'translateY(-50%)',
+              fontSize: 12, color: 'var(--faint)', pointerEvents: 'none',
+            }}>🔍</span>
+          </div>
+
         {/* Filter chips */}
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {[
@@ -82,6 +111,7 @@ export default function DistrictRanking({ districts, cityAvg, onSelectDistrict }
               {o.label}
             </button>
           ))}
+        </div>
         </div>
       </div>
 

@@ -105,6 +105,21 @@ export default function App() {
           </div>
 
           <div style={{ display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' }}>
+            {/* LIVE / DEMO badge */}
+            {data?.metadata?.source?.includes('live') ? (
+              <span style={{ fontSize:11, color:'#5BD1B8', border:'1px solid rgba(91,209,184,0.4)',
+                background:'rgba(91,209,184,0.08)', padding:'3px 9px', borderRadius:999,
+                display:'flex', alignItems:'center', gap:5 }}>
+                <span style={{ width:6, height:6, borderRadius:'50%', background:'#5BD1B8',
+                  animation:'pulse 2s ease-in-out infinite', display:'inline-block' }}/>
+                LIVE
+              </span>
+            ) : (
+              <span style={{ fontSize:11, color:'#E9C46A', border:'1px solid rgba(233,196,106,0.3)',
+                background:'rgba(233,196,106,0.07)', padding:'3px 9px', borderRadius:999 }}>
+                DEMO
+              </span>
+            )}
             {lastUpdated && <span style={CHIP}>📡 อัปเดต: {lastUpdated}</span>}
             <span style={CHIP}>{Object.keys(districts).length} เขต</span>
             <button onClick={() => setShowReport(true)} style={{

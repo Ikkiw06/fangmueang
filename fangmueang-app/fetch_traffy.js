@@ -1,5 +1,5 @@
 /**
- * fetch_traffy.js — ดึงข้อมูลจริงจาก Traffy Fondue Public API
+ * fetch_traffy.js — ดึงข้อมูลจริงจาก Traffy Fondue Public API (GeoJSON v1)
  *
  * รัน (ทดสอบ — ดู field structure): node fetch_traffy.js --test
  * รัน (จริง — บันทึก data.json):    node fetch_traffy.js
@@ -13,9 +13,9 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const IS_TEST   = process.argv.includes('--test')
 
 /* ─── Config ─────────────────────────────────────────── */
-const API_BASE  = 'https://publicapi.traffy.in.th/share/teamchadchart/survey'
+const API_BASE  = 'https://publicapi.traffy.in.th/teamchadchart-stat-api/geojson/v1'
 const PAGE_SIZE = 1000
-const MAX_PAGES = 80        // max 80,000 records
+const MAX_PAGES = 100       // max 100,000 records
 const OUT_FILE  = join(__dirname, 'public', 'data.json')
 
 /* ─── Bangkok 50 เขต ──────────────────────────────────── */
@@ -31,13 +31,15 @@ const BKK_DISTRICTS = new Set([
 
 /* ─── Type mapping ────────────────────────────────────── */
 const TYPE_KEYWORDS = [
-  [['ถนน','ทางเท้า','ทางเดิน','ฟุตบาท','ผิวจราจร'],        'ถนน/ทางเท้า'],
-  [['น้ำท่วม','น้ำขัง','ระบายน้ำ','ท่อระบาย'],              'น้ำท่วม'],
-  [['ขยะ','กวาดขยะ','เก็บขยะ','มูลฝอย'],                    'ขยะ'],
-  [['ไฟ','แสงสว่าง','โคมไฟ','หลอดไฟ'],                      'ไฟส่องสว่าง'],
-  [['ความปลอดภัย','อาชญากรรม','ยาเสพติด','สารเสพติด','อันตราย'], 'ความปลอดภัย'],
+  [['ถนน','ทางเท้า','ทางเดิน','ฟุตบาท','ผิวจราจร','จราจร'],   'ถนน/ทางเท้า'],
+  [['น้ำท่วม','น้ำขัง','ระบายน้ำ','ท่อระบาย'],                 'น้ำท่วม'],
+  [['ขยะ','กวาดขยะ','เก็บขยะ','มูลฝอย'],                       'ขยะ'],
+  [['ไฟ','แสงสว่าง','โคมไฟ','หลอดไฟ','ไฟฟ้า'],                 'ไฟส่องสว่าง'],
+  [['ความปลอดภัย','อาชญากรรม','ยาเสพติด','อันตราย'],           'ความปลอดภัย'],
 ]
 
+/* state_type_latest = "finish" → resolved */
+const RESOLVED_STATE_TYPES = new Set(['finish', 'finished'])
 const RESOLVED_STATES = new Set([
   'เสร็จสิ้น','แก้ไขแล้ว','ดำเนินการแล้ว','resolved','closed','done',
 ])
@@ -45,39 +47,40 @@ const RESOLVED_STATES = new Set([
 const MONTHS_TH = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']
 
 /* ─── Helpers ─────────────────────────────────────────── */
-function normalizeType(raw) {
-  if (!raw) return 'อื่นๆ'
-  const r = String(raw).trim()
-  for (const [keywords, label] of TYPE_KEYWORDS) {
-    if (keywords.some(k => r.includes(k))) return label
+function normalizeType(props) {
+  // Try problem_type_fondue array first, then ai.type, then ai.categories
+  const candidates = [
+    ...(props.problem_type_fondue || []),
+    props.ai?.type,
+    ...(props.ai?.categories?.map(c => c.category) || []),
+  ].filter(Boolean)
+
+  for (const raw of candidates) {
+    const r = String(raw).trim()
+    for (const [keywords, label] of TYPE_KEYWORDS) {
+      if (keywords.some(k => r.includes(k))) return label
+    }
   }
   return 'อื่นๆ'
 }
 
-function normalizeDistrict(record) {
-  // Try multiple possible field names
-  const candidates = [
-    record.district,
-    record.address_district,
-    record.subdistrict,
-  ].filter(Boolean)
-
-  for (const raw of candidates) {
-    const clean = String(raw).trim().replace(/^เขต\s*/, '')
-    if (BKK_DISTRICTS.has(clean)) return clean
-  }
-  return null
+function normalizeDistrict(props) {
+  const raw = props.district || ''
+  const clean = String(raw).trim().replace(/^เขต\s*/, '')
+  return BKK_DISTRICTS.has(clean) ? clean : null
 }
 
-function getField(record, ...keys) {
-  for (const k of keys) if (record[k] !== undefined && record[k] !== null) return record[k]
-  return null
+function isResolved(props) {
+  if (RESOLVED_STATE_TYPES.has(props.state_type_latest)) return true
+  const s = String(props.state || '').trim()
+  return RESOLVED_STATES.has(s)
 }
 
-function daysBetween(t1, t2) {
-  if (!t1 || !t2) return 0
-  const d = (new Date(t2) - new Date(t1)) / 86400000
-  return d > 0 ? d : 0
+function getDays(props) {
+  // duration_minutes_finished = minutes from report to resolution
+  if (props.duration_minutes_finished) return props.duration_minutes_finished / 1440
+  if (props.duration_minutes_total)    return props.duration_minutes_total / 1440
+  return 0
 }
 
 /* ─── Test mode ───────────────────────────────────────── */
@@ -85,19 +88,29 @@ if (IS_TEST) {
   console.log('🔍 TEST MODE — ดึง 5 records เพื่อดู structure\n')
   const res  = await fetch(`${API_BASE}?limit=5`)
   const json = await res.json()
-  const batch = Array.isArray(json) ? json : (json.results || json.data || [])
 
-  console.log('=== API Response keys (top-level) ===')
+  console.log('=== API Response keys ===')
   console.log(Object.keys(json))
+  console.log('total:', json.total || json.count_total)
 
-  if (batch.length > 0) {
-    console.log('\n=== First record keys ===')
-    console.log(Object.keys(batch[0]))
-    console.log('\n=== First record (sample) ===')
-    console.log(JSON.stringify(batch[0], null, 2))
-    console.log('\n=== District values (5 records) ===')
-    batch.forEach((r, i) => {
-      console.log(`  [${i}] district="${r.district}" address_district="${r.address_district}" state="${r.state || r.status}"`)
+  const features = json.features || []
+  if (features.length > 0) {
+    const p = features[0].properties
+    console.log('\n=== First record properties keys ===')
+    console.log(Object.keys(p))
+    console.log('\n=== Sample ===')
+    console.log('district:', p.district)
+    console.log('state:', p.state)
+    console.log('state_type_latest:', p.state_type_latest)
+    console.log('problem_type_fondue:', p.problem_type_fondue)
+    console.log('ai.type:', p.ai?.type)
+    console.log('timestamp:', p.timestamp)
+    console.log('duration_minutes_finished:', p.duration_minutes_finished)
+
+    console.log('\n=== All 5 records (district + state) ===')
+    features.forEach((f, i) => {
+      const pp = f.properties
+      console.log(`  [${i}] district="${pp.district}" state="${pp.state}" state_type="${pp.state_type_latest}" type="${pp.problem_type_fondue}"`)
     })
   }
   process.exit(0)
@@ -105,53 +118,55 @@ if (IS_TEST) {
 
 /* ─── Fetch all ───────────────────────────────────────── */
 async function fetchAll() {
-  const records = []
+  const features = []
   let offset = 0
   let totalCount = null
 
   for (let page = 0; page < MAX_PAGES; page++) {
     const url = `${API_BASE}?limit=${PAGE_SIZE}&offset=${offset}`
-    process.stdout.write(`\r📥 ดึงข้อมูล... ${records.length.toLocaleString()}${totalCount ? ' / ' + totalCount.toLocaleString() : ''} records`)
+    process.stdout.write(`\r📥 ดึงข้อมูล... ${features.length.toLocaleString()}${totalCount ? ' / ~' + totalCount.toLocaleString() : ''} records`)
 
     const res = await fetch(url)
     if (!res.ok) { console.error(`\n❌ HTTP ${res.status}`); break }
 
-    const json  = await res.json()
-    const batch = Array.isArray(json) ? json : (json.results || json.data || [])
-    if (totalCount === null && json.count) totalCount = json.count
+    const json = await res.json()
+    const batch = json.features || []
+
+    if (totalCount === null && (json.total || json.count_total)) {
+      totalCount = json.total || json.count_total
+    }
 
     if (!batch.length) break
-    records.push(...batch)
+    features.push(...batch)
+
     if (batch.length < PAGE_SIZE) break
     offset += PAGE_SIZE
   }
 
-  console.log(`\n✅ ดึงมาได้ ${records.length.toLocaleString()} records`)
-  return records
+  console.log(`\n✅ ดึงมาได้ ${features.length.toLocaleString()} records`)
+  return features
 }
 
 /* ─── Process ─────────────────────────────────────────── */
-function processRecords(records) {
+function processFeatures(features) {
   const dist = {}
   const cutoff = new Date()
   cutoff.setFullYear(cutoff.getFullYear() - 1)  // last 12 months
 
   let skipped = 0
 
-  for (const r of records) {
-    const dname = normalizeDistrict(r)
+  for (const f of features) {
+    const props  = f.properties || {}
+    const dname  = normalizeDistrict(props)
     if (!dname) { skipped++; continue }
 
-    const ts     = getField(r, 'timestamp', 'created_at', 'date', 'report_date')
+    const ts     = props.timestamp
     const tsDate = ts ? new Date(ts) : null
     if (!tsDate || isNaN(tsDate) || tsDate < cutoff) continue
 
-    const rawType = getField(r, 'type', 'problem_type', 'problem_type_detail', 'category')
-    const type    = normalizeType(rawType)
-    const state   = String(getField(r, 'state', 'status') || '').trim()
-    const resolved = RESOLVED_STATES.has(state)
-    const lastAct  = getField(r, 'last_activity', 'updated_at', 'finished_at')
-    const days     = resolved ? daysBetween(ts, lastAct) : 0
+    const type     = normalizeType(props)
+    const resolved = isResolved(props)
+    const days     = resolved ? getDays(props) : 0
 
     if (!dist[dname]) dist[dname] = { total:0, resolved:0, totalDays:0, resolvedCount:0, types:{}, monthly:{} }
     const d = dist[dname]
@@ -215,16 +230,16 @@ function processRecords(records) {
 }
 
 /* ─── Main ────────────────────────────────────────────── */
-console.log('🚀 Fang Mueang — Traffy Fondue Data Fetcher\n')
-const records = await fetchAll()
+console.log('🚀 Fang Mueang — Traffy Fondue Data Fetcher (GeoJSON v1)\n')
+const features = await fetchAll()
 
-if (!records.length) {
-  console.error('❌ ไม่ได้รับข้อมูล — ตรวจสอบ internet หรือลอง node fetch_traffy.js --test')
+if (!features.length) {
+  console.error('❌ ไม่ได้รับข้อมูล — ลอง: node fetch_traffy.js --test')
   process.exit(1)
 }
 
 console.log('⚙️  กำลัง process...')
-const output = processRecords(records)
+const output = processFeatures(features)
 
 writeFileSync(OUT_FILE, JSON.stringify(output, null, 2), 'utf8')
 

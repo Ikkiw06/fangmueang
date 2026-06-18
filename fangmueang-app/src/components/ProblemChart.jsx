@@ -209,21 +209,10 @@ export default function ProblemChart({ data, selectedDistrict, districts, onSele
         />
       ))}
 
-      <div style={DIVIDER}/>
-
-      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:6 }}>
-        <div style={SECTION_HEADER}>Top 10 เขต · คลิกดูรายละเอียด</div>
-        <div style={{ display:'flex', gap:12, fontSize:10, color:'var(--faint)' }}>
-          <span>เรื่อง</span><span>แก้ไข%</span>
-        </div>
+      <div style={{ ...DIVIDER, marginBottom: 8 }}/>
+      <div style={{ fontSize:11, color:'var(--faint)', textAlign:'center', padding:'8px 0' }}>
+        ↓ ดูจัดอันดับเขตทั้งหมดด้านล่าง
       </div>
-      {distRank.map((r, i) => (
-        <DistrictRow
-          key={r.name} {...r} rank={i + 1}
-          onClick={() => onSelectDistrict?.(r.name)}
-          isSelected={r.name === selectedDistrict}
-        />
-      ))}
     </section>
   )
 }
