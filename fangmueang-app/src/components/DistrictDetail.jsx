@@ -4,6 +4,7 @@ import {
   PieChart, Pie, XAxis, YAxis, Tooltip,
   ResponsiveContainer, ReferenceLine,
 } from 'recharts'
+import { calcScore, getGrade } from '../utils/score'
 
 const CAT_COLORS = {
   'ถนน/ทางเท้า':'#E58A53','น้ำท่วม':'#4F9FE0','ขยะ':'#6FC18A',
@@ -120,6 +121,10 @@ export default function DistrictDetail({ district, name, cityAvg, onClose }) {
   const betterRate  = resolveRate >= cityRate
   const betterDays  = distDays <= cityDays
 
+  /* Urban Health Score */
+  const score = calcScore(district, cityAvg)
+  const grade = getGrade(score)
+
   const topProblems  = (district.top_problems || []).slice(0, 6)
   const trend        = (district.monthly || []).slice(-12)  // all 12 months
 
@@ -149,16 +154,41 @@ export default function DistrictDetail({ district, name, cityAvg, onClose }) {
 
       {/* ── Header ── */}
       <div style={{ display:'flex', alignItems:'flex-start', justifyContent:'space-between', marginBottom:16 }}>
-        <div>
-          <h2 style={{ margin:0, fontSize:18, fontWeight:700 }}>เขต{name}</h2>
-          <div style={{ color:'var(--faint)', fontSize:12, marginTop:3 }}>
-            สรุปปัญหา · เทียบค่าเฉลี่ยเมือง · ข้อมูลจาก Traffy Fondue
+        <div style={{ display:'flex', alignItems:'center', gap:14 }}>
+          {/* Urban Health Score badge */}
+          <div style={{
+            background: grade.bg,
+            border: `2px solid ${grade.color}60`,
+            borderRadius: 14, padding: '8px 14px',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            minWidth: 58, flexShrink: 0,
+          }}>
+            <span style={{
+              fontSize: 28, fontWeight: 900, lineHeight: 1,
+              color: grade.color, fontFamily: 'IBM Plex Mono,monospace',
+            }}>
+              {grade.grade}
+            </span>
+            <span style={{ fontSize: 9, color: grade.color, marginTop: 2, fontWeight: 600 }}>
+              {score !== null ? score : '—'}
+            </span>
+          </div>
+
+          <div>
+            <h2 style={{ margin:0, fontSize:18, fontWeight:700 }}>เขต{name}</h2>
+            <div style={{ color: grade.color, fontSize: 12, fontWeight: 600, marginTop: 1 }}>
+              {grade.label}
+            </div>
+            <div style={{ color:'var(--faint)', fontSize:11, marginTop:2 }}>
+              สรุปปัญหา · เทียบค่าเฉลี่ยเมือง · ข้อมูลจาก Traffy Fondue
+            </div>
           </div>
         </div>
+
         <button onClick={onClose} style={{
           background:'none', border:'1px solid var(--line)', color:'var(--muted)',
           borderRadius:8, padding:'4px 12px', fontFamily:'inherit', fontSize:12, cursor:'pointer',
-          transition:'all 0.15s',
+          transition:'all 0.15s', flexShrink: 0,
         }}
           onMouseEnter={e => { e.currentTarget.style.borderColor='var(--mint-d)'; e.currentTarget.style.color='var(--ink)' }}
           onMouseLeave={e => { e.currentTarget.style.borderColor='var(--line)'; e.currentTarget.style.color='var(--muted)' }}>

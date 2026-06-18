@@ -5,6 +5,7 @@ import DistrictMap from './components/DistrictMap'
 import ProblemChart from './components/ProblemChart'
 import DistrictDetail from './components/DistrictDetail'
 import ReportModal from './components/ReportModal'
+import DistrictRanking from './components/DistrictRanking'
 import { useData } from './hooks/useData'
 
 export default function App() {
@@ -197,6 +198,15 @@ export default function App() {
             />
           </div>
         )}
+
+        {/* ── District Ranking ── */}
+        <div style={{ marginTop: 16 }}>
+          <DistrictRanking
+            districts={districts}
+            cityAvg={data?.city_avg}
+            onSelectDistrict={handleSelectDistrict}
+          />
+        </div>
 
         {/* ── Footer ── */}
         <div style={{
