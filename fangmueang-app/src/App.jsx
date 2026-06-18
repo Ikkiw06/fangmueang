@@ -6,7 +6,6 @@ import ProblemChart from './components/ProblemChart'
 import DistrictDetail from './components/DistrictDetail'
 import DistrictRanking from './components/DistrictRanking'
 import ReportModal from './components/ReportModal'
-import DistrictRanking from './components/DistrictRanking'
 import { useData } from './hooks/useData'
 
 export default function App() {
@@ -17,20 +16,9 @@ export default function App() {
   const [showReport,       setShowReport]       = useState(false)
   const detailRef = useRef(null)
 
-<<<<<<< HEAD
-  /* Select district + scroll to detail */
-  const handleSelectDistrict = (name) => {
-    setSelectedDistrict(name)
-    if (name) {
-      setTimeout(() => {
-        detailRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }, 80)
-    }
-=======
   const handleSelectDistrict = (name) => {
     setSelectedDistrict(name)
     if (name) setTimeout(() => detailRef.current?.scrollIntoView({ behavior:'smooth', block:'start' }), 80)
->>>>>>> kiw
   }
 
   /* ── Loading ── */
@@ -65,21 +53,6 @@ export default function App() {
 
   /* ── Insights ── */
   const dList = Object.entries(districts)
-<<<<<<< HEAD
-  const worstResolve   = [...dList].sort((a,b) => (a[1].resolved/a[1].total)-(b[1].resolved/b[1].total))[0]
-  const slowest        = [...dList].sort((a,b) => b[1].avg_days - a[1].avg_days)[0]
-  const mostComplaints = [...dList].sort((a,b) => b[1].total - a[1].total)[0]
-  const insights = [
-    { icon:'🔴', label:'แก้ไขต่ำที่สุด', value: worstResolve?.[0],   sub:`${Math.round((worstResolve?.[1].resolved/worstResolve?.[1].total)*100)}% resolution` },
-    { icon:'⏱️', label:'ใช้เวลานานสุด', value: slowest?.[0],        sub:`เฉลี่ย ${Math.round(slowest?.[1].avg_days || 0)} วัน/เรื่อง` },
-    { icon:'📍', label:'ร้องเรียนมากสุด',value: mostComplaints?.[0], sub:`${(mostComplaints?.[1].total||0).toLocaleString()} เรื่อง` },
-  ]
-
-  /* ── Shared styles ── */
-  const CHIP = { fontSize:11.5, color:'var(--faint)', border:'1px solid var(--line)', padding:'4px 10px', borderRadius:999 }
-
-  /* ── Format date from metadata ── */
-=======
   const worstResolve   = [...dList].sort((a,b) => (a[1].resolved/a[1].total) - (b[1].resolved/b[1].total))[0]
   const slowest        = [...dList].sort((a,b) => b[1].avg_days - a[1].avg_days)[0]
   const mostComplaints = [...dList].sort((a,b) => b[1].total - a[1].total)[0]
@@ -91,23 +64,15 @@ export default function App() {
 
   /* ── Metadata ── */
   const isLive      = data?.metadata?.source?.includes('live')
->>>>>>> kiw
   const lastUpdated = (() => {
     const d = data?.metadata?.last_updated
     if (!d) return null
     const [y, m] = d.split('-').map(Number)
-<<<<<<< HEAD
-    const thMonth = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']
-    return `${thMonth[m]} ${y + 543}`
-  })()
-
-=======
     return `${['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'][m]} ${y + 543}`
   })()
 
   const CHIP = { fontSize:11.5, color:'var(--faint)', border:'1px solid var(--line)', padding:'4px 10px', borderRadius:999 }
 
->>>>>>> kiw
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)', color:'var(--ink)' }}>
       <div style={{ maxWidth:1200, margin:'0 auto', padding:'16px 14px 60px' }}>
@@ -116,39 +81,19 @@ export default function App() {
         <header className="app-header">
           <div>
             <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:4 }}>
-<<<<<<< HEAD
-              <h1 style={{ margin:0, fontSize:26, fontWeight:700, letterSpacing:'-0.02em' }}>
-                ฟังเมือง
-              </h1>
-              <span style={{ ...CHIP, color:'var(--mint)', borderColor:'rgba(91,209,184,0.3)' }}>
-                Beta
-              </span>
-=======
               <h1 style={{ margin:0, fontSize:26, fontWeight:700, letterSpacing:'-0.02em' }}>ฟังเมือง</h1>
               <span style={{ ...CHIP, color:'var(--mint)', borderColor:'rgba(91,209,184,0.3)' }}>Beta</span>
->>>>>>> kiw
             </div>
             <p style={{ margin:0, color:'var(--muted)', fontSize:13, lineHeight:1.6, maxWidth:'52ch' }}>
               Dashboard วิเคราะห์ปัญหาเมืองกรุงเทพฯ รายเขต — ข้อมูลจาก{' '}
               <a href="https://traffy.in.th" target="_blank" rel="noopener noreferrer"
-<<<<<<< HEAD
-                style={{ color:'var(--mint)', textDecoration:'none', fontWeight:600 }}>
-                Traffy Fondue
-              </a>
-=======
                 style={{ color:'var(--mint)', textDecoration:'none', fontWeight:600 }}>Traffy Fondue</a>
->>>>>>> kiw
               {' '}· กดที่เขตเพื่อดูรายละเอียด
             </p>
           </div>
 
           <div style={{ display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' }}>
-            {/* LIVE / DEMO badge */}
-<<<<<<< HEAD
-            {data?.metadata?.source?.includes('live') ? (
-=======
             {isLive ? (
->>>>>>> kiw
               <span style={{ fontSize:11, color:'#5BD1B8', border:'1px solid rgba(91,209,184,0.4)',
                 background:'rgba(91,209,184,0.08)', padding:'3px 9px', borderRadius:999,
                 display:'flex', alignItems:'center', gap:5 }}>
@@ -167,15 +112,8 @@ export default function App() {
             <button onClick={() => setShowReport(true)} style={{
               background:'var(--mint)', color:'#06231d', border:'none',
               padding:'8px 18px', borderRadius:999, fontSize:13, fontWeight:700,
-<<<<<<< HEAD
-              cursor:'pointer', fontFamily:'inherit',
-              display:'flex', alignItems:'center', gap:7,
-              boxShadow:'0 0 16px rgba(91,209,184,0.25)',
-              transition:'all 0.15s',
-=======
               cursor:'pointer', fontFamily:'inherit', display:'flex', alignItems:'center', gap:7,
               boxShadow:'0 0 16px rgba(91,209,184,0.25)', transition:'all 0.15s',
->>>>>>> kiw
             }}
               onMouseEnter={e => { e.currentTarget.style.opacity='0.88'; e.currentTarget.style.transform='translateY(-1px)' }}
               onMouseLeave={e => { e.currentTarget.style.opacity='1'; e.currentTarget.style.transform='none' }}>
@@ -184,11 +122,7 @@ export default function App() {
           </div>
         </header>
 
-<<<<<<< HEAD
-        {/* ── How it works banner ── */}
-=======
         {/* ── Workflow banner ── */}
->>>>>>> kiw
         <div className="workflow-banner">
           <span style={{ fontSize:11, color:'var(--faint)', whiteSpace:'nowrap', marginRight:12 }}>วงจรข้อมูล</span>
           {[
@@ -199,21 +133,12 @@ export default function App() {
             { icon:'✅', text:'อัปเดต status' },
             { icon:'📊', text:'Fang Mueang แสดงผล' },
           ].map((s, i) => (
-<<<<<<< HEAD
-            <div key={i} style={{ display:'flex', alignItems:'center', gap:0 }}>
-              <div style={{ display:'flex', alignItems:'center', gap:5, padding:'2px 10px', whiteSpace:'nowrap' }}>
-                <span style={{ fontSize:14 }}>{s.icon}</span>
-                <span style={{ fontSize:11, color: i === 5 ? 'var(--mint)' : 'var(--muted)', fontWeight: i===5?600:400 }}>{s.text}</span>
-              </div>
-              {i < 5 && <span style={{ color:'var(--line)', fontSize:12, flexShrink:0 }}>›</span>}
-=======
             <div key={i} style={{ display:'flex', alignItems:'center' }}>
               <div style={{ display:'flex', alignItems:'center', gap:5, padding:'2px 10px', whiteSpace:'nowrap' }}>
                 <span style={{ fontSize:14 }}>{s.icon}</span>
                 <span style={{ fontSize:11, color: i===5 ? 'var(--mint)' : 'var(--muted)', fontWeight: i===5?600:400 }}>{s.text}</span>
               </div>
               {i < 5 && <span style={{ color:'var(--line)', fontSize:12 }}>›</span>}
->>>>>>> kiw
             </div>
           ))}
         </div>
@@ -231,11 +156,7 @@ export default function App() {
           {insights.map(ins => (
             <div key={ins.label} onClick={() => ins.value && handleSelectDistrict(ins.value)}
               style={{
-<<<<<<< HEAD
-                flex:'1 1 180px', background:'var(--panel2)', border:'1px solid var(--line)',
-=======
                 background:'var(--panel2)', border:'1px solid var(--line)',
->>>>>>> kiw
                 borderRadius:11, padding:'10px 14px', display:'flex', alignItems:'center', gap:12,
                 cursor:'pointer', transition:'border-color 0.15s',
               }}
@@ -279,11 +200,7 @@ export default function App() {
         )}
 
         {/* ── District Ranking ── */}
-<<<<<<< HEAD
-        <div style={{ marginTop: 16 }}>
-=======
         <div style={{ marginTop:16 }}>
->>>>>>> kiw
           <DistrictRanking
             districts={districts}
             cityAvg={data?.city_avg}
@@ -298,20 +215,11 @@ export default function App() {
         }}>
           <span style={{ fontSize:11, color:'var(--faint)' }}>
             ข้อมูลเปิดจาก{' '}
-<<<<<<< HEAD
-            <a href="https://traffy.in.th" target="_blank" rel="noopener noreferrer" style={{ color:'var(--faint)', textDecoration:'underline' }}>Traffy Fondue</a>
-            {' '}· Bangkok Open Data
-          </span>
-          <span style={{ fontSize:11, color:'var(--faint)' }}>
-            HacKaTech 2025 · URBAN INNOVATION Track
-          </span>
-=======
             <a href="https://traffy.in.th" target="_blank" rel="noopener noreferrer"
               style={{ color:'var(--faint)', textDecoration:'underline' }}>Traffy Fondue</a>
             {' '}· Bangkok Open Data
           </span>
           <span style={{ fontSize:11, color:'var(--faint)' }}>HacKaTech 2025 · URBAN INNOVATION Track</span>
->>>>>>> kiw
         </div>
       </div>
 

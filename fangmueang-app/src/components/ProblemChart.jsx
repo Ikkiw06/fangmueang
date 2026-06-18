@@ -1,63 +1,3 @@
-<<<<<<< HEAD
-import { useState, useEffect } from 'react'
-
-const CAT_COLORS = {
-  'ถนน/ทางเท้า':'#E58A53',
-  'น้ำท่วม':     '#4F9FE0',
-  'ขยะ':         '#6FC18A',
-  'ไฟส่องสว่าง':'#E9C46A',
-  'ความปลอดภัย':'#D14B3C',
-  'อื่นๆ':       '#8DA0B4',
-}
-
-/* Resolve-rate badge color */
-function rrColor(rr) {
-  if (rr >= 70) return { fg:'#5BD1B8', bg:'rgba(91,209,184,0.1)', border:'rgba(91,209,184,0.25)' }
-  if (rr >= 50) return { fg:'#E9C46A', bg:'rgba(233,196,106,0.1)', border:'rgba(233,196,106,0.25)' }
-  return { fg:'#EB4D4B', bg:'rgba(235,77,75,0.1)', border:'rgba(235,77,75,0.25)' }
-}
-
-/* Animated bar for a problem type */
-function TypeRow({ label, count, resolveRate, max, color, delay = 0 }) {
-  const [w, setW] = useState(0)
-  useEffect(() => {
-    const t = setTimeout(() => setW(max > 0 ? Math.max(3, (count / max) * 100) : 0), 80 + delay)
-    return () => clearTimeout(t)
-  }, [count, max])
-
-  const rr  = Math.round(resolveRate * 100)
-  const col = rrColor(rr)
-
-  return (
-    <div style={{ marginBottom:10 }}>
-      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:4 }}>
-        <div style={{ display:'flex', alignItems:'center', gap:7 }}>
-          <span style={{ width:9, height:9, borderRadius:3, background:color, display:'inline-block', flexShrink:0 }}/>
-          <span style={{ fontSize:13, color:'var(--ink)' }}>{label}</span>
-        </div>
-        <div style={{ display:'flex', alignItems:'center', gap:8 }}>
-          <span style={{ fontSize:12, fontFamily:'IBM Plex Mono,monospace', color:'var(--muted)' }}>
-            {count.toLocaleString()}
-          </span>
-          <span style={{
-            fontSize:11, fontWeight:600, fontFamily:'IBM Plex Mono,monospace',
-            color: col.fg, background: col.bg, border:`1px solid ${col.border}`,
-            padding:'2px 7px', borderRadius:99, minWidth:44, textAlign:'center',
-          }}>
-            {rr}%
-          </span>
-        </div>
-      </div>
-      {/* Total bar */}
-      <div style={{ height:8, background:'var(--panel2)', borderRadius:99, overflow:'hidden' }}>
-        <div style={{ height:'100%', borderRadius:99, background:color, width:`${w}%`, transition:'width 0.55s ease', opacity:0.85 }}/>
-      </div>
-      {/* Resolve sub-bar */}
-      <div style={{ height:3, background:'transparent', borderRadius:99, overflow:'hidden', marginTop:2 }}>
-        <div style={{
-          height:'100%', borderRadius:99, background:col.fg,
-          width:`${w * resolveRate}%`, transition:'width 0.75s ease 0.1s', opacity:0.5,
-=======
 import { useMemo, useEffect, useState } from 'react'
 
 const CAT_CONFIG = {
@@ -70,22 +10,21 @@ const CAT_CONFIG = {
 }
 const FALLBACK = { color:'#8DA0B4', glow:'rgba(141,160,180,0.2)', icon:'📋', grad:'linear-gradient(90deg,#3A4E62,#8DA0B4,#AABECF)' }
 
-/* ── Donut chart (stroke-dasharray approach — most reliable) ── */
+/* ── Donut chart ── */
 function DonutChart({ rows, total, size = 104 }) {
   const [mounted, setMounted] = useState(false)
   useEffect(() => { const t = setTimeout(() => setMounted(true), 60); return () => clearTimeout(t) }, [])
 
   const cx = size / 2, cy = size / 2
-  const r = size * 0.34
-  const C = 2 * Math.PI * r
+  const r  = size * 0.34
+  const C  = 2 * Math.PI * r
   const sw = size * 0.155
-  const GAP = 3 // degrees gap between slices
+  const GAP = 3
 
   let cumPct = 0
-  const slices = rows.map((row, i) => {
-    const pct  = row.n / total
-    const deg  = pct * 360 - GAP
-    const sDeg = pct * C - (GAP / 360) * C
+  const slices = rows.map((row) => {
+    const pct    = row.n / total
+    const sDeg   = pct * C - (GAP / 360) * C
     const offset = -(cumPct * C) + C / 4
     cumPct += pct
     const cfg = CAT_CONFIG[row.label] || FALLBACK
@@ -94,7 +33,6 @@ function DonutChart({ rows, total, size = 104 }) {
 
   return (
     <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ flexShrink:0, overflow:'visible' }}>
-      {/* track */}
       <circle cx={cx} cy={cy} r={r} fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth={sw}/>
       {slices.map((s, i) => (
         <circle key={i} cx={cx} cy={cy} r={r} fill="none"
@@ -109,7 +47,6 @@ function DonutChart({ rows, total, size = 104 }) {
           }}
         />
       ))}
-      {/* center label */}
       <text x={cx} y={cy - 7} textAnchor="middle" fill="var(--ink)"
         style={{ fontFamily:'IBM Plex Mono,monospace', fontSize: size * 0.165, fontWeight:700 }}>
         {total >= 1000 ? `${(total/1000).toFixed(1)}K` : total}
@@ -124,7 +61,7 @@ function DonutChart({ rows, total, size = 104 }) {
 
 /* ── Animated bar row ── */
 function BarRow({ label, n, max, pct, idx }) {
-  const cfg = CAT_CONFIG[label] || FALLBACK
+  const cfg    = CAT_CONFIG[label] || FALLBACK
   const targetW = max > 0 ? Math.max(2, (n / max) * 100) : 0
   const [w, setW] = useState(0)
 
@@ -154,101 +91,25 @@ function BarRow({ label, n, max, pct, idx }) {
         </div>
       </div>
 
-      {/* Bar track */}
       <div style={{ height:13, background:'rgba(255,255,255,0.05)', borderRadius:99, overflow:'hidden', position:'relative' }}>
-        {/* fill */}
         <div style={{
           position:'absolute', top:0, left:0, height:'100%', borderRadius:99,
           background: cfg.grad, width:`${w}%`,
           transition:'width 0.75s cubic-bezier(0.4,0,0.2,1)',
           boxShadow:`0 0 12px ${cfg.glow}`,
         }}/>
-        {/* shimmer overlay */}
         <div style={{
           position:'absolute', top:0, left:0, height:'100%', width:'100%',
           background:'linear-gradient(90deg,transparent 0%,rgba(255,255,255,0.12) 50%,transparent 100%)',
           backgroundSize:'200% 100%',
           animation:'shimmerBar 2.5s ease-in-out infinite',
           pointerEvents:'none',
->>>>>>> kiw
         }}/>
       </div>
     </div>
   )
 }
 
-<<<<<<< HEAD
-/* Clickable district row for the ranking list */
-function DistrictRow({ name, total, resolveRate, rank, onClick, isSelected }) {
-  const [hov, setHov] = useState(false)
-  const rr  = Math.round(resolveRate * 100)
-  const col = rrColor(rr)
-  return (
-    <div
-      onClick={onClick}
-      onMouseEnter={() => setHov(true)}
-      onMouseLeave={() => setHov(false)}
-      style={{
-        display:'flex', alignItems:'center', gap:10, padding:'6px 10px',
-        borderRadius:9, cursor:'pointer',
-        background: isSelected ? 'rgba(91,209,184,0.08)' : hov ? 'var(--panel2)' : 'transparent',
-        border: `1px solid ${isSelected ? 'rgba(91,209,184,0.3)' : 'transparent'}`,
-        transition:'all 0.15s',
-      }}>
-      <span style={{
-        fontSize:10, color:'var(--faint)', fontFamily:'IBM Plex Mono,monospace',
-        width:18, textAlign:'right', flexShrink:0,
-      }}>{rank}</span>
-      <span style={{
-        flex:1, fontSize:13,
-        color: isSelected ? 'var(--mint)' : hov ? 'var(--ink)' : 'var(--ink)',
-        fontWeight: isSelected ? 700 : 400,
-      }}>
-        เขต{name}
-      </span>
-      <span style={{
-        fontSize:12, fontFamily:'IBM Plex Mono,monospace', color:'var(--muted)',
-      }}>
-        {total.toLocaleString()}
-      </span>
-      <span style={{
-        fontSize:11, fontWeight:600, fontFamily:'IBM Plex Mono,monospace',
-        color: col.fg, minWidth:38, textAlign:'right',
-      }}>
-        {rr}%
-      </span>
-    </div>
-  )
-}
-
-export default function ProblemChart({ data, selectedDistrict, districts, onSelectDistrict }) {
-  /* ── Aggregate problem types city-wide ── */
-  const cityTypeAgg      = {}
-  const cityTypeResolved = {}
-  Object.values(data?.districts || {}).forEach(d =>
-    (d.top_problems || []).forEach(p => {
-      cityTypeAgg[p.type]      = (cityTypeAgg[p.type] || 0) + p.count
-      cityTypeResolved[p.type] = (cityTypeResolved[p.type] || 0) + Math.round(p.count * p.resolve_rate)
-    })
-  )
-  const cityTypes = Object.entries(cityTypeAgg)
-    .map(([type, count]) => ({
-      type, count,
-      resolveRate: (cityTypeResolved[type] || 0) / count,
-    }))
-    .sort((a, b) => b.count - a.count)
-  const typeMax = Math.max(...cityTypes.map(t => t.count), 1)
-
-  /* ── District ranking top 10 ── */
-  const distRank = Object.entries(data?.districts || {})
-    .map(([name, d]) => ({
-      name,
-      total:       d.total || 0,
-      resolveRate: (d.resolved || 0) / Math.max(d.total, 1),
-    }))
-    .sort((a, b) => b.total - a.total)
-    .slice(0, 10)
-=======
 /* ── Status stacked bar ── */
 function StatusBar({ resolved, inProgress, pending }) {
   const total = Math.max(resolved + inProgress + pending, 1)
@@ -269,7 +130,6 @@ function StatusBar({ resolved, inProgress, pending }) {
       <div style={{ fontSize:10, color:'var(--faint)', marginBottom:7, fontWeight:600, letterSpacing:'0.08em', textTransform:'uppercase' }}>
         สถานะการแก้ไข
       </div>
-      {/* stacked bar */}
       <div style={{ display:'flex', height:10, borderRadius:99, overflow:'hidden', gap:2 }}>
         {segments.map(s => (
           <div key={s.label} style={{
@@ -280,7 +140,6 @@ function StatusBar({ resolved, inProgress, pending }) {
           }}/>
         ))}
       </div>
-      {/* legend */}
       <div style={{ display:'flex', gap:12, marginTop:8, flexWrap:'wrap' }}>
         {segments.map(s => (
           <div key={s.label} style={{ display:'flex', alignItems:'center', gap:5 }}>
@@ -295,7 +154,7 @@ function StatusBar({ resolved, inProgress, pending }) {
 }
 
 /* ── District ranking row ── */
-const MEDALS = ['🥇','🥈','🥉','4️⃣','5️⃣']
+const MEDALS      = ['🥇','🥈','🥉','4️⃣','5️⃣']
 const RANK_COLORS = ['#5BD1B8','#72B9F7','#E9C46A','#F4A261','#E05A6A']
 
 function DistrictRow({ rank, name, n, max, color }) {
@@ -336,7 +195,7 @@ export default function ProblemChart({ data, selectedDistrict, districts }) {
       const rws = (d.top_problems || [])
         .map(p => ({ label: p.type, n: p.count }))
         .sort((a, b) => b.n - a.n)
-      const tot = rws.reduce((s, r) => s + r.n, 0) || 1
+      const tot        = rws.reduce((s, r) => s + r.n, 0) || 1
       const resolved   = d.resolved || 0
       const total      = d.total    || 1
       const pending    = Math.round(total * 0.24)
@@ -381,91 +240,8 @@ export default function ProblemChart({ data, selectedDistrict, districts }) {
     [data]
   )
   const distMax = Math.max(...distRank.map(r => r.n), 1)
->>>>>>> kiw
 
-  const CARD = {
-    background:'var(--panel)', border:'1px solid var(--line)',
-    borderRadius:'var(--radius)', padding:'16px 17px',
-    display:'flex', flexDirection:'column',
-  }
-  const DIVIDER = { borderTop:'1px solid var(--line)', margin:'14px 0 10px' }
-  const SECTION_HEADER = { fontSize:12, color:'var(--faint)', fontWeight:600, letterSpacing:'0.03em', marginBottom:8 }
-
-  /* ── District view ── */
-  if (selectedDistrict && districts?.[selectedDistrict]) {
-    const d    = districts[selectedDistrict]
-    const rows = [...(d.top_problems || [])].sort((a, b) => b.count - a.count)
-    const max  = Math.max(...rows.map(r => r.count), 1)
-
-    return (
-      <section style={CARD}>
-        <div style={{ marginBottom:12 }}>
-          <h2 style={{ margin:'0 0 2px', fontSize:15, fontWeight:600 }}>ปัญหาในเขต{selectedDistrict}</h2>
-          <div style={{ color:'var(--faint)', fontSize:12 }}>
-            สัดส่วนแต่ละประเภท · <span style={{ color:'var(--mint)' }}>% = อัตราแก้ไขแล้ว</span>
-          </div>
-        </div>
-
-        {rows.map((r, i) => (
-          <TypeRow
-            key={r.type}
-            label={r.type}
-            count={r.count}
-            resolveRate={r.resolve_rate}
-            max={max}
-            color={CAT_COLORS[r.type] || '#8DA0B4'}
-            delay={i * 60}
-          />
-        ))}
-
-        <div style={DIVIDER}/>
-
-        <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:6 }}>
-          <div style={SECTION_HEADER}>Top 10 เขต · คลิกเพื่อเปรียบเทียบ</div>
-          <div style={{ display:'flex', gap:12, fontSize:10, color:'var(--faint)' }}>
-            <span>เรื่อง</span><span>แก้ไข%</span>
-          </div>
-        </div>
-        {distRank.map((r, i) => (
-          <DistrictRow
-            key={r.name} {...r} rank={i + 1}
-            onClick={() => onSelectDistrict?.(r.name === selectedDistrict ? null : r.name)}
-            isSelected={r.name === selectedDistrict}
-          />
-        ))}
-      </section>
-    )
-  }
-
-  /* ── City-wide view ── */
   return (
-<<<<<<< HEAD
-    <section style={CARD}>
-      <div style={{ marginBottom:12 }}>
-        <h2 style={{ margin:'0 0 2px', fontSize:15, fontWeight:600 }}>ปัญหาตามประเภท</h2>
-        <div style={{ color:'var(--faint)', fontSize:12 }}>
-          ทั่วกรุงเทพฯ · <span style={{ color:'var(--mint)' }}>% = อัตราแก้ไขแล้ว</span>
-        </div>
-      </div>
-
-      {cityTypes.map((t, i) => (
-        <TypeRow
-          key={t.type}
-          label={t.type}
-          count={t.count}
-          resolveRate={t.resolveRate}
-          max={typeMax}
-          color={CAT_COLORS[t.type] || '#8DA0B4'}
-          delay={i * 60}
-        />
-      ))}
-
-      <div style={{ ...DIVIDER, marginBottom: 8 }}/>
-      <div style={{ fontSize:11, color:'var(--faint)', textAlign:'center', padding:'8px 0' }}>
-        ↓ ดูจัดอันดับเขตทั้งหมดด้านล่าง
-      </div>
-    </section>
-=======
     <>
       <style>{`
         @keyframes shimmerBar {
@@ -487,7 +263,6 @@ export default function ProblemChart({ data, selectedDistrict, districts }) {
             </h2>
             <div style={{ fontSize:11, color:'var(--faint)' }}>{sub}</div>
           </div>
-          {/* Donut shows only in city-wide view — district view has it in DistrictDetail */}
           {rows.length > 1 && !selectedDistrict && (
             <DonutChart key={key} rows={rows} total={totalComplaints} size={100}/>
           )}
@@ -516,6 +291,5 @@ export default function ProblemChart({ data, selectedDistrict, districts }) {
         )}
       </section>
     </>
->>>>>>> kiw
   )
 }
