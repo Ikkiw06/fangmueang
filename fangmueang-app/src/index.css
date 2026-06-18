@@ -2,20 +2,32 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
 
 :root {
-  --bg:      #0E141C;
-  --panel:   #161F2B;
-  --panel2:  #1C2734;
-  --line:    #2A3848;
-  --ink:     #E7EEF5;
-  --muted:   #8DA0B4;
-  --faint:   #64778C;
-  --mint:    #5BD1B8;
-  --mint-d:  #2C9C86;
-  --b1:#274156; --b2:#3E7D74; --b3:#E9C46A; --b4:#E58A53; --b5:#D14B3C;
-  --radius:  14px;
+  --bg: #0E141C;
+  --panel: #161F2B;
+  --panel2: #1C2734;
+  --line: #2A3848;
+  --ink: #E7EEF5;
+  --muted: #8DA0B4;
+  --faint: #64778C;
+  --mint: #5BD1B8;
+  --mint-d: #2C9C86;
+  --b1: #274156;
+  --b2: #3E7D74;
+  --b3: #E9C46A;
+  --b4: #E58A53;
+  --b5: #D14B3C;
+  --radius: 14px;
 }
-* { box-sizing: border-box; }
-html, body { margin: 0; }
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
 body {
   background: var(--bg);
   color: var(--ink);
@@ -25,25 +37,85 @@ body {
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
 }
-.num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-feature-settings: "tnum"; }
+
+.num {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-feature-settings: "tnum";
+}
 
 /* Leaflet */
-.leaflet-container { background: var(--bg) !important; font-family: "IBM Plex Sans Thai", sans-serif; }
-.leaflet-tooltip { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
-.leaflet-control-zoom { border: 1px solid var(--line) !important; border-radius: 10px !important; overflow: hidden; box-shadow: none !important; }
-.leaflet-control-zoom-in, .leaflet-control-zoom-out { background: var(--panel) !important; color: var(--muted) !important; border: none !important; border-bottom: 1px solid var(--line) !important; }
-.leaflet-control-zoom-in:hover, .leaflet-control-zoom-out:hover { background: var(--panel2) !important; color: var(--ink) !important; }
-.leaflet-bar { border: none !important; box-shadow: none !important; }
-.leaflet-container path:focus { outline: none !important; }
-.leaflet-interactive:focus { outline: none !important; }
+.leaflet-container {
+  background: var(--bg) !important;
+  font-family: "IBM Plex Sans Thai", sans-serif;
+}
+
+.leaflet-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.leaflet-control-zoom {
+  border: 1px solid var(--line) !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+  box-shadow: none !important;
+}
+
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  background: var(--panel) !important;
+  color: var(--muted) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--line) !important;
+}
+
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+  background: var(--panel2) !important;
+  color: var(--ink) !important;
+}
+
+.leaflet-bar {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.leaflet-container path:focus {
+  outline: none !important;
+}
+
+.leaflet-interactive:focus {
+  outline: none !important;
+}
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
+::-webkit-scrollbar {
+  width: 4px;
+}
 
-<<<<<<< HEAD
-::-webkit-scrollbar { width:5px; } ::-webkit-scrollbar-track { background:#0f172a; } ::-webkit-scrollbar-thumb { background:#334155; border-radius:99px; }
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 99px;
+}
+
+<<<<<<< HEAD::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 99px;
+}
 
 /* Custom styles for permanent map labels */
 .district-label-marker {
@@ -60,11 +132,11 @@ body {
   color: #1e293b;
   text-align: center;
   white-space: nowrap;
-  text-shadow: 
-    -1.5px -1.5px 0 #fff,  
-     1.5px -1.5px 0 #fff,
-    -1.5px  1.5px 0 #fff,
-     1.5px  1.5px 0 #fff;
+  text-shadow:
+    -1.5px -1.5px 0 #fff,
+    1.5px -1.5px 0 #fff,
+    -1.5px 1.5px 0 #fff,
+    1.5px 1.5px 0 #fff;
   pointer-events: none;
 }
 
@@ -75,18 +147,55 @@ body {
   color: #e2e8f0;
   text-align: center;
   white-space: nowrap;
-  text-shadow: 
-    -1.5px -1.5px 0 #0f172a,  
-     1.5px -1.5px 0 #0f172a,
-    -1.5px  1.5px 0 #0f172a,
-     1.5px  1.5px 0 #0f172a;
+  text-shadow:
+    -1.5px -1.5px 0 #0f172a,
+    1.5px -1.5px 0 #0f172a,
+    -1.5px 1.5px 0 #0f172a,
+    1.5px 1.5px 0 #0f172a;
   pointer-events: none;
 }
 
 =======
+
 /* Keyframes */
-@keyframes spin { to { transform: rotate(360deg); } }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-@keyframes fade { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
-@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
->>>>>>> main
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: 0.5
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px)
+  }
+
+  to {
+    opacity: 1;
+    transform: none
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0)
+  }
+
+  50% {
+    transform: translateY(-5px)
+  }
+}
