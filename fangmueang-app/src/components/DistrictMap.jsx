@@ -62,10 +62,21 @@ function CanvasDotLayer({ dots }) {
     const tip = document.createElement('div')
     tip.style.cssText = 'position:absolute;z-index:9999;pointer-events:none;display:none;'
     map.getContainer().appendChild(tip)
+    // Allow pointer events on touch (for close button)
+    tip.addEventListener('click', (e) => {
+      if (e.target.closest('[data-close]')) {
+        tip.style.display = 'none'
+        if (hoveredIdx !== -1) {
+          markers[hoveredIdx].setRadius(4)
+          markers[hoveredIdx].setStyle({ weight:0.8, color:'rgba(0,0,0,0.4)', fillOpacity:0.85 })
+          hoveredIdx = -1
+        }
+      }
+    })
 
     let hoveredIdx = -1
 
-    function buildTipHtml(d) {
+    function buildTipHtml(d, showClose = false) {
       const cfg = getTypeConfig(d.type)
       const stateColor = d.state === 'ดำเนินการแล้ว' ? '#5BD1B8'
                        : d.state === 'กำลังดำเนินการ' ? '#E9C46A' : '#E63946'
@@ -80,9 +91,18 @@ function CanvasDotLayer({ dots }) {
              <span style="font-size:22px;line-height:1;">${cfg.icon}</span>
              <span style="font-size:9px;color:rgba(255,255,255,0.6);">${cfg.desc}</span>
            </div>`
-      return `<div style="width:220px;background:#111827;border:1px solid rgba(255,255,255,0.15);
+      const closeBtn = showClose
+        ? `<button data-close="1"
+              style="position:absolute;top:8px;right:8px;z-index:2;
+                width:26px;height:26px;border-radius:50%;border:none;
+                background:rgba(0,0,0,0.5);color:#fff;font-size:13px;
+                cursor:pointer;line-height:1;pointer-events:auto;">✕</button>`
+        : ''
+      return `<div data-tip="1" style="position:relative;width:220px;background:#111827;
+          border:1px solid rgba(255,255,255,0.15);
           border-radius:13px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.9);
           font-family:'IBM Plex Sans Thai',sans-serif;">
+        ${closeBtn}
         ${photoHtml}
         <div style="padding:10px 13px 12px;">
           <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
@@ -109,42 +129,49 @@ function CanvasDotLayer({ dots }) {
       tip.style.top  = top  + 'px'
     }
 
+    // ── Detect touch device ──
+    const isTouch = window.matchMedia('(hover: none) and (pointer: coarse)').matches
+    if (isTouch) tip.style.pointerEvents = 'auto'
+
     // ── Native mousemove on map container — hit-test dots manually ──
-    const THRESHOLD2 = 10 * 10  // 10px radius in pixels²
+    const THRESHOLD2       = 10 * 10  // hover: 10px radius
+    const TOUCH_THRESHOLD2 = 28 * 28  // touch: 28px radius (finger-friendly)
     const mapEl = map.getContainer()
     const bounds_cache = { bounds: null, zoom: -1 }
 
-    function onMouseMove(e) {
-      const rect = mapEl.getBoundingClientRect()
-      const mx   = e.clientX - rect.left
-      const my   = e.clientY - rect.top
-
-      // Recompute visible bounds cache when zoom changes
+    function getBoundsCache() {
       const zoom = map.getZoom()
       if (bounds_cache.zoom !== zoom) {
         bounds_cache.bounds = map.getBounds()
         bounds_cache.zoom   = zoom
       }
-      const vb = bounds_cache.bounds || map.getBounds()
+      return bounds_cache.bounds || map.getBounds()
+    }
 
-      let bestIdx = -1
-      let bestD2  = THRESHOLD2
-
+    function findNearest(mx, my, threshold2) {
+      const vb = getBoundsCache()
+      let bestIdx = -1, bestD2 = threshold2
       for (let i = 0; i < dots.length; i++) {
         const d = dots[i]
-        // quick lat/lng viewport cull
         if (d.lat < vb.getSouth() || d.lat > vb.getNorth()) continue
         if (d.lng < vb.getWest()  || d.lng > vb.getEast())  continue
-        // project to pixel
         const pt = map.latLngToContainerPoint([d.lat, d.lng])
         const dx = pt.x - mx, dy = pt.y - my
         const d2 = dx*dx + dy*dy
         if (d2 < bestD2) { bestD2 = d2; bestIdx = i }
       }
+      return bestIdx
+    }
+
+    function onMouseMove(e) {
+      if (isTouch) return  // touch handled separately
+      const rect = mapEl.getBoundingClientRect()
+      const mx   = e.clientX - rect.left
+      const my   = e.clientY - rect.top
+      const bestIdx = findNearest(mx, my, THRESHOLD2)
 
       if (bestIdx === -1) {
         if (hoveredIdx !== -1) {
-          // restore previous
           markers[hoveredIdx].setRadius(4)
           markers[hoveredIdx].setStyle({ weight:0.8, color:'rgba(0,0,0,0.4)', fillOpacity:0.85 })
           hoveredIdx = -1
@@ -169,6 +196,7 @@ function CanvasDotLayer({ dots }) {
     }
 
     function onMouseLeave() {
+      if (isTouch) return
       if (hoveredIdx !== -1) {
         markers[hoveredIdx].setRadius(4)
         markers[hoveredIdx].setStyle({ weight:0.8, color:'rgba(0,0,0,0.4)', fillOpacity:0.85 })
@@ -177,13 +205,57 @@ function CanvasDotLayer({ dots }) {
       tip.style.display = 'none'
     }
 
-    mapEl.addEventListener('mousemove', onMouseMove)
+    // ── Touch tap to show tooltip (persistent) ──
+    function onTouchStart(e) {
+      const touch = e.touches[0]
+      const rect  = mapEl.getBoundingClientRect()
+      const mx    = touch.clientX - rect.left
+      const my    = touch.clientY - rect.top
+      const bestIdx = findNearest(mx, my, TOUCH_THRESHOLD2)
+
+      if (bestIdx === -1) {
+        // Tap away = close tooltip
+        if (hoveredIdx !== -1) {
+          markers[hoveredIdx].setRadius(4)
+          markers[hoveredIdx].setStyle({ weight:0.8, color:'rgba(0,0,0,0.4)', fillOpacity:0.85 })
+          hoveredIdx = -1
+        }
+        tip.style.display = 'none'
+        return
+      }
+
+      if (bestIdx !== hoveredIdx) {
+        if (hoveredIdx !== -1) {
+          markers[hoveredIdx].setRadius(4)
+          markers[hoveredIdx].setStyle({ weight:0.8, color:'rgba(0,0,0,0.4)', fillOpacity:0.85 })
+        }
+        hoveredIdx = bestIdx
+        markers[hoveredIdx].setRadius(10)
+        markers[hoveredIdx].setStyle({ weight:2.5, color:'rgba(255,255,255,0.8)', fillOpacity:1 })
+        tip.innerHTML = buildTipHtml(dots[bestIdx], true)
+      }
+
+      // Position: if tap is in upper half → below tap; else above tap
+      const isUpperHalf = my < rect.height / 2
+      const tw = 236
+      const th = dots[bestIdx].photo ? 280 : 210
+      const left = Math.min(Math.max(mx - tw / 2, 8), rect.width - tw - 8)
+      const top  = isUpperHalf ? my + 22 : my - th - 22
+      tip.style.left = left + 'px'
+      tip.style.top  = Math.max(4, top) + 'px'
+      tip.style.display = 'block'
+      e.stopPropagation()
+    }
+
+    mapEl.addEventListener('mousemove',  onMouseMove)
     mapEl.addEventListener('mouseleave', onMouseLeave)
+    mapEl.addEventListener('touchstart', onTouchStart, { passive: true })
 
     return () => {
       group.remove()
-      mapEl.removeEventListener('mousemove', onMouseMove)
+      mapEl.removeEventListener('mousemove',  onMouseMove)
       mapEl.removeEventListener('mouseleave', onMouseLeave)
+      mapEl.removeEventListener('touchstart', onTouchStart)
       if (tip.parentNode) tip.parentNode.removeChild(tip)
     }
   }, [dots, map])
@@ -335,7 +407,7 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
               ? (selectedDistrict ? `เลือก: เขต${selectedDistrict}` : 'คลิกเขตเพื่อดูรายละเอียด')
               : dotsLoading ? '⏳ กำลังโหลด...'
               : dotsError   ? '❌ โหลดไม่สำเร็จ'
-              : `${dots.length.toLocaleString()} จุด · ${dataSource === 'live' ? '🟢 Traffy Live' : '📁 Static'} · hover เพื่อดูรายละเอียด`}
+              : `${dots.length.toLocaleString()} จุด · ${dataSource === 'live' ? '🟢 Traffy Live' : '📁 Static'} · แตะ/hover เพื่อดูรายละเอียด`}
           </div>
         </div>
 

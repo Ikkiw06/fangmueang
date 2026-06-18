@@ -25,9 +25,9 @@ export default function FilterBar({ selected, onSelect, timeFactor, onTimeChange
     <div style={{ display:'flex', flexDirection:'column', gap:9, marginBottom:18 }}>
 
       {/* Category chips */}
-      <div style={{ display:'flex', gap:12, flexWrap:'wrap', alignItems:'center' }}>
-        <span style={{ fontSize:12, color:'var(--faint)', letterSpacing:'0.02em', whiteSpace:'nowrap' }}>ประเภท</span>
-        <div style={{ display:'flex', gap:6, flexWrap:'wrap' }}>
+      <div style={{ display:'flex', gap:8, alignItems:'center' }}>
+        <span style={{ fontSize:12, color:'var(--faint)', letterSpacing:'0.02em', whiteSpace:'nowrap', flexShrink:0 }}>ประเภท</span>
+        <div className="chips-scroll">
           {CATS.map(c => {
             const active = selected === c.id
             const hover  = hov === c.id
@@ -41,8 +41,8 @@ export default function FilterBar({ selected, onSelect, timeFactor, onTimeChange
                   border: active ? '1px solid var(--mint)' : `1px solid ${hover ? 'var(--mint-d)' : 'var(--line)'}`,
                   background: active ? 'var(--mint)' : hover ? 'var(--panel2)' : 'var(--panel)',
                   color: active ? '#06231d' : hover ? 'var(--ink)' : 'var(--muted)',
-                  padding:'5px 13px', borderRadius:999, fontSize:13,
-                  fontFamily:'inherit', fontWeight: active ? 600 : 400,
+                  padding:'6px 13px', borderRadius:999, fontSize:13, minHeight:36,
+                  fontFamily:'inherit', fontWeight: active ? 600 : 400, flexShrink:0,
                   display:'flex', alignItems:'center', gap:7,
                   transition:'all 0.15s',
                 }}>
@@ -57,8 +57,8 @@ export default function FilterBar({ selected, onSelect, timeFactor, onTimeChange
       </div>
 
       {/* Time period chips */}
-      <div style={{ display:'flex', gap:10, alignItems:'center' }}>
-        <span style={{ fontSize:12, color:'var(--faint)', letterSpacing:'0.02em', whiteSpace:'nowrap' }}>ช่วงเวลา</span>
+      <div style={{ display:'flex', gap:8, alignItems:'center' }}>
+        <span style={{ fontSize:12, color:'var(--faint)', letterSpacing:'0.02em', whiteSpace:'nowrap', flexShrink:0 }}>ช่วงเวลา</span>
         <div style={{
           display:'flex', gap:3,
           background:'var(--panel2)', border:'1px solid var(--line)',
@@ -77,7 +77,7 @@ export default function FilterBar({ selected, onSelect, timeFactor, onTimeChange
                   border: 'none',
                   background: active ? 'var(--panel)' : hover ? 'rgba(255,255,255,0.04)' : 'transparent',
                   color: active ? 'var(--mint)' : hover ? 'var(--ink)' : 'var(--faint)',
-                  padding:'4px 13px', borderRadius:7, fontSize:12,
+                  padding:'6px 13px', borderRadius:7, fontSize:12, minHeight:34,
                   fontFamily:'inherit', fontWeight: active ? 600 : 400,
                   boxShadow: active ? '0 1px 4px rgba(0,0,0,0.3)' : 'none',
                   transition:'all 0.15s',

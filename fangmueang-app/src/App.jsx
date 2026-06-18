@@ -75,7 +75,7 @@ export default function App() {
 
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)', color:'var(--ink)' }}>
-      <div style={{ maxWidth:1200, margin:'0 auto', padding:'16px 14px 60px' }}>
+      <div style={{ maxWidth:1200, margin:'0 auto', padding:'14px 12px 60px' }}>
 
         {/* ── Header ── */}
         <header className="app-header">
@@ -95,7 +95,7 @@ export default function App() {
           <div style={{ display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' }}>
             {isLive ? (
               <span style={{ fontSize:11, color:'#5BD1B8', border:'1px solid rgba(91,209,184,0.4)',
-                background:'rgba(91,209,184,0.08)', padding:'3px 9px', borderRadius:999,
+                background:'rgba(91,209,184,0.08)', padding:'4px 10px', borderRadius:999,
                 display:'flex', alignItems:'center', gap:5 }}>
                 <span style={{ width:6, height:6, borderRadius:'50%', background:'#5BD1B8',
                   animation:'pulse 2s ease-in-out infinite', display:'inline-block' }}/>
@@ -103,16 +103,17 @@ export default function App() {
               </span>
             ) : (
               <span style={{ fontSize:11, color:'#E9C46A', border:'1px solid rgba(233,196,106,0.3)',
-                background:'rgba(233,196,106,0.07)', padding:'3px 9px', borderRadius:999 }}>
+                background:'rgba(233,196,106,0.07)', padding:'4px 10px', borderRadius:999 }}>
                 DEMO
               </span>
             )}
-            {lastUpdated && <span style={CHIP}>📡 อัปเดต: {lastUpdated}</span>}
+            {lastUpdated && <span style={{ ...CHIP, display: 'none' }} className="hide-mobile">📡 อัปเดต: {lastUpdated}</span>}
             <span style={CHIP}>{Object.keys(districts).length} เขต</span>
             <button onClick={() => setShowReport(true)} style={{
               background:'var(--mint)', color:'#06231d', border:'none',
-              padding:'8px 18px', borderRadius:999, fontSize:13, fontWeight:700,
+              padding:'9px 18px', borderRadius:999, fontSize:13, fontWeight:700,
               cursor:'pointer', fontFamily:'inherit', display:'flex', alignItems:'center', gap:7,
+              minHeight:40,
               boxShadow:'0 0 16px rgba(91,209,184,0.25)', transition:'all 0.15s',
             }}
               onMouseEnter={e => { e.currentTarget.style.opacity='0.88'; e.currentTarget.style.transform='translateY(-1px)' }}

@@ -14,8 +14,8 @@
   --b1:#274156; --b2:#3E7D74; --b3:#E9C46A; --b4:#E58A53; --b5:#D14B3C;
   --radius:  14px;
 }
-* { box-sizing: border-box; }
-html, body { margin: 0; }
+* { box-sizing: border-box; touch-action: manipulation; }
+html, body { margin: 0; overflow-x: hidden; }
 body {
   background: var(--bg);
   color: var(--ink);
@@ -26,6 +26,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 .num { font-family: "IBM Plex Mono", ui-monospace, monospace; font-feature-settings: "tnum"; }
+
+/* ── Scrollable chip rows (used in FilterBar) ── */
+.chips-scroll {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+.chips-scroll::-webkit-scrollbar { display: none; }
 
 /* Leaflet */
 .leaflet-container { background: var(--bg) !important; font-family: "IBM Plex Sans Thai", sans-serif; }
@@ -123,7 +135,10 @@ body {
   position: relative;
 }
 @media (max-width: 640px) {
-  .map-container { min-height: 280px; }
+  .map-container { min-height: 300px; }
+}
+@media (max-width: 400px) {
+  .map-container { min-height: 260px; }
 }
 
 /* FilterBar */
@@ -158,6 +173,52 @@ body {
   h1   { font-size: 22px !important; }
   .app-header { flex-direction: column; gap: 10px; }
   .app-header > div:last-child { width: 100%; justify-content: flex-start; }
+}
+
+/* Leaflet touch targets */
+@media (hover: none) and (pointer: coarse) {
+  .leaflet-control-zoom-in,
+  .leaflet-control-zoom-out {
+    width: 38px !important;
+    height: 38px !important;
+    line-height: 38px !important;
+    font-size: 18px !important;
+  }
+}
+
+/* ReportModal — bottom sheet on mobile */
+@media (max-width: 640px) {
+  .report-modal-sheet {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 20px 20px 0 0 !important;
+    max-height: 94vh !important;
+    transform-origin: bottom center !important;
+  }
+}
+
+/* KPI grid — always 2 cols on mobile */
+@media (max-width: 480px) {
+  .kpi-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* DistrictRanking controls — stack on mobile */
+@media (max-width: 480px) {
+  .ranking-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ranking-controls > div { width: 100%; overflow-x: auto; }
+  .ranking-search { width: 100% !important; }
+}
+
+/* Hide verbose elements on tiny screens */
+@media (max-width: 400px) {
+  .hide-mobile { display: none !important; }
 }
 
 /* Scrollbar */
@@ -210,14 +271,22 @@ body {
 
 @media (max-width: 860px) {
   .main-grid { grid-template-columns: 1fr; }
+  /* insight bar: allow items to be side-by-side (min 160px each) */
+  .insight-bar { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+}
+@media (max-width: 480px) {
+  /* on very small screens: single column insight items */
   .insight-bar { grid-template-columns: 1fr; }
 }
 
-/* Map container */
+/* Map container (duplicate block — kept for specificity) */
 .map-container {
   flex: 1;
   min-height: 520px;
   position: relative;
   border-radius: 10px;
   overflow: hidden;
+}
+@media (max-width: 860px) {
+  .map-container { min-height: 380px; }
 }

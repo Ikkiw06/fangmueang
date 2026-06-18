@@ -90,15 +90,15 @@ export default function DistrictRanking({ districts, cityAvg, onSelectDistrict }
         </div>
 
         {/* Search */}
-        <div style={{ position:'relative', flexShrink:0 }}>
+        <div className="ranking-search" style={{ position:'relative', flexShrink:0 }}>
           <input
             value={search} onChange={e => setSearch(e.target.value)}
             placeholder="ค้นหาเขต..."
             style={{
               background:'var(--panel2)', border:'1px solid var(--line)',
-              borderRadius:9, padding:'6px 12px 6px 30px',
+              borderRadius:9, padding:'7px 12px 7px 30px',
               color:'var(--ink)', fontSize:12, fontFamily:'inherit',
-              outline:'none', width:160,
+              outline:'none', width:'100%', minWidth:140, minHeight:36,
             }}
             onFocus={e => e.target.style.borderColor='var(--mint-d)'}
             onBlur={e  => e.target.style.borderColor='var(--line)'}
@@ -108,9 +108,9 @@ export default function DistrictRanking({ districts, cityAvg, onSelectDistrict }
       </div>
 
       {/* Controls */}
-      <div style={{ display:'flex', gap:12, flexWrap:'wrap', alignItems:'center', marginBottom:14 }}>
+      <div className="ranking-controls" style={{ display:'flex', gap:10, flexWrap:'wrap', alignItems:'center', marginBottom:14 }}>
         {/* Sort */}
-        <div style={{ display:'flex', background:'var(--panel2)', border:'1px solid var(--line)', borderRadius:10, padding:3, gap:2 }}>
+        <div style={{ display:'flex', background:'var(--panel2)', border:'1px solid var(--line)', borderRadius:10, padding:3, gap:2, flexShrink:0 }}>
           {SORT_OPTIONS.map(s => (
             <button key={s.key} onClick={() => setSortBy(s.key)} style={CHIP_BTN(sortBy === s.key)}>
               {s.label}
@@ -119,7 +119,7 @@ export default function DistrictRanking({ districts, cityAvg, onSelectDistrict }
         </div>
 
         {/* Filter */}
-        <div style={{ display:'flex', background:'var(--panel2)', border:'1px solid var(--line)', borderRadius:10, padding:3, gap:2 }}>
+        <div style={{ display:'flex', background:'var(--panel2)', border:'1px solid var(--line)', borderRadius:10, padding:3, gap:2, flexShrink:0 }}>
           {FILTER_OPTIONS.map(f => (
             <button key={f.key} onClick={() => setFilterBy(f.key)} style={CHIP_BTN(filterBy === f.key)}>
               {f.label}
@@ -127,7 +127,7 @@ export default function DistrictRanking({ districts, cityAvg, onSelectDistrict }
           ))}
         </div>
 
-        <span style={{ marginLeft:'auto', fontSize:11, color:'var(--faint)' }}>
+        <span style={{ marginLeft:'auto', fontSize:11, color:'var(--faint)', flexShrink:0 }}>
           {filtered.length} เขต
         </span>
       </div>

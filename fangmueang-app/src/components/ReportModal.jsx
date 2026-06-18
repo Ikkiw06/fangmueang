@@ -28,6 +28,7 @@ const FIELD = {
 }
 
 export default function ReportModal({ onClose, defaultDistrict = '' }) {
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 640
   const [visible,   setVisible]   = useState(false)
   const [step,      setStep]      = useState(1)
   const [selected,  setSelected]  = useState(null)
@@ -74,19 +75,26 @@ export default function ReportModal({ onClose, defaultDistrict = '' }) {
   return (
     <div onClick={e => e.target === e.currentTarget && handleClose()} style={{
       position:'fixed', inset:0, zIndex:9999,
-      display:'flex', alignItems:'center', justifyContent:'center',
+      display:'flex', alignItems: isMobile ? 'flex-end' : 'center', justifyContent:'center',
       background:'rgba(6,10,16,0.76)', backdropFilter:'blur(8px)',
       opacity: visible ? 1 : 0, transition:'opacity 0.28s',
     }}>
-      <div style={{
+      <div className="report-modal-sheet" style={{
         width:480, maxWidth:'calc(100vw - 32px)', maxHeight:'92vh',
         background:'var(--panel)', border:'1px solid var(--line)',
         borderRadius:18, overflowY:'auto', overflowX:'hidden',
-        transform: visible ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(12px)',
+        transform: visible
+          ? (isMobile ? 'translateY(0)' : 'scale(1) translateY(0)')
+          : (isMobile ? 'translateY(100%)' : 'scale(0.95) translateY(12px)'),
         transition:'all 0.32s cubic-bezier(0.34,1.4,0.64,1)',
         boxShadow:'0 24px 60px rgba(0,0,0,0.6)',
       }}>
-        <div style={{ height:3, background:'linear-gradient(90deg,transparent,var(--mint),transparent)' }}/>
+        {isMobile && (
+          <div style={{ display:'flex', justifyContent:'center', padding:'10px 0 0' }}>
+            <div style={{ width:40, height:4, borderRadius:99, background:'var(--line)' }}/>
+          </div>
+        )}
+        <div style={{ height:3, background:'linear-gradient(90deg,transparent,var(--mint),transparent)', marginTop: isMobile ? 8 : 0 }}/>
 
         <div style={{ padding:22 }}>
           {/* Header */}
