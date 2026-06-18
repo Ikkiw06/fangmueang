@@ -33,7 +33,7 @@ async function fetchAllDots(onProgress) {
   const json = await res.json()
   const dots = json.dots || []
   onProgress(dots.length, dots.length)
-  return dots.map(d => ({ lat:d[0], lng:d[1], type:d[2], state:d[3], district:d[4] }))
+  return dots.map(d => ({ lat:d[0], lng:d[1], type:d[2], state:d[3], district:d[4], photo: d[5] || '' }))
 }
 
 /* ── Canvas dot layer ───────────────────────────────── */
@@ -43,86 +43,149 @@ function CanvasDotLayer({ dots }) {
   useEffect(() => {
     if (!dots.length || !map) return
 
+    // ── Render dots via canvas (no interactive events — we handle them ourselves) ──
     const renderer = L.canvas({ padding: 0.5 })
-
-    const markers = dots.map(d => {
-      const cfg        = getTypeConfig(d.type)
-      const stateColor = d.state === 'ดำเนินการแล้ว' ? '#5BD1B8'
-                       : d.state === 'กำลังดำเนินการ' ? '#E9C46A' : '#E63946'
-      const stateIcon  = d.state === 'ดำเนินการแล้ว' ? '✅' : d.state === 'กำลังดำเนินการ' ? '⏳' : '🔴'
-
-      const m = L.circleMarker([d.lat, d.lng], {
+    const markers  = dots.map(d => {
+      const cfg = getTypeConfig(d.type)
+      return L.circleMarker([d.lat, d.lng], {
         renderer,
         radius: 4,
+        interactive: false,          // disable per-marker events for performance
         color: 'rgba(0,0,0,0.4)', weight: 0.8,
         fillColor: cfg.color, fillOpacity: 0.85,
       })
-
-      m.dotData = d
-
-      m.on('mouseover', function () {
-        this.setRadius(7)
-        this.setStyle({ weight: 2, color: 'rgba(255,255,255,0.7)', fillOpacity: 1 })
-      })
-      m.on('mouseout', function () {
-        this.setRadius(4)
-        this.setStyle({ weight: 0.8, color: 'rgba(0,0,0,0.4)', fillOpacity: 0.85 })
-      })
-
-      return m
     })
+    const group = L.layerGroup(markers)
+    group.addTo(map)
 
-    // Single shared tooltip — most reliable with canvas renderer
-    const sharedTip = L.tooltip({
-      permanent: false, sticky: false, opacity: 1,
-      offset: [12, -4], direction: 'right', className: 'dot-tooltip',
-    })
+    // ── Tooltip div ──
+    const tip = document.createElement('div')
+    tip.style.cssText = 'position:absolute;z-index:9999;pointer-events:none;display:none;'
+    map.getContainer().appendChild(tip)
 
-    markers.forEach(m => {
-      const d   = m.dotData
+    let hoveredIdx = -1
+
+    function buildTipHtml(d) {
       const cfg = getTypeConfig(d.type)
       const stateColor = d.state === 'ดำเนินการแล้ว' ? '#5BD1B8'
                        : d.state === 'กำลังดำเนินการ' ? '#E9C46A' : '#E63946'
       const stateIcon  = d.state === 'ดำเนินการแล้ว' ? '✅' : d.state === 'กำลังดำเนินการ' ? '⏳' : '🔴'
-
-      const html = `<div style="font-family:'IBM Plex Sans Thai',sans-serif;width:210px;
-          background:#111827;border:1px solid rgba(255,255,255,0.12);
-          border-radius:13px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.8);">
-        <div style="height:66px;background:${cfg.grad};
-            display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;">
-          <span style="font-size:26px;line-height:1;">${cfg.icon}</span>
-          <span style="font-size:9px;color:rgba(255,255,255,0.6);">${cfg.desc}</span>
-        </div>
-        <div style="padding:10px 13px 11px;">
-          <div style="font-size:13px;font-weight:700;color:#F0F6FF;margin-bottom:4px;">${d.type}</div>
-          <div style="font-size:11px;color:#8DA0B4;margin-bottom:7px;">📍 เขต${d.district}</div>
+      const photoHtml  = d.photo
+        ? `<div style="width:100%;height:130px;overflow:hidden;background:#0D1117;">
+             <img src="${d.photo}" style="width:100%;height:100%;object-fit:cover;display:block;"
+               onerror="this.parentElement.style.display='none'"/>
+           </div>`
+        : `<div style="height:58px;background:${cfg.grad};
+               display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;">
+             <span style="font-size:22px;line-height:1;">${cfg.icon}</span>
+             <span style="font-size:9px;color:rgba(255,255,255,0.6);">${cfg.desc}</span>
+           </div>`
+      return `<div style="width:220px;background:#111827;border:1px solid rgba(255,255,255,0.15);
+          border-radius:13px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.9);
+          font-family:'IBM Plex Sans Thai',sans-serif;">
+        ${photoHtml}
+        <div style="padding:10px 13px 12px;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span style="font-size:15px;">${cfg.icon}</span>
+            <span style="font-size:13px;font-weight:700;color:#F0F6FF;">${d.type}</span>
+          </div>
+          <div style="font-size:11px;color:#8DA0B4;margin-bottom:8px;">📍 เขต${d.district}</div>
           <div style="display:inline-flex;align-items:center;gap:5px;
-              background:${stateColor}1A;border:1px solid ${stateColor}50;
-              border-radius:99px;padding:2px 9px;">
-            <span style="font-size:9px;">${stateIcon}</span>
-            <span style="font-size:10px;font-weight:700;color:${stateColor};">${d.state}</span>
+              background:${stateColor}22;border:1px solid ${stateColor}55;
+              border-radius:99px;padding:3px 10px;">
+            <span style="font-size:10px;">${stateIcon}</span>
+            <span style="font-size:11px;font-weight:700;color:${stateColor};">${d.state}</span>
           </div>
         </div>
       </div>`
+    }
 
-      m.on('mouseover', function (e) {
-        this.setRadius(7)
-        this.setStyle({ weight: 2, color: 'rgba(255,255,255,0.7)', fillOpacity: 1 })
-        sharedTip.setContent(html).setLatLng(e.latlng).addTo(map)
-      })
-      m.on('mousemove', function (e) {
-        sharedTip.setLatLng(e.latlng)
-      })
-      m.on('mouseout', function () {
-        this.setRadius(4)
-        this.setStyle({ weight: 0.8, color: 'rgba(0,0,0,0.4)', fillOpacity: 0.85 })
-        map.removeLayer(sharedTip)
-      })
-    })
+    function posTip(mx, my, rect) {
+      const tw = 236, th = d => d.photo ? 260 : 190
+      const h  = th({ photo: true })
+      const left = mx + tw + 18 > rect.width  ? mx - tw - 10 : mx + 14
+      const top  = my + h  + 8  > rect.height ? my - h  - 8  : my - 8
+      tip.style.left = left + 'px'
+      tip.style.top  = top  + 'px'
+    }
 
-    const group = L.layerGroup(markers)
-    group.addTo(map)
-    return () => { group.remove(); map.removeLayer(sharedTip) }
+    // ── Native mousemove on map container — hit-test dots manually ──
+    const THRESHOLD2 = 10 * 10  // 10px radius in pixels²
+    const mapEl = map.getContainer()
+    const bounds_cache = { bounds: null, zoom: -1 }
+
+    function onMouseMove(e) {
+      const rect = mapEl.getBoundingClientRect()
+      const mx   = e.clientX - rect.left
+      const my   = e.clientY - rect.top
+
+      // Recompute visible bounds cache when zoom changes
+      const zoom = map.getZoom()
+      if (bounds_cache.zoom !== zoom) {
+        bounds_cache.bounds = map.getBounds()
+        bounds_cache.zoom   = zoom
+      }
+      const vb = bounds_cache.bounds || map.getBounds()
+
+      let bestIdx = -1
+      let bestD2  = THRESHOLD2
+
+      for (let i = 0; i < dots.length; i++) {
+        const d = dots[i]
+        // quick lat/lng viewport cull
+        if (d.lat < vb.getSouth() || d.lat > vb.getNorth()) continue
+        if (d.lng < vb.getWest()  || d.lng > vb.getEast())  continue
+        // project to pixel
+        const pt = map.latLngToContainerPoint([d.lat, d.lng])
+        const dx = pt.x - mx, dy = pt.y - my
+        const d2 = dx*dx + dy*dy
+        if (d2 < bestD2) { bestD2 = d2; bestIdx = i }
+      }
+
+      if (bestIdx === -1) {
+        if (hoveredIdx !== -1) {
+          // restore previous
+          markers[hoveredIdx].setRadius(4)
+          markers[hoveredIdx].setStyle({ weight:0.8, color:'rgba(0,0,0,0.4)', fillOpacity:0.85 })
+          hoveredIdx = -1
+        }
+        tip.style.display = 'none'
+        return
+      }
+
+      if (bestIdx !== hoveredIdx) {
+        if (hoveredIdx !== -1) {
+          markers[hoveredIdx].setRadius(4)
+          markers[hoveredIdx].setStyle({ weight:0.8, color:'rgba(0,0,0,0.4)', fillOpacity:0.85 })
+        }
+        hoveredIdx = bestIdx
+        markers[hoveredIdx].setRadius(8)
+        markers[hoveredIdx].setStyle({ weight:2, color:'rgba(255,255,255,0.75)', fillOpacity:1 })
+        tip.innerHTML = buildTipHtml(dots[bestIdx])
+      }
+
+      tip.style.display = 'block'
+      posTip(mx, my, rect)
+    }
+
+    function onMouseLeave() {
+      if (hoveredIdx !== -1) {
+        markers[hoveredIdx].setRadius(4)
+        markers[hoveredIdx].setStyle({ weight:0.8, color:'rgba(0,0,0,0.4)', fillOpacity:0.85 })
+        hoveredIdx = -1
+      }
+      tip.style.display = 'none'
+    }
+
+    mapEl.addEventListener('mousemove', onMouseMove)
+    mapEl.addEventListener('mouseleave', onMouseLeave)
+
+    return () => {
+      group.remove()
+      mapEl.removeEventListener('mousemove', onMouseMove)
+      mapEl.removeEventListener('mouseleave', onMouseLeave)
+      if (tip.parentNode) tip.parentNode.removeChild(tip)
+    }
   }, [dots, map])
 
   return null
@@ -185,7 +248,7 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
 
   // Use live dots from Traffy API if available, else fall back to static file
   const dots = liveDots
-    ? liveDots.map(d => ({ lat: d[0], lng: d[1], type: d[2], state: d[3], district: d[4] }))
+    ? liveDots.map(d => ({ lat: d[0], lng: d[1], type: d[2], state: d[3], district: d[4], photo: d[5] || '' }))
     : staticDots
 
   useEffect(() => {

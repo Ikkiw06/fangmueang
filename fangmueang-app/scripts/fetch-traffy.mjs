@@ -78,7 +78,8 @@ function aggregate(items) {
     d.types[type] = (d.types[type] || 0) + 1
 
     if (coords?.[1] && coords?.[0]) {
-      dots.push([coords[1], coords[0], type, state, district])
+      const photo = item.photo || item.image || item.photo_url || ''
+      dots.push([coords[1], coords[0], type, state, district, photo])
     }
   })
 
