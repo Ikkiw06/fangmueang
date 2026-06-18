@@ -62,7 +62,7 @@ export default function App() {
   const mostComplaints = [...dList].sort((a,b) => b[1].total - a[1].total)[0]
   const insights = [
     { icon:'🔴', label:'แก้ไขต่ำที่สุด', value: worstResolve?.[0],   sub:`${Math.round((worstResolve?.[1].resolved/worstResolve?.[1].total)*100)}% resolution` },
-    { icon:'⏱️', label:'ใช้เวลานานสุด', value: slowest?.[0],        sub:`เฉลี่ย ${slowest?.[1].avg_days} วัน/เรื่อง` },
+    { icon:'⏱️', label:'ใช้เวลานานสุด', value: slowest?.[0],        sub:`เฉลี่ย ${Math.round(slowest?.[1].avg_days || 0)} วัน/เรื่อง` },
     { icon:'📍', label:'ร้องเรียนมากสุด',value: mostComplaints?.[0], sub:`${(mostComplaints?.[1].total||0).toLocaleString()} เรื่อง` },
   ]
 

@@ -88,7 +88,7 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
   const selData   = selectedDistrict ? districts[selectedDistrict] : null
   const selCount  = selData?.total || 0
   const selRr     = selData ? Math.round((selData.resolved / selData.total) * 100) : 0
-  const selDays   = selData?.avg_days || 0
+  const selDays   = Math.round(selData?.avg_days || 0)
   const rrColor   = selRr >= 70 ? '#5BD1B8' : selRr >= 50 ? '#E9C46A' : '#EB4D4B'
 
   const CARD = {

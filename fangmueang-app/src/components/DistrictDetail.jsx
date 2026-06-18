@@ -115,9 +115,10 @@ export default function DistrictDetail({ district, name, cityAvg, onClose }) {
   const resolved    = district.resolved || 0
   const resolveRate = Math.round((resolved / Math.max(total, 1)) * 100)
   const cityRate    = Math.round((cityAvg?.resolve_rate || 0) * 100)
-  const cityDays    = cityAvg?.avg_days || 0
+  const cityDays    = Math.round(cityAvg?.avg_days || 0)
+  const distDays    = Math.round(district.avg_days || 0)
   const betterRate  = resolveRate >= cityRate
-  const betterDays  = (district.avg_days || 0) <= cityDays
+  const betterDays  = distDays <= cityDays
 
   const topProblems  = (district.top_problems || []).slice(0, 6)
   const trend        = (district.monthly || []).slice(-12)  // all 12 months
@@ -175,8 +176,8 @@ export default function DistrictDetail({ district, name, cityAvg, onClose }) {
         />
         <KpiBox
           label="เวลาเฉลี่ยในการแก้"
-          value={district.avg_days || '—'} unit="วัน"
-          sub={`${betterDays?'▲ เร็วกว่า':'▼ ช้ากว่า'}ค่าเฉลี่ย ${Math.abs((district.avg_days||0)-cityDays).toFixed(1)} วัน (เมือง ${cityDays} วัน)`}
+          value={distDays || '—'} unit="วัน"
+          sub={`${betterDays?'▲ เร็วกว่า':'▼ ช้ากว่า'}ค่าเฉลี่ย ${Math.abs(distDays - cityDays)} วัน (เมือง ${cityDays} วัน)`}
           subColor={betterDays ? '#5BD1B8' : '#F08C7A'}
         />
       </div>
