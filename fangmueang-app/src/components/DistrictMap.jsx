@@ -43,6 +43,8 @@ function CanvasDotLayer({ dots }) {
   useEffect(() => {
     if (!dots.length || !map) return
 
+    const renderer = L.canvas({ padding: 0.5 })
+
     const markers = dots.map(d => {
       const cfg        = getTypeConfig(d.type)
       const stateColor = d.state === 'ดำเนินการแล้ว' ? '#5BD1B8'
@@ -50,61 +52,77 @@ function CanvasDotLayer({ dots }) {
       const stateIcon  = d.state === 'ดำเนินการแล้ว' ? '✅' : d.state === 'กำลังดำเนินการ' ? '⏳' : '🔴'
 
       const m = L.circleMarker([d.lat, d.lng], {
-        radius: 5.5,
-        color: 'rgba(0,0,0,0.5)', weight: 1,
-        fillColor: cfg.color, fillOpacity: 0.88,
+        renderer,
+        radius: 4,
+        color: 'rgba(0,0,0,0.4)', weight: 0.8,
+        fillColor: cfg.color, fillOpacity: 0.85,
       })
 
-      m.bindTooltip(
-        `<div style="font-family:'IBM Plex Sans Thai',sans-serif;width:210px;
-            background:#111827;border:1px solid rgba(255,255,255,0.12);
-            border-radius:13px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.8);">
-          <div style="height:72px;background:${cfg.grad};
-              display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
-              position:relative;">
-            <span style="font-size:30px;line-height:1;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.7));">${cfg.icon}</span>
-            <span style="font-size:10px;color:rgba(255,255,255,0.6);letter-spacing:0.05em;">${cfg.desc}</span>
-          </div>
-          <div style="padding:11px 13px 12px;">
-            <div style="font-size:14px;font-weight:700;color:#F0F6FF;margin-bottom:4px;">${d.type}</div>
-            <div style="display:flex;align-items:center;gap:5px;margin-bottom:9px;">
-              <span style="font-size:11px;color:#64778C;">📍</span>
-              <span style="font-size:11px;color:#8DA0B4;">เขต${d.district}</span>
-            </div>
-            <div style="display:inline-flex;align-items:center;gap:6px;
-                background:${stateColor}1A;border:1px solid ${stateColor}50;
-                border-radius:99px;padding:3px 10px;">
-              <span style="font-size:9px;">${stateIcon}</span>
-              <span style="font-size:10px;font-weight:700;color:${stateColor};letter-spacing:0.03em;">${d.state}</span>
-            </div>
-          </div>
-        </div>`,
-        {
-          sticky: true,
-          opacity: 1,
-          offset: [14, -6],
-          direction: 'right',
-          className: 'dot-tooltip',
-        }
-      )
+      m.dotData = d
 
       m.on('mouseover', function () {
-        this.setRadius(9)
-        this.setStyle({ weight: 2, color: 'rgba(255,255,255,0.6)', fillOpacity: 1 })
-        this.openTooltip()
+        this.setRadius(7)
+        this.setStyle({ weight: 2, color: 'rgba(255,255,255,0.7)', fillOpacity: 1 })
       })
       m.on('mouseout', function () {
-        this.setRadius(5.5)
-        this.setStyle({ weight: 1, color: 'rgba(0,0,0,0.5)', fillOpacity: 0.88 })
-        this.closeTooltip()
+        this.setRadius(4)
+        this.setStyle({ weight: 0.8, color: 'rgba(0,0,0,0.4)', fillOpacity: 0.85 })
       })
 
       return m
     })
 
+    // Single shared tooltip — most reliable with canvas renderer
+    const sharedTip = L.tooltip({
+      permanent: false, sticky: false, opacity: 1,
+      offset: [12, -4], direction: 'right', className: 'dot-tooltip',
+    })
+
+    markers.forEach(m => {
+      const d   = m.dotData
+      const cfg = getTypeConfig(d.type)
+      const stateColor = d.state === 'ดำเนินการแล้ว' ? '#5BD1B8'
+                       : d.state === 'กำลังดำเนินการ' ? '#E9C46A' : '#E63946'
+      const stateIcon  = d.state === 'ดำเนินการแล้ว' ? '✅' : d.state === 'กำลังดำเนินการ' ? '⏳' : '🔴'
+
+      const html = `<div style="font-family:'IBM Plex Sans Thai',sans-serif;width:210px;
+          background:#111827;border:1px solid rgba(255,255,255,0.12);
+          border-radius:13px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.8);">
+        <div style="height:66px;background:${cfg.grad};
+            display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;">
+          <span style="font-size:26px;line-height:1;">${cfg.icon}</span>
+          <span style="font-size:9px;color:rgba(255,255,255,0.6);">${cfg.desc}</span>
+        </div>
+        <div style="padding:10px 13px 11px;">
+          <div style="font-size:13px;font-weight:700;color:#F0F6FF;margin-bottom:4px;">${d.type}</div>
+          <div style="font-size:11px;color:#8DA0B4;margin-bottom:7px;">📍 เขต${d.district}</div>
+          <div style="display:inline-flex;align-items:center;gap:5px;
+              background:${stateColor}1A;border:1px solid ${stateColor}50;
+              border-radius:99px;padding:2px 9px;">
+            <span style="font-size:9px;">${stateIcon}</span>
+            <span style="font-size:10px;font-weight:700;color:${stateColor};">${d.state}</span>
+          </div>
+        </div>
+      </div>`
+
+      m.on('mouseover', function (e) {
+        this.setRadius(7)
+        this.setStyle({ weight: 2, color: 'rgba(255,255,255,0.7)', fillOpacity: 1 })
+        sharedTip.setContent(html).setLatLng(e.latlng).addTo(map)
+      })
+      m.on('mousemove', function (e) {
+        sharedTip.setLatLng(e.latlng)
+      })
+      m.on('mouseout', function () {
+        this.setRadius(4)
+        this.setStyle({ weight: 0.8, color: 'rgba(0,0,0,0.4)', fillOpacity: 0.85 })
+        map.removeLayer(sharedTip)
+      })
+    })
+
     const group = L.layerGroup(markers)
     group.addTo(map)
-    return () => group.remove()
+    return () => { group.remove(); map.removeLayer(sharedTip) }
   }, [dots, map])
 
   return null
@@ -158,12 +176,17 @@ function DistrictLabels({ geoData, districts, selectedDistrict }) {
 }
 
 /* ════════════════════════════════════════════════════ */
-export default function DistrictMap({ districts, selectedDistrict, onSelectDistrict }) {
+export default function DistrictMap({ districts, selectedDistrict, onSelectDistrict, liveDots, dataSource }) {
   const [geoData,     setGeoData]     = useState(null)
   const [mapMode,     setMapMode]     = useState('choropleth')
-  const [dots,        setDots]        = useState([])
+  const [staticDots,  setStaticDots]  = useState([])
   const [dotsLoading, setDotsLoading] = useState(false)
   const [dotsError,   setDotsError]   = useState(false)
+
+  // Use live dots from Traffy API if available, else fall back to static file
+  const dots = liveDots
+    ? liveDots.map(d => ({ lat: d[0], lng: d[1], type: d[2], state: d[3], district: d[4] }))
+    : staticDots
 
   useEffect(() => {
     fetch('/bangkok_districts.geojson')
@@ -173,13 +196,14 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
   }, [])
 
   useEffect(() => {
-    if (mapMode !== 'dots' || dots.length > 0 || dotsLoading) return
+    // Only load static dots if no live dots available
+    if (liveDots || mapMode !== 'dots' || staticDots.length > 0 || dotsLoading) return
     setDotsLoading(true); setDotsError(false)
     fetchAllDots(() => {})
-      .then(all => setDots(all))
+      .then(all => setStaticDots(all))
       .catch(() => setDotsError(true))
       .finally(() => setDotsLoading(false))
-  }, [mapMode])
+  }, [mapMode, liveDots])
 
   const counts = Object.values(districts).map(d => d.total || 0)
   const max    = Math.max(...counts, 1)
@@ -248,7 +272,7 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
               ? (selectedDistrict ? `เลือก: เขต${selectedDistrict}` : 'คลิกเขตเพื่อดูรายละเอียด')
               : dotsLoading ? '⏳ กำลังโหลด...'
               : dotsError   ? '❌ โหลดไม่สำเร็จ'
-              : `${dots.length.toLocaleString()} จุด · hover เพื่อดูรายละเอียด`}
+              : `${dots.length.toLocaleString()} จุด · ${dataSource === 'live' ? '🟢 Traffy Live' : '📁 Static'} · hover เพื่อดูรายละเอียด`}
           </div>
         </div>
 

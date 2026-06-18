@@ -9,7 +9,7 @@ import ReportModal from './components/ReportModal'
 import { useData } from './hooks/useData'
 
 export default function App() {
-  const { data, loading, error } = useData()
+  const { data, liveDots, loading, error, source } = useData()
   const [selectedType,     setSelectedType]     = useState('ทั้งหมด')
   const [selectedDistrict, setSelectedDistrict] = useState(null)
   const [timeFactor,       setTimeFactor]       = useState(1)
@@ -178,6 +178,8 @@ export default function App() {
             districts={filteredDistricts}
             selectedDistrict={selectedDistrict}
             onSelectDistrict={handleSelectDistrict}
+            liveDots={liveDots}
+            dataSource={source}
           />
           <ProblemChart
             data={data}
