@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react'
-import { MapContainer, GeoJSON, TileLayer, CircleMarker, Tooltip, useMap } from 'react-leaflet'
+import { useState, useEffect, useRef } from 'react'
+import { MapContainer, GeoJSON, TileLayer, useMap, useMapEvents } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
@@ -14,88 +14,149 @@ function getBucket(count, max) {
   return BUCKETS[Math.max(0, i)]
 }
 
-/* ── Dot map colors by problem type ─────────────────── */
+/* ── Dot colors ──────────────────────────────────────── */
 const DOT_COLORS = {
-  'ถนน':        '#F4A261',
-  'ทางเท้า':    '#F4A261',
-  'น้ำ':        '#4F9FE0',
-  'ขยะ':        '#6FC18A',
-  'ไฟ':         '#E9C46A',
-  'ไฟฟ้า':      '#E9C46A',
-  'สัตว์':      '#C084FC',
-  'ต้นไม้':     '#34D399',
+  'ถนน':'#F4A261','ทางเท้า':'#F4A261','น้ำ':'#4F9FE0','ท่อ':'#4F9FE0',
+  'ขยะ':'#6FC18A','ไฟ':'#E9C46A','ต้นไม้':'#34D399','สัตว์':'#C084FC',
   'ความปลอดภัย':'#E63946',
 }
-
 function getDotColor(types) {
   if (!types?.length) return '#8DA0B4'
-  const t = types[0] || ''
-  for (const [key, color] of Object.entries(DOT_COLORS)) {
-    if (t.includes(key)) return color
-  }
+  const t = String(types[0] || '')
+  for (const [k, c] of Object.entries(DOT_COLORS)) if (t.includes(k)) return c
   return '#8DA0B4'
 }
 
-/* ── Auto-fit ──────────────────────────────────────── */
+/* ── Fetch all pages ──────────────────────────────────── */
+const API = 'https://publicapi.traffy.in.th/teamchadchart-stat-api/geojson/v1'
+async function fetchAllDots(onProgress) {
+  const all = []
+  let offset = 0
+  const limit = 1000
+  while (true) {
+    const res  = await fetch(`${API}?limit=${limit}&offset=${offset}`)
+    if (!res.ok) break
+    const json = await res.json()
+    const batch = (json.features || []).filter(f => f.geometry?.coordinates?.length === 2)
+    if (!batch.length) break
+    all.push(...batch)
+    onProgress(all.length, json.total || null)
+    if (batch.length < limit) break
+    offset += limit
+  }
+  return all
+}
+
+/* ── Canvas dot layer (fast — handles 50k+ dots) ─────── */
+function CanvasDotLayer({ dots }) {
+  const map = useMap()
+
+  useEffect(() => {
+    if (!dots.length || !map) return
+
+    const canvas  = L.canvas({ padding: 0.5 })
+    const markers = dots.map(f => {
+      const p     = f.properties
+      const color = getDotColor(p.problem_type_fondue)
+      const m     = L.circleMarker(
+        [f.geometry.coordinates[1], f.geometry.coordinates[0]],
+        { renderer: canvas, radius: 3, color, fillColor: color, fillOpacity: 0.82, weight: 0 }
+      )
+      const dist  = p.district || ''
+      const types = (p.problem_type_fondue || []).join(', ') || 'ปัญหาทั่วไป'
+      const desc  = (p.description || '').slice(0, 100)
+      const state = p.state || ''
+      m.bindTooltip(
+        `<div style="font-family:'IBM Plex Sans Thai',sans-serif;padding:9px 12px;
+          background:#0D1117;border:1px solid rgba(255,255,255,0.12);border-radius:10px;
+          max-width:220px;box-shadow:0 6px 24px rgba(0,0,0,0.6);">
+          <div style="color:#E7EEF5;font-size:12px;font-weight:700;margin-bottom:4px;
+            display:flex;align-items:center;gap:6px;">
+            <span style="width:8px;height:8px;border-radius:50%;background:${color};display:inline-block;flex-shrink:0;"></span>
+            ${types}
+          </div>
+          ${dist ? `<div style="color:#8DA0B4;font-size:11px;margin-bottom:3px;">📍 เขต${dist}</div>` : ''}
+          ${desc ? `<div style="color:#8DA0B4;font-size:11px;line-height:1.5;">${desc}${p.description?.length > 100 ? '…' : ''}</div>` : ''}
+          <div style="color:rgba(255,255,255,0.25);font-size:10px;margin-top:5px;
+            border-top:1px solid rgba(255,255,255,0.07);padding-top:4px;">${state}</div>
+        </div>`,
+        { sticky: true, opacity: 1 }
+      )
+      return m
+    })
+
+    const group = L.featureGroup(markers)
+    group.addTo(map)
+
+    return () => { group.remove() }
+  }, [dots, map])  // ← NOT zoom: layer created once, re-used across zoom levels
+
+  return null
+}
+
+/* ── Zoom tracker ──────────────────────────────────────── */
+function ZoomWatcherInner({ onZoom }) {
+  const map = useMap()
+  useMapEvents({ zoom: () => onZoom(map.getZoom()) })
+  return null
+}
+
+/* ── FitBounds ─────────────────────────────────────────── */
 function FitBounds({ geoData }) {
   const map = useMap()
   useEffect(() => {
     if (!geoData) return
     try {
-      const bounds = L.geoJSON(geoData).getBounds()
-      if (bounds.isValid()) map.fitBounds(bounds, { padding: [16, 16], animate: false })
+      const b = L.geoJSON(geoData).getBounds()
+      if (b.isValid()) map.fitBounds(b, { padding:[16,16], animate:false })
     } catch {}
   }, [geoData, map])
   return null
 }
 
-/* ── District labels ─────────────────────────────────── */
+/* ── District labels ──────────────────────────────────── */
 function DistrictLabels({ geoData, districts, selectedDistrict }) {
   const map = useMap()
   useEffect(() => {
     if (!geoData || !map) return
-    const markers = []
+    const ms = []
     geoData.features.forEach(f => {
-      const name  = f.properties.dname || f.properties.name
-      const d     = districts[name]
-      const count = d?.total || 0
+      const name = f.properties.dname || f.properties.name
+      const d    = districts[name]
       const isSelected = name === selectedDistrict
-      if (!isSelected && count === 0) return
+      if (!isSelected && !(d?.total > 0)) return
       try {
         const center = L.geoJSON(f).getBounds().getCenter()
-        const marker = L.marker(center, {
+        const m = L.marker(center, {
           icon: L.divIcon({
             className: '',
-            html: `<div style="
-              font-family:'IBM Plex Sans Thai',sans-serif;
-              font-size:${isSelected ? 11 : 9.5}px;
-              font-weight:${isSelected ? 700 : 500};
-              color:${isSelected ? '#FFFFFF' : 'rgba(231,238,245,0.85)'};
-              text-shadow:0 1px 3px rgba(0,0,0,0.9),0 0 6px rgba(0,0,0,0.7);
-              white-space:nowrap;pointer-events:none;transform:translate(-50%,-50%);
-            ">${name}</div>`,
-            iconSize: [0, 0], iconAnchor: [0, 0],
+            html: `<div style="font-family:'IBM Plex Sans Thai',sans-serif;
+              font-size:${isSelected?11:9.5}px;font-weight:${isSelected?700:500};
+              color:${isSelected?'#FFF':'rgba(231,238,245,0.85)'};
+              text-shadow:0 1px 3px rgba(0,0,0,0.9);white-space:nowrap;
+              pointer-events:none;transform:translate(-50%,-50%);">${name}</div>`,
+            iconSize:[0,0], iconAnchor:[0,0],
           }),
           interactive: false,
           zIndexOffset: isSelected ? 1000 : 0,
         })
-        marker.addTo(map)
-        markers.push(marker)
+        m.addTo(map); ms.push(m)
       } catch {}
     })
-    return () => { markers.forEach(m => map.removeLayer(m)) }
+    return () => { ms.forEach(m => map.removeLayer(m)) }
   }, [geoData, districts, selectedDistrict, map])
   return null
 }
 
-/* ══════════════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════════════ */
 export default function DistrictMap({ districts, selectedDistrict, onSelectDistrict }) {
-  const [geoData,   setGeoData]   = useState(null)
-  const [mapMode,   setMapMode]   = useState('choropleth')  // 'choropleth' | 'dots'
-  const [dots,      setDots]      = useState([])
-  const [dotsLoading, setDotsLoading] = useState(false)
-
-  /* Load Bangkok GeoJSON */
+  const [geoData,      setGeoData]      = useState(null)
+  const [mapMode,      setMapMode]      = useState('choropleth')
+  const [dots,         setDots]         = useState([])
+  const [dotsLoaded,   setDotsLoaded]   = useState(0)
+  const [dotsTotal,    setDotsTotal]    = useState(null)
+  const [dotsLoading,  setDotsLoading]  = useState(false)
+  const [dotsError,    setDotsError]    = useState(false)
   useEffect(() => {
     fetch('/bangkok_districts.geojson')
       .then(r => r.ok ? r.json() : null)
@@ -103,36 +164,22 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
       .catch(() => {})
   }, [])
 
-  /* Load dot data from Traffy API when mode switches */
   useEffect(() => {
-    if (mapMode !== 'dots' || dots.length > 0) return
+    if (mapMode !== 'dots' || dots.length > 0 || dotsLoading) return
     setDotsLoading(true)
-    fetch('https://publicapi.traffy.in.th/teamchadchart-stat-api/geojson/v1?limit=500')
-      .then(r => r.ok ? r.json() : null)
-      .then(json => {
-        if (json?.features) {
-          const pts = json.features
-            .filter(f => f.geometry?.coordinates?.length === 2)
-            .map(f => ({
-              lat:   f.geometry.coordinates[1],
-              lng:   f.geometry.coordinates[0],
-              types: f.properties.problem_type_fondue || [],
-              state: f.properties.state || '',
-              desc:  f.properties.description || '',
-              dist:  f.properties.district || '',
-              ts:    f.properties.timestamp || '',
-            }))
-          setDots(pts)
-        }
-      })
-      .catch(() => {})
+    setDotsError(false)
+    fetchAllDots((loaded, total) => {
+      setDotsLoaded(loaded)
+      if (total) setDotsTotal(total)
+    })
+      .then(all => { setDots(all); setDotsLoaded(all.length) })
+      .catch(() => setDotsError(true))
       .finally(() => setDotsLoading(false))
   }, [mapMode])
 
   const counts = Object.values(districts).map(d => d.total || 0)
   const max    = Math.max(...counts, 1)
 
-  /* ── Choropleth style ── */
   const styleFeature = (feature) => {
     const name       = feature.properties.dname || feature.properties.name
     const d          = districts[name]
@@ -154,14 +201,11 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
     const rr    = d && d.total > 0 ? Math.round((d.resolved / d.total) * 100) : 0
     const days  = Math.round(d?.avg_days || 0)
     const rrC   = rr >= 70 ? '#5BD1B8' : rr >= 50 ? '#E9C46A' : '#E63946'
-
     layer.bindTooltip(`
       <div style="font-family:'IBM Plex Sans Thai',sans-serif;padding:10px 14px;
-        background:#0D1117;border:1px solid rgba(255,255,255,0.12);
-        border-radius:10px;white-space:nowrap;box-shadow:0 6px 24px rgba(0,0,0,0.6)">
-        <div style="color:#E7EEF5;font-size:13px;font-weight:700;margin-bottom:6px;
-          display:flex;align-items:center;gap:6px">
-          <span style="width:8px;height:8px;border-radius:50%;background:${getBucket(count,max)||'#444'};display:inline-block;flex-shrink:0"></span>
+        background:#0D1117;border:1px solid rgba(255,255,255,0.12);border-radius:10px;
+        white-space:nowrap;box-shadow:0 6px 24px rgba(0,0,0,0.6)">
+        <div style="color:#E7EEF5;font-size:13px;font-weight:700;margin-bottom:6px;">
           เขต${name}
         </div>
         <div style="display:grid;grid-template-columns:auto auto;gap:2px 12px">
@@ -174,15 +218,13 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
         </div>
       </div>
     `, { sticky: true, opacity: 1 })
-
     layer.on({
-      click: () => onSelectDistrict(name === selectedDistrict ? null : name),
-      mouseover: e => { e.target.setStyle({ fillOpacity: 0.9, weight: 2, color: 'rgba(255,255,255,0.7)' }); e.target.bringToFront() },
-      mouseout:  e => e.target.setStyle(styleFeature(feature)),
+      click:     () => onSelectDistrict(name === selectedDistrict ? null : name),
+      mouseover: e  => { e.target.setStyle({ fillOpacity:0.9, weight:2, color:'rgba(255,255,255,0.7)' }); e.target.bringToFront() },
+      mouseout:  e  => e.target.setStyle(styleFeature(feature)),
     })
   }
 
-  /* ── Selected stats ── */
   const selData  = selectedDistrict ? districts[selectedDistrict] : null
   const selCount = selData?.total || 0
   const selRr    = selData && selData.total > 0 ? Math.round((selData.resolved / selData.total) * 100) : 0
@@ -190,16 +232,18 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
   const rrColor  = selRr >= 70 ? '#5BD1B8' : selRr >= 50 ? '#E9C46A' : '#E63946'
 
   const CARD = {
-    background: 'var(--panel)', border: '1px solid var(--line)',
-    borderRadius: 'var(--radius)', padding: '16px 17px',
-    display: 'flex', flexDirection: 'column', gap: 10,
+    background:'var(--panel)', border:'1px solid var(--line)',
+    borderRadius:'var(--radius)', padding:'16px 17px',
+    display:'flex', flexDirection:'column', gap:10,
   }
+
+  /* Loading progress % */
+  const loadPct = dotsTotal ? Math.min(99, Math.round((dotsLoaded / dotsTotal) * 100)) : null
 
   return (
     <section style={CARD}>
-
       {/* Header */}
-      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', gap:8 }}>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', gap:8, flexWrap:'wrap' }}>
         <div>
           <h2 style={{ margin:0, fontSize:15, fontWeight:600, color:'var(--ink)' }}>
             {mapMode === 'choropleth' ? 'แผนที่ปัญหารายเขต' : 'จุดปัญหาจาก Traffy (live)'}
@@ -207,53 +251,46 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
           <div style={{ color:'var(--faint)', fontSize:12, marginTop:2 }}>
             {mapMode === 'choropleth'
               ? (selectedDistrict ? `เลือก: เขต${selectedDistrict} · คลิกอีกครั้งเพื่อยกเลิก` : 'คลิกที่เขตเพื่อดูรายละเอียด')
-              : (dotsLoading ? 'กำลังโหลดจุดปัญหา...' : `${dots.length} จุดล่าสุด · hover เพื่อดูรายละเอียด`)}
+              : dotsLoading
+                ? `📡 กำลังโหลด... ${dotsLoaded.toLocaleString()}${dotsTotal ? ' / ' + dotsTotal.toLocaleString() : ''} จุด`
+                : dotsError
+                  ? '❌ โหลดไม่สำเร็จ — ตรวจสอบ internet'
+                  : `${dots.length.toLocaleString()} จุด · zoom เข้าเพื่อดูรายละเอียด`}
           </div>
         </div>
 
         <div style={{ display:'flex', gap:8, alignItems:'center', flexShrink:0, flexWrap:'wrap', justifyContent:'flex-end' }}>
           {/* Mode toggle */}
-          <div style={{
-            display:'flex', background:'var(--panel2)', border:'1px solid var(--line)',
-            borderRadius:10, padding:3, gap:2,
-          }}>
+          <div style={{ display:'flex', background:'var(--panel2)', border:'1px solid var(--line)', borderRadius:10, padding:3, gap:2 }}>
             {[
-              { key:'choropleth', label:'🗺️ รายเขต' },
+              { key:'choropleth', label:'🗺️ รายเขต'   },
               { key:'dots',       label:'📍 จุดปัญหา' },
             ].map(m => (
               <button key={m.key} onClick={() => setMapMode(m.key)} style={{
                 background: mapMode === m.key ? 'var(--panel)' : 'transparent',
-                color: mapMode === m.key ? 'var(--mint)' : 'var(--faint)',
-                border: 'none', borderRadius:7, padding:'4px 12px', fontSize:11,
+                color:      mapMode === m.key ? 'var(--mint)' : 'var(--faint)',
+                border:'none', borderRadius:7, padding:'4px 12px', fontSize:11,
                 fontFamily:'inherit', fontWeight: mapMode === m.key ? 600 : 400,
                 cursor:'pointer', transition:'all 0.15s',
                 boxShadow: mapMode === m.key ? '0 1px 4px rgba(0,0,0,0.3)' : 'none',
-              }}>
-                {m.label}
-              </button>
+              }}>{m.label}</button>
             ))}
           </div>
 
-          {/* Quick stats badge */}
           {selData && mapMode === 'choropleth' && (
-            <div style={{
-              background:'var(--panel2)', border:'1px solid var(--line)',
-              borderRadius:10, padding:'6px 12px', textAlign:'right',
-            }}>
+            <div style={{ background:'var(--panel2)', border:'1px solid var(--line)', borderRadius:10, padding:'6px 12px', textAlign:'right' }}>
               <div style={{ fontSize:10, color:'var(--faint)', marginBottom:2 }}>เขต{selectedDistrict}</div>
               <div style={{ display:'flex', gap:12, alignItems:'center' }}>
-                <div>
-                  <div style={{ fontSize:16, fontWeight:700, fontFamily:'IBM Plex Mono,monospace', color:'var(--ink)' }}>{selCount.toLocaleString()}</div>
-                  <div style={{ fontSize:10, color:'var(--faint)' }}>เรื่อง</div>
-                </div>
-                <div>
-                  <div style={{ fontSize:16, fontWeight:700, fontFamily:'IBM Plex Mono,monospace', color:rrColor }}>{selRr}%</div>
-                  <div style={{ fontSize:10, color:'var(--faint)' }}>แก้ไขแล้ว</div>
-                </div>
-                <div>
-                  <div style={{ fontSize:16, fontWeight:700, fontFamily:'IBM Plex Mono,monospace', color:'var(--ink)' }}>{selDays}</div>
-                  <div style={{ fontSize:10, color:'var(--faint)' }}>วัน/เรื่อง</div>
-                </div>
+                {[
+                  { v: selCount.toLocaleString(), u:'เรื่อง',   c:'var(--ink)' },
+                  { v: `${selRr}%`,               u:'แก้ไขแล้ว', c:rrColor     },
+                  { v: selDays,                   u:'วัน/เรื่อง', c:'var(--ink)' },
+                ].map(x => (
+                  <div key={x.u}>
+                    <div style={{ fontSize:16, fontWeight:700, fontFamily:'IBM Plex Mono,monospace', color:x.c }}>{x.v}</div>
+                    <div style={{ fontSize:10, color:'var(--faint)' }}>{x.u}</div>
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -296,9 +333,19 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
               <span style={{ fontSize:10, color:'var(--faint)' }}>{x.label}</span>
             </div>
           ))}
-          <span style={{ fontSize:10, color:'var(--faint)', marginLeft:'auto' }}>
-            ข้อมูลล่าสุด 500 จุด
-          </span>
+          {dotsLoading && loadPct !== null && (
+            <div style={{ marginLeft:'auto', display:'flex', alignItems:'center', gap:6 }}>
+              <div style={{ width:80, height:4, background:'var(--line)', borderRadius:4, overflow:'hidden' }}>
+                <div style={{ width:`${loadPct}%`, height:'100%', background:'var(--mint)', borderRadius:4, transition:'width 0.3s' }}/>
+              </div>
+              <span style={{ fontSize:10, color:'var(--mint)', fontFamily:'IBM Plex Mono,monospace' }}>{loadPct}%</span>
+            </div>
+          )}
+          {!dotsLoading && dots.length > 0 && (
+            <span style={{ fontSize:10, color:'var(--faint)', marginLeft:'auto' }}>
+              {dots.length.toLocaleString()} จุด · hover เพื่อดูรายละเอียด
+            </span>
+          )}
         </div>
       )}
 
@@ -312,13 +359,10 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
           style={{ height:'100%', width:'100%', minHeight:280, background:'#0D1117' }}
           attributionControl={false}
         >
-          {/* Tile layer: only in dot mode */}
           {mapMode === 'dots' && (
             <TileLayer
               url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
-              subdomains="abcd"
-              maxZoom={19}
-              opacity={0.85}
+              subdomains="abcd" maxZoom={19} opacity={0.85}
             />
           )}
 
@@ -326,7 +370,6 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
             <>
               <FitBounds geoData={geoData} />
 
-              {/* Choropleth layer */}
               {mapMode === 'choropleth' && (
                 <>
                   <GeoJSON
@@ -339,74 +382,38 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
                 </>
               )}
 
-              {/* Dot map: district outlines (faint) + complaint dots */}
               {mapMode === 'dots' && (
                 <>
                   <GeoJSON
                     key="dot-outline"
                     data={geoData}
-                    style={() => ({
-                      fillColor: 'transparent',
-                      fillOpacity: 0,
-                      weight: 0.7,
-                      color: 'rgba(255,255,255,0.18)',
-                    })}
+                    style={() => ({ fillColor:'transparent', fillOpacity:0, weight:0.7, color:'rgba(255,255,255,0.2)' })}
                   />
-                  {dots.map((pt, i) => (
-                    <CircleMarker
-                      key={i}
-                      center={[pt.lat, pt.lng]}
-                      radius={5}
-                      pathOptions={{
-                        color: getDotColor(pt.types),
-                        fillColor: getDotColor(pt.types),
-                        fillOpacity: 0.8,
-                        weight: 0,
-                      }}
-                    >
-                      <Tooltip sticky opacity={1}>
-                        <div style={{
-                          fontFamily:"'IBM Plex Sans Thai',sans-serif",
-                          padding:'8px 12px',
-                          background:'#0D1117',
-                          border:'1px solid rgba(255,255,255,0.12)',
-                          borderRadius:10,
-                          maxWidth:220,
-                          boxShadow:'0 6px 24px rgba(0,0,0,0.6)',
-                        }}>
-                          <div style={{ color:'#E7EEF5', fontSize:12, fontWeight:700, marginBottom:4, display:'flex', alignItems:'center', gap:6 }}>
-                            <span style={{ width:8, height:8, borderRadius:'50%', background:getDotColor(pt.types), display:'inline-block', flexShrink:0 }}/>
-                            {pt.types?.[0] || 'ปัญหาทั่วไป'}
-                          </div>
-                          {pt.dist && <div style={{ color:'#8DA0B4', fontSize:11, marginBottom:3 }}>📍 เขต{pt.dist}</div>}
-                          {pt.desc && <div style={{ color:'#8DA0B4', fontSize:11, lineHeight:1.5 }}>{pt.desc.slice(0, 80)}{pt.desc.length > 80 ? '…' : ''}</div>}
-                          <div style={{ color:'rgba(255,255,255,0.12)', fontSize:10, marginTop:4, borderTop:'1px solid rgba(255,255,255,0.07)', paddingTop:4 }}>
-                            {pt.state}
-                          </div>
-                        </div>
-                      </Tooltip>
-                    </CircleMarker>
-                  ))}
+                  {dots.length > 0 && <CanvasDotLayer dots={dots} />}
                 </>
               )}
             </>
           )}
         </MapContainer>
 
-        {/* Loading overlay */}
-        {(!geoData || (mapMode === 'dots' && dotsLoading)) && (
+        {(!geoData || (mapMode === 'dots' && dotsLoading && dots.length === 0)) && (
           <div style={{
-            position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center',
-            background:'rgba(13,17,23,0.85)', borderRadius:10, color:'var(--faint)', fontSize:13,
+            position:'absolute', inset:0, display:'flex', flexDirection:'column',
+            alignItems:'center', justifyContent:'center',
+            background:'rgba(13,17,23,0.9)', borderRadius:10, gap:12,
           }}>
-            {dotsLoading ? '📡 กำลังโหลดจุดปัญหาจาก Traffy...' : 'กำลังโหลดแผนที่…'}
+            <div style={{ color:'var(--faint)', fontSize:13 }}>
+              {dotsLoading ? `📡 โหลดข้อมูล Traffy... ${dotsLoaded.toLocaleString()} จุด` : 'กำลังโหลดแผนที่…'}
+            </div>
+            {dotsLoading && loadPct !== null && (
+              <div style={{ width:160, height:4, background:'var(--line)', borderRadius:4, overflow:'hidden' }}>
+                <div style={{ width:`${loadPct}%`, height:'100%', background:'var(--mint)', borderRadius:4, transition:'width 0.3s' }}/>
+              </div>
+            )}
           </div>
         )}
 
-        <div style={{
-          position:'absolute', bottom:6, right:8, zIndex:1000,
-          fontSize:9, color:'rgba(141,160,180,0.5)', pointerEvents:'none',
-        }}>
+        <div style={{ position:'absolute', bottom:6, right:8, zIndex:1000, fontSize:9, color:'rgba(141,160,180,0.5)', pointerEvents:'none' }}>
           © OpenStreetMap · © CARTO · Traffy Fondue
         </div>
       </div>
