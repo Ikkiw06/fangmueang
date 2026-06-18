@@ -176,13 +176,13 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
       </div>
 
       {/* Map */}
-      <div style={{ flex: 1, borderRadius: 10, overflow: 'hidden', minHeight: 380, position: 'relative' }}>
+      <div className="map-container">
         <MapContainer
           center={[13.756, 100.502]}
           zoom={10}
           zoomControl={true}
           scrollWheelZoom={true}
-          style={{ height: '100%', width: '100%', minHeight: 380, background: '#0E141C' }}
+          style={{ height: '100%', width: '100%', minHeight: 280, background: '#0E141C' }}
         >
           {geoData && (
             <>

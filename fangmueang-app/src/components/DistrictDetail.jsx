@@ -167,7 +167,7 @@ export default function DistrictDetail({ district, name, cityAvg, onClose }) {
       </div>
 
       {/* ── KPI row ── */}
-      <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:12, marginBottom:20 }}>
+      <div className="detail-kpi">
         <KpiBox
           label="อัตราแก้ไขรวม"
           value={`${resolveRate}%`} unit=""
@@ -183,7 +183,7 @@ export default function DistrictDetail({ district, name, cityAvg, onClose }) {
       </div>
 
       {/* ── Charts row: Donut + Resolve bar ── */}
-      <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap:16, marginBottom:20 }}>
+      <div className="chart-grid">
 
         {/* Donut chart */}
         <div style={{ background:'var(--panel2)', border:'1px solid var(--line)', borderRadius:12, padding:'14px 16px' }}>

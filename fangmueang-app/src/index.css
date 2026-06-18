@@ -58,6 +58,106 @@ body {
   .kpi-grid { grid-template-columns: 1fr 1fr; }
 }
 
+/* Chart 2-col grid (DistrictDetail) */
+.chart-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+@media (max-width: 640px) {
+  .chart-grid { grid-template-columns: 1fr; }
+}
+
+/* Insight bar */
+.insight-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.insight-bar > div {
+  flex: 1 1 160px;
+}
+@media (max-width: 480px) {
+  .insight-bar { gap: 8px; }
+  .insight-bar > div { flex: 1 1 140px; }
+}
+
+/* Header flex */
+.app-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 16px;
+  margin-bottom: 20px;
+}
+
+/* Workflow banner */
+.workflow-banner {
+  display: flex;
+  align-items: center;
+  background: var(--panel2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 16px;
+  margin-bottom: 18px;
+  overflow-x: auto;
+  flex-wrap: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.workflow-banner::-webkit-scrollbar { display: none; }
+
+/* Map height */
+.map-container {
+  flex: 1;
+  border-radius: 10px;
+  overflow: hidden;
+  min-height: 400px;
+  position: relative;
+}
+@media (max-width: 640px) {
+  .map-container { min-height: 280px; }
+}
+
+/* FilterBar */
+.filter-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-bottom: 18px;
+}
+.filter-cats {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* Detail KPI 2-col */
+.detail-kpi {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+/* Detail KPI — stack on very small screens */
+@media (max-width: 400px) {
+  .detail-kpi { grid-template-columns: 1fr; }
+}
+
+/* Mobile font tweaks */
+@media (max-width: 480px) {
+  body { font-size: 13px; }
+  h1   { font-size: 22px !important; }
+  .app-header { flex-direction: column; gap: 10px; }
+  .app-header > div:last-child { width: 100%; justify-content: flex-start; }
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }

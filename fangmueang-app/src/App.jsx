@@ -69,16 +69,21 @@ export default function App() {
   /* ── Shared styles ── */
   const CHIP = { fontSize:11.5, color:'var(--faint)', border:'1px solid var(--line)', padding:'4px 10px', borderRadius:999 }
 
+  /* ── Format date from metadata ── */
+  const lastUpdated = (() => {
+    const d = data?.metadata?.last_updated
+    if (!d) return null
+    const [y, m] = d.split('-').map(Number)
+    const thMonth = ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.']
+    return `${thMonth[m]} ${y + 543}`
+  })()
+
   return (
     <div style={{ minHeight:'100vh', background:'var(--bg)', color:'var(--ink)' }}>
-      <div style={{ maxWidth:1200, margin:'0 auto', padding:'20px 20px 60px' }}>
+      <div style={{ maxWidth:1200, margin:'0 auto', padding:'16px 14px 60px' }}>
 
         {/* ── Header ── */}
-        <header style={{
-          display:'flex', alignItems:'flex-start', justifyContent:'space-between',
-          gap:16, flexWrap:'wrap',
-          borderBottom:'1px solid var(--line)', paddingBottom:16, marginBottom:20,
-        }}>
+        <header className="app-header">
           <div>
             <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:4 }}>
               <h1 style={{ margin:0, fontSize:26, fontWeight:700, letterSpacing:'-0.02em' }}>
@@ -99,8 +104,8 @@ export default function App() {
           </div>
 
           <div style={{ display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' }}>
-            <span style={CHIP}>📡 อัปเดต: ธ.ค. 2567</span>
-            <span style={CHIP}>50 เขต</span>
+            {lastUpdated && <span style={CHIP}>📡 อัปเดต: {lastUpdated}</span>}
+            <span style={CHIP}>{Object.keys(districts).length} เขต</span>
             <button onClick={() => setShowReport(true)} style={{
               background:'var(--mint)', color:'#06231d', border:'none',
               padding:'8px 18px', borderRadius:999, fontSize:13, fontWeight:700,
@@ -117,12 +122,7 @@ export default function App() {
         </header>
 
         {/* ── How it works banner ── */}
-        <div style={{
-          display:'flex', alignItems:'center', gap:0,
-          background:'var(--panel2)', border:'1px solid var(--line)',
-          borderRadius:12, padding:'10px 16px', marginBottom:18,
-          overflowX:'auto', flexWrap:'nowrap',
-        }}>
+        <div className="workflow-banner">
           <span style={{ fontSize:11, color:'var(--faint)', whiteSpace:'nowrap', marginRight:12 }}>วงจรข้อมูล</span>
           {[
             { icon:'👤', text:'ประชาชนแจ้ง' },
@@ -151,7 +151,7 @@ export default function App() {
         </div>
 
         {/* ── Insight bar ── */}
-        <div style={{ display:'flex', gap:10, marginBottom:16, flexWrap:'wrap' }}>
+        <div className="insight-bar">
           {insights.map(ins => (
             <div key={ins.label} onClick={() => ins.value && handleSelectDistrict(ins.value)}
               style={{
