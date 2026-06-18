@@ -1,1 +1,4973 @@
-{"metadata":{"total":78818,"districts_count":50,"last_updated":"2024-12-31","source":"Traffy Fondue (demo)"},"city_avg":{"total":78818,"resolve_rate":0.734,"avg_days":9.1},"problem_types":["ถนน/ทางเท้า","น้ำท่วม","ขยะ","ไฟส่องสว่าง","ความปลอดภัย","อื่นๆ"],"districts":{"พระนคร":{"total":1100,"resolved":770,"avg_days":6.2,"top_problems":[{"type":"ถนน/ทางเท้า","count":253,"resolve_rate":0.458},{"type":"ความปลอดภัย","count":247,"resolve_rate":0.828},{"type":"ขยะ","count":184,"resolve_rate":0.682},{"type":"อื่นๆ","count":166,"resolve_rate":0.839},{"type":"ไฟส่องสว่าง","count":135,"resolve_rate":0.93},{"type":"น้ำท่วม","count":115,"resolve_rate":0.507}],"monthly":[{"month":"ม.ค.","count":77,"resolved":53},{"month":"ก.พ.","count":84,"resolved":58},{"month":"มี.ค.","count":93,"resolved":65},{"month":"เม.ย.","count":87,"resolved":60},{"month":"พ.ค.","count":72,"resolved":50},{"month":"มิ.ย.","count":75,"resolved":52},{"month":"ก.ค.","count":107,"resolved":74},{"month":"ส.ค.","count":109,"resolved":76},{"month":"ก.ย.","count":110,"resolved":77},{"month":"ต.ค.","count":99,"resolved":69},{"month":"พ.ย.","count":87,"resolved":60},{"month":"ธ.ค.","count":104,"resolved":72}]},"สัมพันธวงศ์":{"total":1928,"resolved":1406,"avg_days":9.7,"top_problems":[{"type":"ขยะ","count":597,"resolve_rate":0.795},{"type":"อื่นๆ","count":361,"resolve_rate":0.791},{"type":"ไฟส่องสว่าง","count":359,"resolve_rate":0.919},{"type":"ถนน/ทางเท้า","count":298,"resolve_rate":0.47},{"type":"ความปลอดภัย","count":178,"resolve_rate":0.787},{"type":"น้ำท่วม","count":135,"resolve_rate":0.358}],"monthly":[{"month":"ม.ค.","count":129,"resolved":94},{"month":"ก.พ.","count":144,"resolved":105},{"month":"มี.ค.","count":155,"resolved":113},{"month":"เม.ย.","count":160,"resolved":116},{"month":"พ.ค.","count":165,"resolved":120},{"month":"มิ.ย.","count":186,"resolved":135},{"month":"ก.ค.","count":156,"resolved":113},{"month":"ส.ค.","count":137,"resolved":99},{"month":"ก.ย.","count":147,"resolved":107},{"month":"ต.ค.","count":168,"resolved":122},{"month":"พ.ย.","count":149,"resolved":108},{"month":"ธ.ค.","count":199,"resolved":145}]},"ป้อมปราบศัตรูพ่าย":{"total":1762,"resolved":1032,"avg_days":8.8,"top_problems":[{"type":"ขยะ","count":628,"resolve_rate":0.888},{"type":"ถนน/ทางเท้า","count":314,"resolve_rate":0.542},{"type":"ไฟส่องสว่าง","count":254,"resolve_rate":0.949},{"type":"อื่นๆ","count":220,"resolve_rate":0.844},{"type":"ความปลอดภัย","count":204,"resolve_rate":0.604},{"type":"น้ำท่วม","count":142,"resolve_rate":0.467}],"monthly":[{"month":"ม.ค.","count":128,"resolved":75},{"month":"ก.พ.","count":119,"resolved":69},{"month":"มี.ค.","count":121,"resolved":70},{"month":"เม.ย.","count":115,"resolved":67},{"month":"พ.ค.","count":165,"resolved":96},{"month":"มิ.ย.","count":119,"resolved":69},{"month":"ก.ค.","count":170,"resolved":99},{"month":"ส.ค.","count":167,"resolved":97},{"month":"ก.ย.","count":149,"resolved":87},{"month":"ต.ค.","count":170,"resolved":99},{"month":"พ.ย.","count":148,"resolved":86},{"month":"ธ.ค.","count":139,"resolved":81}]},"บางรัก":{"total":937,"resolved":690,"avg_days":12.2,"top_problems":[{"type":"อื่นๆ","count":206,"resolve_rate":0.795},{"type":"ความปลอดภัย","count":190,"resolve_rate":0.779},{"type":"ถนน/ทางเท้า","count":189,"resolve_rate":0.519},{"type":"ขยะ","count":138,"resolve_rate":0.837},{"type":"ไฟส่องสว่าง","count":128,"resolve_rate":0.932},{"type":"น้ำท่วม","count":86,"resolve_rate":0.43}],"monthly":[{"month":"ม.ค.","count":75,"resolved":55},{"month":"ก.พ.","count":65,"resolved":47},{"month":"มี.ค.","count":60,"resolved":44},{"month":"เม.ย.","count":61,"resolved":44},{"month":"พ.ค.","count":75,"resolved":55},{"month":"มิ.ย.","count":80,"resolved":58},{"month":"ก.ค.","count":93,"resolved":68},{"month":"ส.ค.","count":77,"resolved":56},{"month":"ก.ย.","count":89,"resolved":65},{"month":"ต.ค.","count":81,"resolved":59},{"month":"พ.ย.","count":70,"resolved":51},{"month":"ธ.ค.","count":72,"resolved":53}]},"ปทุมวัน":{"total":1972,"resolved":1322,"avg_days":7.5,"top_problems":[{"type":"ไฟส่องสว่าง","count":488,"resolve_rate":0.767},{"type":"ถนน/ทางเท้า","count":413,"resolve_rate":0.612},{"type":"อื่นๆ","count":333,"resolve_rate":0.748},{"type":"ขยะ","count":300,"resolve_rate":0.897},{"type":"ความปลอดภัย","count":251,"resolve_rate":0.638},{"type":"น้ำท่วม","count":187,"resolve_rate":0.644}],"monthly":[{"month":"ม.ค.","count":126,"resolved":84},{"month":"ก.พ.","count":137,"resolved":91},{"month":"มี.ค.","count":118,"resolved":79},{"month":"เม.ย.","count":160,"resolved":107},{"month":"พ.ค.","count":147,"resolved":98},{"month":"มิ.ย.","count":158,"resolved":105},{"month":"ก.ค.","count":147,"resolved":98},{"month":"ส.ค.","count":174,"resolved":116},{"month":"ก.ย.","count":186,"resolved":124},{"month":"ต.ค.","count":180,"resolved":120},{"month":"พ.ย.","count":187,"resolved":125},{"month":"ธ.ค.","count":164,"resolved":109}]},"ราชเทวี":{"total":1297,"resolved":1146,"avg_days":3.9,"top_problems":[{"type":"ไฟส่องสว่าง","count":311,"resolve_rate":0.781},{"type":"อื่นๆ","count":308,"resolve_rate":0.741},{"type":"ถนน/ทางเท้า","count":238,"resolve_rate":0.639},{"type":"ขยะ","count":173,"resolve_rate":0.657},{"type":"ความปลอดภัย","count":159,"resolve_rate":0.701},{"type":"น้ำท่วม","count":108,"resolve_rate":0.674}],"monthly":[{"month":"ม.ค.","count":108,"resolved":95},{"month":"ก.พ.","count":112,"resolved":99},{"month":"มี.ค.","count":105,"resolved":92},{"month":"เม.ย.","count":112,"resolved":99},{"month":"พ.ค.","count":94,"resolved":83},{"month":"มิ.ย.","count":107,"resolved":94},{"month":"ก.ค.","count":116,"resolved":102},{"month":"ส.ค.","count":90,"resolved":79},{"month":"ก.ย.","count":106,"resolved":93},{"month":"ต.ค.","count":114,"resolved":100},{"month":"พ.ย.","count":131,"resolved":115},{"month":"ธ.ค.","count":144,"resolved":127}]},"พญาไท":{"total":1488,"resolved":1085,"avg_days":3.8,"top_problems":[{"type":"อื่นๆ","count":315,"resolve_rate":0.805},{"type":"ความปลอดภัย","count":309,"resolve_rate":0.786},{"type":"ถนน/ทางเท้า","count":297,"resolve_rate":0.534},{"type":"ขยะ","count":216,"resolve_rate":0.787},{"type":"ไฟส่องสว่าง","count":216,"resolve_rate":0.728},{"type":"น้ำท่วม","count":135,"resolve_rate":0.602}],"monthly":[{"month":"ม.ค.","count":122,"resolved":89},{"month":"ก.พ.","count":118,"resolved":86},{"month":"มี.ค.","count":113,"resolved":82},{"month":"เม.ย.","count":137,"resolved":99},{"month":"พ.ค.","count":140,"resolved":102},{"month":"มิ.ย.","count":126,"resolved":91},{"month":"ก.ค.","count":138,"resolved":100},{"month":"ส.ค.","count":104,"resolved":75},{"month":"ก.ย.","count":132,"resolved":96},{"month":"ต.ค.","count":139,"resolved":101},{"month":"พ.ย.","count":122,"resolved":89},{"month":"ธ.ค.","count":153,"resolved":111}]},"ดุสิต":{"total":1924,"resolved":1467,"avg_days":9.3,"top_problems":[{"type":"ถนน/ทางเท้า","count":401,"resolve_rate":0.46},{"type":"อื่นๆ","count":392,"resolve_rate":0.63},{"type":"ไฟส่องสว่าง","count":346,"resolve_rate":0.737},{"type":"ความปลอดภัย","count":311,"resolve_rate":0.589},{"type":"ขยะ","count":292,"resolve_rate":0.809},{"type":"น้ำท่วม","count":182,"resolve_rate":0.493}],"monthly":[{"month":"ม.ค.","count":122,"resolved":93},{"month":"ก.พ.","count":127,"resolved":96},{"month":"มี.ค.","count":147,"resolved":112},{"month":"เม.ย.","count":143,"resolved":109},{"month":"พ.ค.","count":180,"resolved":137},{"month":"มิ.ย.","count":166,"resolved":126},{"month":"ก.ค.","count":166,"resolved":126},{"month":"ส.ค.","count":154,"resolved":117},{"month":"ก.ย.","count":181,"resolved":138},{"month":"ต.ค.","count":156,"resolved":118},{"month":"พ.ย.","count":205,"resolved":156},{"month":"ธ.ค.","count":207,"resolved":157}]},"บางซื่อ":{"total":1584,"resolved":993,"avg_days":11.9,"top_problems":[{"type":"ไฟส่องสว่าง","count":359,"resolve_rate":0.826},{"type":"ถนน/ทางเท้า","count":316,"resolve_rate":0.527},{"type":"ความปลอดภัย","count":313,"resolve_rate":0.768},{"type":"ขยะ","count":230,"resolve_rate":0.742},{"type":"อื่นๆ","count":223,"resolve_rate":0.78},{"type":"น้ำท่วม","count":143,"resolve_rate":0.386}],"monthly":[{"month":"ม.ค.","count":126,"resolved":79},{"month":"ก.พ.","count":105,"resolved":65},{"month":"มี.ค.","count":127,"resolved":79},{"month":"เม.ย.","count":118,"resolved":73},{"month":"พ.ค.","count":118,"resolved":73},{"month":"มิ.ย.","count":140,"resolved":87},{"month":"ก.ค.","count":133,"resolved":83},{"month":"ส.ค.","count":149,"resolved":93},{"month":"ก.ย.","count":148,"resolved":92},{"month":"ต.ค.","count":129,"resolved":80},{"month":"พ.ย.","count":162,"resolved":101},{"month":"ธ.ค.","count":175,"resolved":109}]},"จตุจักร":{"total":1855,"resolved":1490,"avg_days":4.7,"top_problems":[{"type":"ถนน/ทางเท้า","count":612,"resolve_rate":0.453},{"type":"ความปลอดภัย","count":333,"resolve_rate":0.614},{"type":"อื่นๆ","count":311,"resolve_rate":0.708},{"type":"ขยะ","count":244,"resolve_rate":0.664},{"type":"ไฟส่องสว่าง","count":202,"resolve_rate":0.919},{"type":"น้ำท่วม","count":153,"resolve_rate":0.503}],"monthly":[{"month":"ม.ค.","count":155,"resolved":124},{"month":"ก.พ.","count":143,"resolved":114},{"month":"มี.ค.","count":144,"resolved":115},{"month":"เม.ย.","count":120,"resolved":96},{"month":"พ.ค.","count":146,"resolved":117},{"month":"มิ.ย.","count":154,"resolved":123},{"month":"ก.ค.","count":180,"resolved":144},{"month":"ส.ค.","count":135,"resolved":108},{"month":"ก.ย.","count":139,"resolved":111},{"month":"ต.ค.","count":186,"resolved":149},{"month":"พ.ย.","count":201,"resolved":161},{"month":"ธ.ค.","count":191,"resolved":153}]},"ดอนเมือง":{"total":1064,"resolved":909,"avg_days":10.7,"top_problems":[{"type":"น้ำท่วม","count":277,"resolve_rate":0.588},{"type":"ถนน/ทางเท้า","count":231,"resolve_rate":0.48},{"type":"ความปลอดภัย","count":158,"resolve_rate":0.711},{"type":"อื่นๆ","count":158,"resolve_rate":0.849},{"type":"ไฟส่องสว่าง","count":148,"resolve_rate":0.869},{"type":"ขยะ","count":92,"resolve_rate":0.901}],"monthly":[{"month":"ม.ค.","count":82,"resolved":70},{"month":"ก.พ.","count":84,"resolved":71},{"month":"มี.ค.","count":77,"resolved":65},{"month":"เม.ย.","count":90,"resolved":76},{"month":"พ.ค.","count":74,"resolved":63},{"month":"มิ.ย.","count":85,"resolved":72},{"month":"ก.ค.","count":91,"resolved":77},{"month":"ส.ค.","count":80,"resolved":68},{"month":"ก.ย.","count":79,"resolved":67},{"month":"ต.ค.","count":91,"resolved":77},{"month":"พ.ย.","count":82,"resolved":70},{"month":"ธ.ค.","count":110,"resolved":93}]},"หลักสี่":{"total":1069,"resolved":955,"avg_days":7,"top_problems":[{"type":"อื่นๆ","count":279,"resolve_rate":0.672},{"type":"ถนน/ทางเท้า","count":234,"resolve_rate":0.582},{"type":"ขยะ","count":170,"resolve_rate":0.683},{"type":"ไฟส่องสว่าง","count":155,"resolve_rate":0.745},{"type":"ความปลอดภัย","count":125,"resolve_rate":0.785},{"type":"น้ำท่วม","count":106,"resolve_rate":0.502}],"monthly":[{"month":"ม.ค.","count":74,"resolved":66},{"month":"ก.พ.","count":80,"resolved":71},{"month":"มี.ค.","count":75,"resolved":67},{"month":"เม.ย.","count":89,"resolved":79},{"month":"พ.ค.","count":77,"resolved":68},{"month":"มิ.ย.","count":77,"resolved":68},{"month":"ก.ค.","count":105,"resolved":93},{"month":"ส.ค.","count":100,"resolved":89},{"month":"ก.ย.","count":76,"resolved":67},{"month":"ต.ค.","count":109,"resolved":97},{"month":"พ.ย.","count":85,"resolved":75},{"month":"ธ.ค.","count":92,"resolved":82}]},"บางเขน":{"total":3427,"resolved":2847,"avg_days":11.5,"top_problems":[{"type":"ถนน/ทางเท้า","count":1121,"resolve_rate":0.594},{"type":"ไฟส่องสว่าง","count":731,"resolve_rate":0.886},{"type":"ความปลอดภัย","count":539,"resolve_rate":0.576},{"type":"ขยะ","count":448,"resolve_rate":0.661},{"type":"อื่นๆ","count":308,"resolve_rate":0.806},{"type":"น้ำท่วม","count":280,"resolve_rate":0.663}],"monthly":[{"month":"ม.ค.","count":220,"resolved":182},{"month":"ก.พ.","count":225,"resolved":186},{"month":"มี.ค.","count":293,"resolved":243},{"month":"เม.ย.","count":284,"resolved":236},{"month":"พ.ค.","count":223,"resolved":185},{"month":"มิ.ย.","count":313,"resolved":260},{"month":"ก.ค.","count":248,"resolved":206},{"month":"ส.ค.","count":261,"resolved":216},{"month":"ก.ย.","count":327,"resolved":271},{"month":"ต.ค.","count":266,"resolved":221},{"month":"พ.ย.","count":299,"resolved":248},{"month":"ธ.ค.","count":382,"resolved":317}]},"ดินแดง":{"total":1326,"resolved":795,"avg_days":4.3,"top_problems":[{"type":"ความปลอดภัย","count":303,"resolve_rate":0.658},{"type":"ถนน/ทางเท้า","count":274,"resolve_rate":0.618},{"type":"ไฟส่องสว่าง","count":253,"resolve_rate":0.776},{"type":"ขยะ","count":199,"resolve_rate":0.918},{"type":"อื่นๆ","count":173,"resolve_rate":0.846},{"type":"น้ำท่วม","count":124,"resolve_rate":0.581}],"monthly":[{"month":"ม.ค.","count":96,"resolved":57},{"month":"ก.พ.","count":87,"resolved":52},{"month":"มี.ค.","count":115,"resolved":68},{"month":"เม.ย.","count":120,"resolved":71},{"month":"พ.ค.","count":111,"resolved":66},{"month":"มิ.ย.","count":113,"resolved":67},{"month":"ก.ค.","count":131,"resolved":78},{"month":"ส.ค.","count":105,"resolved":62},{"month":"ก.ย.","count":101,"resolved":60},{"month":"ต.ค.","count":130,"resolved":77},{"month":"พ.ย.","count":123,"resolved":73},{"month":"ธ.ค.","count":103,"resolved":61}]},"ห้วยขวาง":{"total":1647,"resolved":1192,"avg_days":9.8,"top_problems":[{"type":"ไฟส่องสว่าง","count":365,"resolve_rate":0.81},{"type":"อื่นๆ","count":338,"resolve_rate":0.676},{"type":"ความปลอดภัย","count":305,"resolve_rate":0.693},{"type":"ถนน/ทางเท้า","count":293,"resolve_rate":0.7},{"type":"ขยะ","count":213,"resolve_rate":0.689},{"type":"น้ำท่วม","count":133,"resolve_rate":0.394}],"monthly":[{"month":"ม.ค.","count":103,"resolved":74},{"month":"ก.พ.","count":97,"resolved":70},{"month":"มี.ค.","count":100,"resolved":72},{"month":"เม.ย.","count":140,"resolved":101},{"month":"พ.ค.","count":122,"resolved":88},{"month":"มิ.ย.","count":132,"resolved":95},{"month":"ก.ค.","count":133,"resolved":96},{"month":"ส.ค.","count":158,"resolved":114},{"month":"ก.ย.","count":137,"resolved":99},{"month":"ต.ค.","count":149,"resolved":107},{"month":"พ.ย.","count":173,"resolved":125},{"month":"ธ.ค.","count":139,"resolved":100}]},"คลองเตย":{"total":987,"resolved":656,"avg_days":13.9,"top_problems":[{"type":"ขยะ","count":334,"resolve_rate":0.859},{"type":"ถนน/ทางเท้า","count":167,"resolve_rate":0.778},{"type":"ไฟส่องสว่าง","count":155,"resolve_rate":0.959},{"type":"อื่นๆ","count":148,"resolve_rate":0.831},{"type":"ความปลอดภัย","count":107,"resolve_rate":0.707},{"type":"น้ำท่วม","count":76,"resolve_rate":0.495}],"monthly":[{"month":"ม.ค.","count":63,"resolved":41},{"month":"ก.พ.","count":68,"resolved":45},{"month":"มี.ค.","count":85,"resolved":56},{"month":"เม.ย.","count":78,"resolved":51},{"month":"พ.ค.","count":69,"resolved":45},{"month":"มิ.ย.","count":81,"resolved":53},{"month":"ก.ค.","count":75,"resolved":49},{"month":"ส.ค.","count":100,"resolved":66},{"month":"ก.ย.","count":80,"resolved":53},{"month":"ต.ค.","count":74,"resolved":49},{"month":"พ.ย.","count":97,"resolved":64},{"month":"ธ.ค.","count":103,"resolved":68}]},"ลาดพร้าว":{"total":1463,"resolved":1036,"avg_days":11.2,"top_problems":[{"type":"ถนน/ทางเท้า","count":454,"resolve_rate":0.568},{"type":"อื่นๆ","count":297,"resolve_rate":0.771},{"type":"ไฟส่องสว่าง","count":265,"resolve_rate":0.884},{"type":"ขยะ","count":181,"resolve_rate":0.879},{"type":"ความปลอดภัย","count":153,"resolve_rate":0.632},{"type":"น้ำท่วม","count":113,"resolve_rate":0.661}],"monthly":[{"month":"ม.ค.","count":88,"resolved":62},{"month":"ก.พ.","count":91,"resolved":64},{"month":"มี.ค.","count":89,"resolved":63},{"month":"เม.ย.","count":122,"resolved":86},{"month":"พ.ค.","count":101,"resolved":71},{"month":"มิ.ย.","count":132,"resolved":93},{"month":"ก.ค.","count":119,"resolved":84},{"month":"ส.ค.","count":131,"resolved":92},{"month":"ก.ย.","count":137,"resolved":97},{"month":"ต.ค.","count":110,"resolved":77},{"month":"พ.ย.","count":109,"resolved":77},{"month":"ธ.ค.","count":139,"resolved":98}]},"สายไหม":{"total":3287,"resolved":2206,"avg_days":12.5,"top_problems":[{"type":"ถนน/ทางเท้า","count":1010,"resolve_rate":0.711},{"type":"อื่นๆ","count":754,"resolve_rate":0.68},{"type":"ความปลอดภัย","count":446,"resolve_rate":0.639},{"type":"ไฟส่องสว่าง","count":421,"resolve_rate":0.792},{"type":"ขยะ","count":404,"resolve_rate":0.9},{"type":"น้ำท่วม","count":252,"resolve_rate":0.424}],"monthly":[{"month":"ม.ค.","count":266,"resolved":178},{"month":"ก.พ.","count":266,"resolved":178},{"month":"มี.ค.","count":225,"resolved":151},{"month":"เม.ย.","count":268,"resolved":179},{"month":"พ.ค.","count":245,"resolved":164},{"month":"มิ.ย.","count":220,"resolved":147},{"month":"ก.ค.","count":223,"resolved":149},{"month":"ส.ค.","count":322,"resolved":216},{"month":"ก.ย.","count":289,"resolved":194},{"month":"ต.ค.","count":288,"resolved":193},{"month":"พ.ย.","count":348,"resolved":233},{"month":"ธ.ค.","count":294,"resolved":197}]},"วัฒนา":{"total":952,"resolved":826,"avg_days":4.2,"top_problems":[{"type":"ถนน/ทางเท้า","count":210,"resolve_rate":0.549},{"type":"ความปลอดภัย","count":189,"resolve_rate":0.579},{"type":"ไฟส่องสว่าง","count":175,"resolve_rate":0.864},{"type":"ขยะ","count":152,"resolve_rate":0.741},{"type":"อื่นๆ","count":131,"resolve_rate":0.618},{"type":"น้ำท่วม","count":95,"resolve_rate":0.699}],"monthly":[{"month":"ม.ค.","count":75,"resolved":65},{"month":"ก.พ.","count":58,"resolved":50},{"month":"มี.ค.","count":82,"resolved":71},{"month":"เม.ย.","count":79,"resolved":68},{"month":"พ.ค.","count":79,"resolved":68},{"month":"มิ.ย.","count":74,"resolved":64},{"month":"ก.ค.","count":70,"resolved":60},{"month":"ส.ค.","count":66,"resolved":57},{"month":"ก.ย.","count":77,"resolved":66},{"month":"ต.ค.","count":94,"resolved":81},{"month":"พ.ย.","count":84,"resolved":72},{"month":"ธ.ค.","count":77,"resolved":66}]},"บางกะปิ":{"total":1466,"resolved":1256,"avg_days":4.4,"top_problems":[{"type":"ถนน/ทางเท้า","count":331,"resolve_rate":0.472},{"type":"ไฟส่องสว่าง","count":322,"resolve_rate":0.933},{"type":"ความปลอดภัย","count":253,"resolve_rate":0.767},{"type":"ขยะ","count":241,"resolve_rate":0.843},{"type":"อื่นๆ","count":169,"resolve_rate":0.67},{"type":"น้ำท่วม","count":150,"resolve_rate":0.692}],"monthly":[{"month":"ม.ค.","count":106,"resolved":90},{"month":"ก.พ.","count":90,"resolved":77},{"month":"มี.ค.","count":112,"resolved":96},{"month":"เม.ย.","count":118,"resolved":101},{"month":"พ.ค.","count":124,"resolved":106},{"month":"มิ.ย.","count":117,"resolved":100},{"month":"ก.ค.","count":107,"resolved":91},{"month":"ส.ค.","count":130,"resolved":111},{"month":"ก.ย.","count":132,"resolved":113},{"month":"ต.ค.","count":152,"resolved":130},{"month":"พ.ย.","count":156,"resolved":133},{"month":"ธ.ค.","count":126,"resolved":108}]},"บางกอกใหญ่":{"total":1371,"resolved":1057,"avg_days":7.3,"top_problems":[{"type":"ความปลอดภัย","count":303,"resolve_rate":0.76},{"type":"ไฟส่องสว่าง","count":298,"resolve_rate":0.907},{"type":"อื่นๆ","count":245,"resolve_rate":0.696},{"type":"ถนน/ทางเท้า","count":241,"resolve_rate":0.561},{"type":"ขยะ","count":175,"resolve_rate":0.869},{"type":"น้ำท่วม","count":109,"resolve_rate":0.621}],"monthly":[{"month":"ม.ค.","count":95,"resolved":73},{"month":"ก.พ.","count":107,"resolved":82},{"month":"มี.ค.","count":97,"resolved":74},{"month":"เม.ย.","count":99,"resolved":76},{"month":"พ.ค.","count":94,"resolved":72},{"month":"มิ.ย.","count":127,"resolved":97},{"month":"ก.ค.","count":113,"resolved":87},{"month":"ส.ค.","count":109,"resolved":84},{"month":"ก.ย.","count":114,"resolved":87},{"month":"ต.ค.","count":115,"resolved":88},{"month":"พ.ย.","count":127,"resolved":97},{"month":"ธ.ค.","count":151,"resolved":116}]},"ตลิ่งชัน":{"total":1412,"resolved":1045,"avg_days":4.7,"top_problems":[{"type":"น้ำท่วม","count":477,"resolve_rate":0.428},{"type":"ความปลอดภัย","count":223,"resolve_rate":0.596},{"type":"ถนน/ทางเท้า","count":218,"resolve_rate":0.498},{"type":"อื่นๆ","count":177,"resolve_rate":0.793},{"type":"ขยะ","count":159,"resolve_rate":0.821},{"type":"ไฟส่องสว่าง","count":158,"resolve_rate":0.959}],"monthly":[{"month":"ม.ค.","count":114,"resolved":84},{"month":"ก.พ.","count":106,"resolved":78},{"month":"มี.ค.","count":101,"resolved":74},{"month":"เม.ย.","count":112,"resolved":82},{"month":"พ.ค.","count":106,"resolved":78},{"month":"มิ.ย.","count":125,"resolved":92},{"month":"ก.ค.","count":118,"resolved":87},{"month":"ส.ค.","count":107,"resolved":79},{"month":"ก.ย.","count":126,"resolved":93},{"month":"ต.ค.","count":146,"resolved":108},{"month":"พ.ย.","count":103,"resolved":76},{"month":"ธ.ค.","count":139,"resolved":102}]},"ทวีวัฒนา":{"total":1670,"resolved":1100,"avg_days":10,"top_problems":[{"type":"อื่นๆ","count":421,"resolve_rate":0.803},{"type":"ความปลอดภัย","count":353,"resolve_rate":0.586},{"type":"ถนน/ทางเท้า","count":326,"resolve_rate":0.729},{"type":"ขยะ","count":237,"resolve_rate":0.895},{"type":"ไฟส่องสว่าง","count":185,"resolve_rate":0.774},{"type":"น้ำท่วม","count":148,"resolve_rate":0.433}],"monthly":[{"month":"ม.ค.","count":116,"resolved":76},{"month":"ก.พ.","count":119,"resolved":78},{"month":"มี.ค.","count":107,"resolved":70},{"month":"เม.ย.","count":152,"resolved":100},{"month":"พ.ค.","count":112,"resolved":73},{"month":"มิ.ย.","count":126,"resolved":83},{"month":"ก.ค.","count":152,"resolved":100},{"month":"ส.ค.","count":165,"resolved":108},{"month":"ก.ย.","count":174,"resolved":114},{"month":"ต.ค.","count":138,"resolved":90},{"month":"พ.ย.","count":175,"resolved":115},{"month":"ธ.ค.","count":159,"resolved":104}]},"วังทองหลาง":{"total":1861,"resolved":1144,"avg_days":12.6,"top_problems":[{"type":"ไฟส่องสว่าง","count":470,"resolve_rate":0.736},{"type":"ถนน/ทางเท้า","count":351,"resolve_rate":0.599},{"type":"อื่นๆ","count":333,"resolve_rate":0.809},{"type":"ความปลอดภัย","count":293,"resolve_rate":0.768},{"type":"ขยะ","count":255,"resolve_rate":0.876},{"type":"น้ำท่วม","count":159,"resolve_rate":0.44}],"monthly":[{"month":"ม.ค.","count":110,"resolved":67},{"month":"ก.พ.","count":143,"resolved":87},{"month":"มี.ค.","count":158,"resolved":97},{"month":"เม.ย.","count":142,"resolved":87},{"month":"พ.ค.","count":165,"resolved":101},{"month":"มิ.ย.","count":148,"resolved":91},{"month":"ก.ค.","count":156,"resolved":95},{"month":"ส.ค.","count":161,"resolved":99},{"month":"ก.ย.","count":144,"resolved":88},{"month":"ต.ค.","count":194,"resolved":119},{"month":"พ.ย.","count":193,"resolved":118},{"month":"ธ.ค.","count":162,"resolved":99}]},"บางพลัด":{"total":1702,"resolved":1184,"avg_days":9,"top_problems":[{"type":"ไฟส่องสว่าง","count":374,"resolve_rate":0.958},{"type":"ถนน/ทางเท้า","count":333,"resolve_rate":0.708},{"type":"ความปลอดภัย","count":303,"resolve_rate":0.594},{"type":"อื่นๆ","count":299,"resolve_rate":0.674},{"type":"ขยะ","count":242,"resolve_rate":0.696},{"type":"น้ำท่วม","count":151,"resolve_rate":0.442}],"monthly":[{"month":"ม.ค.","count":125,"resolved":87},{"month":"ก.พ.","count":124,"resolved":86},{"month":"มี.ค.","count":128,"resolved":89},{"month":"เม.ย.","count":148,"resolved":103},{"month":"พ.ค.","count":113,"resolved":78},{"month":"มิ.ย.","count":128,"resolved":89},{"month":"ก.ค.","count":121,"resolved":84},{"month":"ส.ค.","count":142,"resolved":98},{"month":"ก.ย.","count":152,"resolved":105},{"month":"ต.ค.","count":151,"resolved":105},{"month":"พ.ย.","count":169,"resolved":117},{"month":"ธ.ค.","count":157,"resolved":109}]},"บางกอกน้อย":{"total":1335,"resolved":1087,"avg_days":5.5,"top_problems":[{"type":"ความปลอดภัย","count":308,"resolve_rate":0.799},{"type":"ถนน/ทางเท้า","count":274,"resolve_rate":0.597},{"type":"ไฟส่องสว่าง","count":222,"resolve_rate":0.822},{"type":"อื่นๆ","count":208,"resolve_rate":0.859},{"type":"ขยะ","count":199,"resolve_rate":0.811},{"type":"น้ำท่วม","count":124,"resolve_rate":0.47}],"monthly":[{"month":"ม.ค.","count":99,"resolved":80},{"month":"ก.พ.","count":98,"resolved":79},{"month":"มี.ค.","count":81,"resolved":65},{"month":"เม.ย.","count":89,"resolved":72},{"month":"พ.ค.","count":115,"resolved":93},{"month":"มิ.ย.","count":97,"resolved":79},{"month":"ก.ค.","count":101,"resolved":82},{"month":"ส.ค.","count":99,"resolved":80},{"month":"ก.ย.","count":107,"resolved":87},{"month":"ต.ค.","count":98,"resolved":79},{"month":"พ.ย.","count":117,"resolved":95},{"month":"ธ.ค.","count":116,"resolved":94}]},"หนองแขม":{"total":1858,"resolved":1629,"avg_days":13.4,"top_problems":[{"type":"อื่นๆ","count":414,"resolve_rate":0.871},{"type":"ถนน/ทางเท้า","count":377,"resolve_rate":0.648},{"type":"ไฟส่องสว่าง","count":345,"resolve_rate":0.922},{"type":"ความปลอดภัย","count":277,"resolve_rate":0.746},{"type":"ขยะ","count":274,"resolve_rate":0.772},{"type":"น้ำท่วม","count":171,"resolve_rate":0.633}],"monthly":[{"month":"ม.ค.","count":138,"resolved":121},{"month":"ก.พ.","count":125,"resolved":109},{"month":"มี.ค.","count":141,"resolved":123},{"month":"เม.ย.","count":132,"resolved":115},{"month":"พ.ค.","count":147,"resolved":128},{"month":"มิ.ย.","count":143,"resolved":125},{"month":"ก.ค.","count":154,"resolved":135},{"month":"ส.ค.","count":136,"resolved":119},{"month":"ก.ย.","count":153,"resolved":134},{"month":"ต.ค.","count":181,"resolved":158},{"month":"พ.ย.","count":157,"resolved":137},{"month":"ธ.ค.","count":170,"resolved":149}]},"บางแค":{"total":1100,"resolved":713,"avg_days":6.5,"top_problems":[{"type":"ไฟส่องสว่าง","count":227,"resolve_rate":0.951},{"type":"ความปลอดภัย","count":225,"resolve_rate":0.747},{"type":"ถนน/ทางเท้า","count":221,"resolve_rate":0.635},{"type":"อื่นๆ","count":166,"resolve_rate":0.679},{"type":"ขยะ","count":161,"resolve_rate":0.845},{"type":"น้ำท่วม","count":100,"resolve_rate":0.669}],"monthly":[{"month":"ม.ค.","count":79,"resolved":51},{"month":"ก.พ.","count":69,"resolved":44},{"month":"มี.ค.","count":75,"resolved":48},{"month":"เม.ย.","count":93,"resolved":60},{"month":"พ.ค.","count":101,"resolved":65},{"month":"มิ.ย.","count":94,"resolved":60},{"month":"ก.ค.","count":91,"resolved":59},{"month":"ส.ค.","count":108,"resolved":70},{"month":"ก.ย.","count":83,"resolved":53},{"month":"ต.ค.","count":109,"resolved":70},{"month":"พ.ย.","count":81,"resolved":52},{"month":"ธ.ค.","count":116,"resolved":75}]},"บึงกุ่ม":{"total":1493,"resolved":900,"avg_days":6.5,"top_problems":[{"type":"ความปลอดภัย","count":331,"resolve_rate":0.699},{"type":"ถนน/ทางเท้า","count":299,"resolve_rate":0.514},{"type":"ไฟส่องสว่าง","count":268,"resolve_rate":0.953},{"type":"อื่นๆ","count":242,"resolve_rate":0.876},{"type":"ขยะ","count":217,"resolve_rate":0.751},{"type":"น้ำท่วม","count":136,"resolve_rate":0.376}],"monthly":[{"month":"ม.ค.","count":107,"resolved":64},{"month":"ก.พ.","count":93,"resolved":56},{"month":"มี.ค.","count":124,"resolved":74},{"month":"เม.ย.","count":93,"resolved":56},{"month":"พ.ค.","count":134,"resolved":80},{"month":"มิ.ย.","count":130,"resolved":78},{"month":"ก.ค.","count":107,"resolved":64},{"month":"ส.ค.","count":146,"resolved":88},{"month":"ก.ย.","count":152,"resolved":91},{"month":"ต.ค.","count":138,"resolved":83},{"month":"พ.ย.","count":138,"resolved":83},{"month":"ธ.ค.","count":136,"resolved":82}]},"คันนายาว":{"total":1201,"resolved":1040,"avg_days":5,"top_problems":[{"type":"ถนน/ทางเท้า","count":384,"resolve_rate":0.496},{"type":"ไฟส่องสว่าง","count":280,"resolve_rate":0.921},{"type":"ขยะ","count":153,"resolve_rate":0.651},{"type":"ความปลอดภัย","count":151,"resolve_rate":0.629},{"type":"อื่นๆ","count":137,"resolve_rate":0.769},{"type":"น้ำท่วม","count":96,"resolve_rate":0.606}],"monthly":[{"month":"ม.ค.","count":69,"resolved":59},{"month":"ก.พ.","count":95,"resolved":82},{"month":"มี.ค.","count":72,"resolved":62},{"month":"เม.ย.","count":101,"resolved":87},{"month":"พ.ค.","count":97,"resolved":84},{"month":"มิ.ย.","count":107,"resolved":92},{"month":"ก.ค.","count":96,"resolved":83},{"month":"ส.ค.","count":112,"resolved":97},{"month":"ก.ย.","count":88,"resolved":76},{"month":"ต.ค.","count":116,"resolved":100},{"month":"พ.ย.","count":98,"resolved":84},{"month":"ธ.ค.","count":110,"resolved":95}]},"ภาษีเจริญ":{"total":942,"resolved":777,"avg_days":13.8,"top_problems":[{"type":"ไฟส่องสว่าง","count":256,"resolve_rate":0.88},{"type":"ถนน/ทางเท้า","count":200,"resolve_rate":0.728},{"type":"ขยะ","count":145,"resolve_rate":0.857},{"type":"อื่นๆ","count":133,"resolve_rate":0.82},{"type":"ความปลอดภัย","count":117,"resolve_rate":0.621},{"type":"น้ำท่วม","count":91,"resolve_rate":0.594}],"monthly":[{"month":"ม.ค.","count":58,"resolved":47},{"month":"ก.พ.","count":81,"resolved":66},{"month":"มี.ค.","count":67,"resolved":55},{"month":"เม.ย.","count":60,"resolved":49},{"month":"พ.ค.","count":66,"resolved":54},{"month":"มิ.ย.","count":87,"resolved":71},{"month":"ก.ค.","count":92,"resolved":75},{"month":"ส.ค.","count":74,"resolved":61},{"month":"ก.ย.","count":78,"resolved":64},{"month":"ต.ค.","count":68,"resolved":56},{"month":"พ.ย.","count":102,"resolved":84},{"month":"ธ.ค.","count":103,"resolved":84}]},"คลองสามวา":{"total":2297,"resolved":1547,"avg_days":13.9,"top_problems":[{"type":"น้ำท่วม","count":759,"resolve_rate":0.389},{"type":"ไฟส่องสว่าง","count":409,"resolve_rate":0.754},{"type":"ถนน/ทางเท้า","count":348,"resolve_rate":0.576},{"type":"ความปลอดภัย","count":278,"resolve_rate":0.691},{"type":"ขยะ","count":253,"resolve_rate":0.827},{"type":"อื่นๆ","count":250,"resolve_rate":0.768}],"monthly":[{"month":"ม.ค.","count":173,"resolved":116},{"month":"ก.พ.","count":155,"resolved":104},{"month":"มี.ค.","count":177,"resolved":119},{"month":"เม.ย.","count":151,"resolved":101},{"month":"พ.ค.","count":187,"resolved":125},{"month":"มิ.ย.","count":212,"resolved":142},{"month":"ก.ค.","count":205,"resolved":138},{"month":"ส.ค.","count":167,"resolved":112},{"month":"ก.ย.","count":224,"resolved":150},{"month":"ต.ค.","count":168,"resolved":113},{"month":"พ.ย.","count":227,"resolved":152},{"month":"ธ.ค.","count":201,"resolved":135}]},"บางนา":{"total":1156,"resolved":855,"avg_days":13,"top_problems":[{"type":"น้ำท่วม","count":389,"resolve_rate":0.681},{"type":"ความปลอดภัย","count":241,"resolve_rate":0.615},{"type":"ถนน/ทางเท้า","count":178,"resolve_rate":0.496},{"type":"ขยะ","count":129,"resolve_rate":0.672},{"type":"อื่นๆ","count":120,"resolve_rate":0.703},{"type":"ไฟส่องสว่าง","count":99,"resolve_rate":0.722}],"monthly":[{"month":"ม.ค.","count":85,"resolved":62},{"month":"ก.พ.","count":67,"resolved":49},{"month":"มี.ค.","count":103,"resolved":76},{"month":"เม.ย.","count":81,"resolved":59},{"month":"พ.ค.","count":104,"resolved":76},{"month":"มิ.ย.","count":96,"resolved":71},{"month":"ก.ค.","count":81,"resolved":59},{"month":"ส.ค.","count":90,"resolved":66},{"month":"ก.ย.","count":85,"resolved":62},{"month":"ต.ค.","count":85,"resolved":62},{"month":"พ.ย.","count":124,"resolved":91},{"month":"ธ.ค.","count":93,"resolved":68}]},"มีนบุรี":{"total":1386,"resolved":1155,"avg_days":11.2,"top_problems":[{"type":"น้ำท่วม","count":449,"resolve_rate":0.376},{"type":"อื่นๆ","count":257,"resolve_rate":0.626},{"type":"ไฟส่องสว่าง","count":213,"resolve_rate":0.869},{"type":"ถนน/ทางเท้า","count":206,"resolve_rate":0.536},{"type":"ขยะ","count":149,"resolve_rate":0.852},{"type":"ความปลอดภัย","count":112,"resolve_rate":0.82}],"monthly":[{"month":"ม.ค.","count":79,"resolved":65},{"month":"ก.พ.","count":110,"resolved":91},{"month":"มี.ค.","count":95,"resolved":79},{"month":"เม.ย.","count":116,"resolved":96},{"month":"พ.ค.","count":98,"resolved":81},{"month":"มิ.ย.","count":95,"resolved":79},{"month":"ก.ค.","count":110,"resolved":91},{"month":"ส.ค.","count":104,"resolved":86},{"month":"ก.ย.","count":135,"resolved":112},{"month":"ต.ค.","count":126,"resolved":105},{"month":"พ.ย.","count":112,"resolved":93},{"month":"ธ.ค.","count":129,"resolved":107}]},"ประเวศ":{"total":1654,"resolved":1476,"avg_days":12.3,"top_problems":[{"type":"ความปลอดภัย","count":402,"resolve_rate":0.704},{"type":"ถนน/ทางเท้า","count":340,"resolve_rate":0.758},{"type":"ไฟส่องสว่าง","count":309,"resolve_rate":0.854},{"type":"ขยะ","count":247,"resolve_rate":0.882},{"type":"อื่นๆ","count":202,"resolve_rate":0.719},{"type":"น้ำท่วม","count":154,"resolve_rate":0.664}],"monthly":[{"month":"ม.ค.","count":115,"resolved":102},{"month":"ก.พ.","count":119,"resolved":106},{"month":"มี.ค.","count":128,"resolved":114},{"month":"เม.ย.","count":111,"resolved":99},{"month":"พ.ค.","count":125,"resolved":111},{"month":"มิ.ย.","count":118,"resolved":105},{"month":"ก.ค.","count":125,"resolved":111},{"month":"ส.ค.","count":153,"resolved":136},{"month":"ก.ย.","count":170,"resolved":151},{"month":"ต.ค.","count":149,"resolved":133},{"month":"พ.ย.","count":131,"resolved":116},{"month":"ธ.ค.","count":130,"resolved":116}]},"สะพานสูง":{"total":1645,"resolved":1133,"avg_days":7.3,"top_problems":[{"type":"อื่นๆ","count":404,"resolve_rate":0.657},{"type":"ถนน/ทางเท้า","count":355,"resolve_rate":0.609},{"type":"ความปลอดภัย","count":298,"resolve_rate":0.819},{"type":"ขยะ","count":258,"resolve_rate":0.822},{"type":"ไฟส่องสว่าง","count":169,"resolve_rate":0.797},{"type":"น้ำท่วม","count":161,"resolve_rate":0.541}],"monthly":[{"month":"ม.ค.","count":95,"resolved":65},{"month":"ก.พ.","count":101,"resolved":69},{"month":"มี.ค.","count":118,"resolved":81},{"month":"เม.ย.","count":115,"resolved":79},{"month":"พ.ค.","count":130,"resolved":89},{"month":"มิ.ย.","count":129,"resolved":88},{"month":"ก.ค.","count":161,"resolved":110},{"month":"ส.ค.","count":162,"resolved":111},{"month":"ก.ย.","count":167,"resolved":115},{"month":"ต.ค.","count":121,"resolved":83},{"month":"พ.ย.","count":155,"resolved":106},{"month":"ธ.ค.","count":177,"resolved":122}]},"พระโขนง":{"total":1272,"resolved":1064,"avg_days":12.6,"top_problems":[{"type":"อื่นๆ","count":310,"resolve_rate":0.753},{"type":"ถนน/ทางเท้า","count":242,"resolve_rate":0.538},{"type":"ความปลอดภัย","count":224,"resolve_rate":0.811},{"type":"ไฟส่องสว่าง","count":210,"resolve_rate":0.729},{"type":"ขยะ","count":176,"resolve_rate":0.689},{"type":"น้ำท่วม","count":110,"resolve_rate":0.571}],"monthly":[{"month":"ม.ค.","count":93,"resolved":77},{"month":"ก.พ.","count":86,"resolved":71},{"month":"มี.ค.","count":98,"resolved":82},{"month":"เม.ย.","count":96,"resolved":80},{"month":"พ.ค.","count":97,"resolved":81},{"month":"มิ.ย.","count":111,"resolved":92},{"month":"ก.ค.","count":101,"resolved":84},{"month":"ส.ค.","count":91,"resolved":76},{"month":"ก.ย.","count":124,"resolved":103},{"month":"ต.ค.","count":124,"resolved":103},{"month":"พ.ย.","count":94,"resolved":78},{"month":"ธ.ค.","count":141,"resolved":118}]},"สวนหลวง":{"total":1839,"resolved":1138,"avg_days":7.9,"top_problems":[{"type":"อื่นๆ","count":392,"resolve_rate":0.749},{"type":"ถนน/ทางเท้า","count":388,"resolve_rate":0.585},{"type":"ไฟส่องสว่าง","count":327,"resolve_rate":0.794},{"type":"ขยะ","count":282,"resolve_rate":0.763},{"type":"ความปลอดภัย","count":274,"resolve_rate":0.658},{"type":"น้ำท่วม","count":176,"resolve_rate":0.545}],"monthly":[{"month":"ม.ค.","count":127,"resolved":78},{"month":"ก.พ.","count":137,"resolved":84},{"month":"มี.ค.","count":159,"resolved":98},{"month":"เม.ย.","count":146,"resolved":90},{"month":"พ.ค.","count":140,"resolved":86},{"month":"มิ.ย.","count":169,"resolved":104},{"month":"ก.ค.","count":122,"resolved":75},{"month":"ส.ค.","count":133,"resolved":82},{"month":"ก.ย.","count":171,"resolved":105},{"month":"ต.ค.","count":145,"resolved":89},{"month":"พ.ย.","count":175,"resolved":108},{"month":"ธ.ค.","count":175,"resolved":108}]},"จอมทอง":{"total":1548,"resolved":981,"avg_days":12.4,"top_problems":[{"type":"ความปลอดภัย","count":354,"resolve_rate":0.742},{"type":"ถนน/ทางเท้า","count":350,"resolve_rate":0.553},{"type":"ขยะ","count":254,"resolve_rate":0.902},{"type":"ไฟส่องสว่าง","count":252,"resolve_rate":0.726},{"type":"อื่นๆ","count":179,"resolve_rate":0.713},{"type":"น้ำท่วม","count":159,"resolve_rate":0.496}],"monthly":[{"month":"ม.ค.","count":99,"resolved":62},{"month":"ก.พ.","count":129,"resolved":81},{"month":"มี.ค.","count":120,"resolved":76},{"month":"เม.ย.","count":140,"resolved":88},{"month":"พ.ค.","count":140,"resolved":88},{"month":"มิ.ย.","count":101,"resolved":64},{"month":"ก.ค.","count":134,"resolved":84},{"month":"ส.ค.","count":127,"resolved":80},{"month":"ก.ย.","count":157,"resolved":99},{"month":"ต.ค.","count":113,"resolved":71},{"month":"พ.ย.","count":127,"resolved":80},{"month":"ธ.ค.","count":119,"resolved":75}]},"ราษฎร์บูรณะ":{"total":1045,"resolved":690,"avg_days":8.1,"top_problems":[{"type":"น้ำท่วม","count":347,"resolve_rate":0.496},{"type":"ความปลอดภัย","count":177,"resolve_rate":0.743},{"type":"ถนน/ทางเท้า","count":159,"resolve_rate":0.452},{"type":"อื่นๆ","count":142,"resolve_rate":0.702},{"type":"ขยะ","count":115,"resolve_rate":0.746},{"type":"ไฟส่องสว่าง","count":105,"resolve_rate":0.802}],"monthly":[{"month":"ม.ค.","count":66,"resolved":43},{"month":"ก.พ.","count":90,"resolved":59},{"month":"มี.ค.","count":80,"resolved":52},{"month":"เม.ย.","count":91,"resolved":60},{"month":"พ.ค.","count":86,"resolved":56},{"month":"มิ.ย.","count":82,"resolved":54},{"month":"ก.ค.","count":86,"resolved":56},{"month":"ส.ค.","count":74,"resolved":48},{"month":"ก.ย.","count":101,"resolved":66},{"month":"ต.ค.","count":80,"resolved":52},{"month":"พ.ย.","count":114,"resolved":75},{"month":"ธ.ค.","count":116,"resolved":76}]},"ทุ่งครุ":{"total":1386,"resolved":1041,"avg_days":12.3,"top_problems":[{"type":"ถนน/ทางเท้า","count":331,"resolve_rate":0.551},{"type":"ขยะ","count":241,"resolve_rate":0.817},{"type":"ความปลอดภัย","count":239,"resolve_rate":0.729},{"type":"อื่นๆ","count":219,"resolve_rate":0.86},{"type":"ไฟส่องสว่าง","count":206,"resolve_rate":0.872},{"type":"น้ำท่วม","count":150,"resolve_rate":0.664}],"monthly":[{"month":"ม.ค.","count":108,"resolved":81},{"month":"ก.พ.","count":95,"resolved":71},{"month":"มี.ค.","count":105,"resolved":78},{"month":"เม.ย.","count":123,"resolved":92},{"month":"พ.ค.","count":107,"resolved":80},{"month":"มิ.ย.","count":134,"resolved":100},{"month":"ก.ค.","count":102,"resolved":76},{"month":"ส.ค.","count":118,"resolved":88},{"month":"ก.ย.","count":119,"resolved":89},{"month":"ต.ค.","count":136,"resolved":102},{"month":"พ.ย.","count":150,"resolved":112},{"month":"ธ.ค.","count":114,"resolved":85}]},"คลองสาน":{"total":873,"resolved":637,"avg_days":7.3,"top_problems":[{"type":"ไฟส่องสว่าง","count":202,"resolve_rate":0.856},{"type":"ถนน/ทางเท้า","count":197,"resolve_rate":0.705},{"type":"ขยะ","count":143,"resolve_rate":0.735},{"type":"อื่นๆ","count":122,"resolve_rate":0.832},{"type":"ความปลอดภัย","count":120,"resolve_rate":0.779},{"type":"น้ำท่วม","count":89,"resolve_rate":0.665}],"monthly":[{"month":"ม.ค.","count":52,"resolved":37},{"month":"ก.พ.","count":63,"resolved":46},{"month":"มี.ค.","count":74,"resolved":54},{"month":"เม.ย.","count":72,"resolved":52},{"month":"พ.ค.","count":77,"resolved":56},{"month":"มิ.ย.","count":84,"resolved":61},{"month":"ก.ค.","count":68,"resolved":49},{"month":"ส.ค.","count":68,"resolved":49},{"month":"ก.ย.","count":74,"resolved":54},{"month":"ต.ค.","count":66,"resolved":48},{"month":"พ.ย.","count":72,"resolved":52},{"month":"ธ.ค.","count":68,"resolved":49}]},"ธนบุรี":{"total":1567,"resolved":1076,"avg_days":9.1,"top_problems":[{"type":"ความปลอดภัย","count":359,"resolve_rate":0.572},{"type":"ถนน/ทางเท้า","count":330,"resolve_rate":0.614},{"type":"อื่นๆ","count":305,"resolve_rate":0.742},{"type":"ขยะ","count":240,"resolve_rate":0.759},{"type":"ไฟส่องสว่าง","count":183,"resolve_rate":0.769},{"type":"น้ำท่วม","count":150,"resolve_rate":0.449}],"monthly":[{"month":"ม.ค.","count":123,"resolved":84},{"month":"ก.พ.","count":135,"resolved":92},{"month":"มี.ค.","count":114,"resolved":78},{"month":"เม.ย.","count":106,"resolved":72},{"month":"พ.ค.","count":105,"resolved":72},{"month":"มิ.ย.","count":150,"resolved":103},{"month":"ก.ค.","count":142,"resolved":97},{"month":"ส.ค.","count":116,"resolved":79},{"month":"ก.ย.","count":110,"resolved":75},{"month":"ต.ค.","count":148,"resolved":101},{"month":"พ.ย.","count":151,"resolved":103},{"month":"ธ.ค.","count":168,"resolved":115}]},"บางบอน":{"total":1474,"resolved":1237,"avg_days":14,"top_problems":[{"type":"อื่นๆ","count":312,"resolve_rate":0.633},{"type":"ไฟส่องสว่าง","count":287,"resolve_rate":0.767},{"type":"ถนน/ทางเท้า","count":281,"resolve_rate":0.675},{"type":"ความปลอดภัย","count":263,"resolve_rate":0.587},{"type":"ขยะ","count":204,"resolve_rate":0.707},{"type":"น้ำท่วม","count":127,"resolve_rate":0.504}],"monthly":[{"month":"ม.ค.","count":118,"resolved":99},{"month":"ก.พ.","count":112,"resolved":94},{"month":"มี.ค.","count":129,"resolved":108},{"month":"เม.ย.","count":115,"resolved":96},{"month":"พ.ค.","count":97,"resolved":81},{"month":"มิ.ย.","count":123,"resolved":103},{"month":"ก.ค.","count":136,"resolved":114},{"month":"ส.ค.","count":147,"resolved":123},{"month":"ก.ย.","count":107,"resolved":89},{"month":"ต.ค.","count":128,"resolved":107},{"month":"พ.ย.","count":152,"resolved":127},{"month":"ธ.ค.","count":147,"resolved":123}]},"บางขุนเทียน":{"total":2198,"resolved":1723,"avg_days":10.9,"top_problems":[{"type":"น้ำท่วม","count":692,"resolve_rate":0.537},{"type":"อื่นๆ","count":425,"resolve_rate":0.647},{"type":"ไฟส่องสว่าง","count":372,"resolve_rate":0.721},{"type":"ถนน/ทางเท้า","count":317,"resolve_rate":0.471},{"type":"ขยะ","count":230,"resolve_rate":0.857},{"type":"ความปลอดภัย","count":162,"resolve_rate":0.742}],"monthly":[{"month":"ม.ค.","count":177,"resolved":138},{"month":"ก.พ.","count":139,"resolved":108},{"month":"มี.ค.","count":162,"resolved":127},{"month":"เม.ย.","count":170,"resolved":133},{"month":"พ.ค.","count":178,"resolved":139},{"month":"มิ.ย.","count":177,"resolved":138},{"month":"ก.ค.","count":194,"resolved":152},{"month":"ส.ค.","count":184,"resolved":144},{"month":"ก.ย.","count":209,"resolved":163},{"month":"ต.ค.","count":216,"resolved":169},{"month":"พ.ย.","count":241,"resolved":188},{"month":"ธ.ค.","count":188,"resolved":147}]},"สาทร":{"total":1175,"resolved":798,"avg_days":8.1,"top_problems":[{"type":"ไฟส่องสว่าง","count":272,"resolve_rate":0.77},{"type":"อื่นๆ","count":253,"resolve_rate":0.782},{"type":"ถนน/ทางเท้า","count":216,"resolve_rate":0.488},{"type":"ความปลอดภัย","count":179,"resolve_rate":0.653},{"type":"ขยะ","count":157,"resolve_rate":0.769},{"type":"น้ำท่วม","count":98,"resolve_rate":0.462}],"monthly":[{"month":"ม.ค.","count":92,"resolved":62},{"month":"ก.พ.","count":80,"resolved":54},{"month":"มี.ค.","count":85,"resolved":57},{"month":"เม.ย.","count":92,"resolved":62},{"month":"พ.ค.","count":91,"resolved":61},{"month":"มิ.ย.","count":89,"resolved":60},{"month":"ก.ค.","count":113,"resolved":76},{"month":"ส.ค.","count":114,"resolved":77},{"month":"ก.ย.","count":98,"resolved":66},{"month":"ต.ค.","count":115,"resolved":78},{"month":"พ.ย.","count":115,"resolved":78},{"month":"ธ.ค.","count":98,"resolved":66}]},"บางคอแหลม":{"total":1072,"resolved":917,"avg_days":10.1,"top_problems":[{"type":"ขยะ","count":343,"resolve_rate":0.888},{"type":"ความปลอดภัย","count":224,"resolve_rate":0.684},{"type":"ไฟส่องสว่าง","count":175,"resolve_rate":0.932},{"type":"ถนน/ทางเท้า","count":171,"resolve_rate":0.476},{"type":"อื่นๆ","count":81,"resolve_rate":0.818},{"type":"น้ำท่วม","count":78,"resolve_rate":0.54}],"monthly":[{"month":"ม.ค.","count":83,"resolved":71},{"month":"ก.พ.","count":81,"resolved":69},{"month":"มี.ค.","count":88,"resolved":75},{"month":"เม.ย.","count":80,"resolved":68},{"month":"พ.ค.","count":83,"resolved":71},{"month":"มิ.ย.","count":102,"resolved":87},{"month":"ก.ค.","count":87,"resolved":74},{"month":"ส.ค.","count":97,"resolved":82},{"month":"ก.ย.","count":76,"resolved":65},{"month":"ต.ค.","count":112,"resolved":95},{"month":"พ.ย.","count":113,"resolved":96},{"month":"ธ.ค.","count":108,"resolved":92}]},"ยานนาวา":{"total":898,"resolved":717,"avg_days":8.8,"top_problems":[{"type":"ขยะ","count":302,"resolve_rate":0.733},{"type":"ไฟส่องสว่าง","count":174,"resolve_rate":0.725},{"type":"ถนน/ทางเท้า","count":151,"resolve_rate":0.716},{"type":"ความปลอดภัย","count":115,"resolve_rate":0.705},{"type":"อื่นๆ","count":88,"resolve_rate":0.676},{"type":"น้ำท่วม","count":68,"resolve_rate":0.648}],"monthly":[{"month":"ม.ค.","count":58,"resolved":46},{"month":"ก.พ.","count":60,"resolved":47},{"month":"มี.ค.","count":66,"resolved":52},{"month":"เม.ย.","count":57,"resolved":45},{"month":"พ.ค.","count":64,"resolved":51},{"month":"มิ.ย.","count":63,"resolved":50},{"month":"ก.ค.","count":82,"resolved":65},{"month":"ส.ค.","count":89,"resolved":71},{"month":"ก.ย.","count":64,"resolved":51},{"month":"ต.ค.","count":65,"resolved":51},{"month":"พ.ย.","count":84,"resolved":67},{"month":"ธ.ค.","count":85,"resolved":67}]},"ลาดกระบัง":{"total":3341,"resolved":2410,"avg_days":9.2,"top_problems":[{"type":"น้ำท่วม","count":941,"resolve_rate":0.467},{"type":"ถนน/ทางเท้า","count":784,"resolve_rate":0.589},{"type":"อื่นๆ","count":540,"resolve_rate":0.658},{"type":"ไฟส่องสว่าง","count":433,"resolve_rate":0.721},{"type":"ความปลอดภัย","count":330,"resolve_rate":0.757},{"type":"ขยะ","count":313,"resolve_rate":0.666}],"monthly":[{"month":"ม.ค.","count":283,"resolved":204},{"month":"ก.พ.","count":264,"resolved":190},{"month":"มี.ค.","count":250,"resolved":180},{"month":"เม.ย.","count":279,"resolved":201},{"month":"พ.ค.","count":222,"resolved":160},{"month":"มิ.ย.","count":255,"resolved":183},{"month":"ก.ค.","count":284,"resolved":204},{"month":"ส.ค.","count":307,"resolved":221},{"month":"ก.ย.","count":234,"resolved":168},{"month":"ต.ค.","count":321,"resolved":231},{"month":"พ.ย.","count":294,"resolved":212},{"month":"ธ.ค.","count":321,"resolved":231}]},"หนองจอก":{"total":2512,"resolved":1468,"avg_days":5.7,"top_problems":[{"type":"น้ำท่วม","count":867,"resolve_rate":0.548},{"type":"ความปลอดภัย","count":505,"resolve_rate":0.821},{"type":"ถนน/ทางเท้า","count":397,"resolve_rate":0.705},{"type":"ขยะ","count":289,"resolve_rate":0.782},{"type":"ไฟส่องสว่าง","count":242,"resolve_rate":0.765},{"type":"อื่นๆ","count":212,"resolve_rate":0.721}],"monthly":[{"month":"ม.ค.","count":158,"resolved":92},{"month":"ก.พ.","count":164,"resolved":95},{"month":"มี.ค.","count":209,"resolved":122},{"month":"เม.ย.","count":206,"resolved":120},{"month":"พ.ค.","count":207,"resolved":121},{"month":"มิ.ย.","count":190,"resolved":111},{"month":"ก.ค.","count":203,"resolved":118},{"month":"ส.ค.","count":185,"resolved":108},{"month":"ก.ย.","count":186,"resolved":108},{"month":"ต.ค.","count":205,"resolved":119},{"month":"พ.ย.","count":263,"resolved":153},{"month":"ธ.ค.","count":242,"resolved":141}]}}}
+{
+  "metadata": {
+    "total": 38587,
+    "districts_count": 50,
+    "last_updated": "2026-06-18",
+    "source": "Traffy Fondue (live)"
+  },
+  "city_avg": {
+    "total": 38587,
+    "resolve_rate": 0.664,
+    "avg_days": 9.0
+  },
+  "problem_types": [
+    "ถนน/ทางเท้า",
+    "น้ำท่วม",
+    "ขยะ",
+    "ไฟส่องสว่าง",
+    "ความปลอดภัย",
+    "อื่นๆ"
+  ],
+  "districts": {
+    "จตุจักร": {
+      "total": 1927,
+      "resolved": 1295,
+      "avg_days": 7.5,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 599,
+          "resolve_rate": 0.729
+        },
+        {
+          "type": "ขยะ",
+          "count": 453,
+          "resolve_rate": 0.767
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 225,
+          "resolve_rate": 0.654
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 203,
+          "resolve_rate": 0.605
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 173,
+          "resolve_rate": 0.559
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 118,
+          "resolve_rate": 0.708
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 173,
+          "resolved": 103
+        },
+        {
+          "month": "ส.ค.",
+          "count": 178,
+          "resolved": 134
+        },
+        {
+          "month": "ก.ย.",
+          "count": 113,
+          "resolved": 85
+        },
+        {
+          "month": "ต.ค.",
+          "count": 190,
+          "resolved": 119
+        },
+        {
+          "month": "พ.ย.",
+          "count": 129,
+          "resolved": 102
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 150,
+          "resolved": 84
+        },
+        {
+          "month": "ม.ค.",
+          "count": 123,
+          "resolved": 94
+        },
+        {
+          "month": "ก.พ.",
+          "count": 180,
+          "resolved": 135
+        },
+        {
+          "month": "มี.ค.",
+          "count": 194,
+          "resolved": 132
+        },
+        {
+          "month": "เม.ย.",
+          "count": 221,
+          "resolved": 141
+        },
+        {
+          "month": "พ.ค.",
+          "count": 174,
+          "resolved": 132
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 181,
+          "resolved": 139
+        }
+      ]
+    },
+    "ดอนเมือง": {
+      "total": 1657,
+      "resolved": 1160,
+      "avg_days": 8.1,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 516,
+          "resolve_rate": 0.65
+        },
+        {
+          "type": "ขยะ",
+          "count": 303,
+          "resolve_rate": 0.636
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 194,
+          "resolve_rate": 0.647
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 227,
+          "resolve_rate": 0.668
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 141,
+          "resolve_rate": 0.631
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 105,
+          "resolve_rate": 0.805
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 159,
+          "resolved": 116
+        },
+        {
+          "month": "ส.ค.",
+          "count": 113,
+          "resolved": 86
+        },
+        {
+          "month": "ก.ย.",
+          "count": 112,
+          "resolved": 74
+        },
+        {
+          "month": "ต.ค.",
+          "count": 192,
+          "resolved": 142
+        },
+        {
+          "month": "พ.ย.",
+          "count": 150,
+          "resolved": 112
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 178,
+          "resolved": 138
+        },
+        {
+          "month": "ม.ค.",
+          "count": 118,
+          "resolved": 67
+        },
+        {
+          "month": "ก.พ.",
+          "count": 127,
+          "resolved": 80
+        },
+        {
+          "month": "มี.ค.",
+          "count": 117,
+          "resolved": 96
+        },
+        {
+          "month": "เม.ย.",
+          "count": 181,
+          "resolved": 117
+        },
+        {
+          "month": "พ.ค.",
+          "count": 160,
+          "resolved": 107
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 185,
+          "resolved": 127
+        }
+      ]
+    },
+    "บางเขน": {
+      "total": 1375,
+      "resolved": 858,
+      "avg_days": 10.3,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 435,
+          "resolve_rate": 0.645
+        },
+        {
+          "type": "ขยะ",
+          "count": 350,
+          "resolve_rate": 0.601
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 170,
+          "resolve_rate": 0.744
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 179,
+          "resolve_rate": 0.526
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 101,
+          "resolve_rate": 0.531
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 101,
+          "resolve_rate": 0.695
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 114,
+          "resolved": 58
+        },
+        {
+          "month": "ส.ค.",
+          "count": 110,
+          "resolved": 82
+        },
+        {
+          "month": "ก.ย.",
+          "count": 122,
+          "resolved": 90
+        },
+        {
+          "month": "ต.ค.",
+          "count": 149,
+          "resolved": 74
+        },
+        {
+          "month": "พ.ย.",
+          "count": 138,
+          "resolved": 92
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 123,
+          "resolved": 69
+        },
+        {
+          "month": "ม.ค.",
+          "count": 131,
+          "resolved": 69
+        },
+        {
+          "month": "ก.พ.",
+          "count": 115,
+          "resolved": 70
+        },
+        {
+          "month": "มี.ค.",
+          "count": 156,
+          "resolved": 112
+        },
+        {
+          "month": "เม.ย.",
+          "count": 101,
+          "resolved": 63
+        },
+        {
+          "month": "พ.ค.",
+          "count": 94,
+          "resolved": 68
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 150,
+          "resolved": 86
+        }
+      ]
+    },
+    "สายไหม": {
+      "total": 1375,
+      "resolved": 839,
+      "avg_days": 10.3,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 531,
+          "resolve_rate": 0.62
+        },
+        {
+          "type": "ขยะ",
+          "count": 336,
+          "resolve_rate": 0.618
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 154,
+          "resolve_rate": 0.569
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 144,
+          "resolve_rate": 0.714
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 142,
+          "resolve_rate": 0.69
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 88,
+          "resolve_rate": 0.505
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 150,
+          "resolved": 108
+        },
+        {
+          "month": "ส.ค.",
+          "count": 87,
+          "resolved": 52
+        },
+        {
+          "month": "ก.ย.",
+          "count": 85,
+          "resolved": 57
+        },
+        {
+          "month": "ต.ค.",
+          "count": 141,
+          "resolved": 73
+        },
+        {
+          "month": "พ.ย.",
+          "count": 118,
+          "resolved": 73
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 101,
+          "resolved": 70
+        },
+        {
+          "month": "ม.ค.",
+          "count": 114,
+          "resolved": 61
+        },
+        {
+          "month": "ก.พ.",
+          "count": 123,
+          "resolved": 82
+        },
+        {
+          "month": "มี.ค.",
+          "count": 96,
+          "resolved": 54
+        },
+        {
+          "month": "เม.ย.",
+          "count": 160,
+          "resolved": 103
+        },
+        {
+          "month": "พ.ค.",
+          "count": 115,
+          "resolved": 70
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 89,
+          "resolved": 48
+        }
+      ]
+    },
+    "คลองสามวา": {
+      "total": 1227,
+      "resolved": 685,
+      "avg_days": 13.0,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 381,
+          "resolve_rate": 0.456
+        },
+        {
+          "type": "ขยะ",
+          "count": 284,
+          "resolve_rate": 0.494
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 199,
+          "resolve_rate": 0.645
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 132,
+          "resolve_rate": 0.496
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 117,
+          "resolve_rate": 0.49
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 73,
+          "resolve_rate": 0.663
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 112,
+          "resolved": 61
+        },
+        {
+          "month": "ส.ค.",
+          "count": 127,
+          "resolved": 79
+        },
+        {
+          "month": "ก.ย.",
+          "count": 85,
+          "resolved": 39
+        },
+        {
+          "month": "ต.ค.",
+          "count": 102,
+          "resolved": 55
+        },
+        {
+          "month": "พ.ย.",
+          "count": 105,
+          "resolved": 64
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 119,
+          "resolved": 79
+        },
+        {
+          "month": "ม.ค.",
+          "count": 78,
+          "resolved": 41
+        },
+        {
+          "month": "ก.พ.",
+          "count": 95,
+          "resolved": 60
+        },
+        {
+          "month": "มี.ค.",
+          "count": 89,
+          "resolved": 43
+        },
+        {
+          "month": "เม.ย.",
+          "count": 103,
+          "resolved": 55
+        },
+        {
+          "month": "พ.ค.",
+          "count": 91,
+          "resolved": 45
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 137,
+          "resolved": 74
+        }
+      ]
+    },
+    "ลาดพร้าว": {
+      "total": 1341,
+      "resolved": 985,
+      "avg_days": 6.5,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 563,
+          "resolve_rate": 0.816
+        },
+        {
+          "type": "ขยะ",
+          "count": 350,
+          "resolve_rate": 0.837
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 213,
+          "resolve_rate": 0.655
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 173,
+          "resolve_rate": 0.666
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 115,
+          "resolve_rate": 0.629
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 89,
+          "resolve_rate": 0.852
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 98,
+          "resolved": 80
+        },
+        {
+          "month": "ส.ค.",
+          "count": 113,
+          "resolved": 80
+        },
+        {
+          "month": "ก.ย.",
+          "count": 153,
+          "resolved": 134
+        },
+        {
+          "month": "ต.ค.",
+          "count": 121,
+          "resolved": 96
+        },
+        {
+          "month": "พ.ย.",
+          "count": 90,
+          "resolved": 60
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 154,
+          "resolved": 116
+        },
+        {
+          "month": "ม.ค.",
+          "count": 120,
+          "resolved": 96
+        },
+        {
+          "month": "ก.พ.",
+          "count": 82,
+          "resolved": 62
+        },
+        {
+          "month": "มี.ค.",
+          "count": 117,
+          "resolved": 98
+        },
+        {
+          "month": "เม.ย.",
+          "count": 90,
+          "resolved": 78
+        },
+        {
+          "month": "พ.ค.",
+          "count": 84,
+          "resolved": 53
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 124,
+          "resolved": 97
+        }
+      ]
+    },
+    "วังทองหลาง": {
+      "total": 1086,
+      "resolved": 718,
+      "avg_days": 9.6,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 341,
+          "resolve_rate": 0.685
+        },
+        {
+          "type": "ขยะ",
+          "count": 250,
+          "resolve_rate": 0.643
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 157,
+          "resolve_rate": 0.667
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 165,
+          "resolve_rate": 0.591
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 106,
+          "resolve_rate": 0.599
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 72,
+          "resolve_rate": 0.703
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 82,
+          "resolved": 50
+        },
+        {
+          "month": "ส.ค.",
+          "count": 110,
+          "resolved": 60
+        },
+        {
+          "month": "ก.ย.",
+          "count": 92,
+          "resolved": 73
+        },
+        {
+          "month": "ต.ค.",
+          "count": 126,
+          "resolved": 69
+        },
+        {
+          "month": "พ.ย.",
+          "count": 76,
+          "resolved": 45
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 122,
+          "resolved": 93
+        },
+        {
+          "month": "ม.ค.",
+          "count": 119,
+          "resolved": 74
+        },
+        {
+          "month": "ก.พ.",
+          "count": 73,
+          "resolved": 54
+        },
+        {
+          "month": "มี.ค.",
+          "count": 107,
+          "resolved": 73
+        },
+        {
+          "month": "เม.ย.",
+          "count": 125,
+          "resolved": 87
+        },
+        {
+          "month": "พ.ค.",
+          "count": 63,
+          "resolved": 46
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 82,
+          "resolved": 57
+        }
+      ]
+    },
+    "มีนบุรี": {
+      "total": 1301,
+      "resolved": 693,
+      "avg_days": 11.4,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 383,
+          "resolve_rate": 0.546
+        },
+        {
+          "type": "ขยะ",
+          "count": 260,
+          "resolve_rate": 0.559
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 197,
+          "resolve_rate": 0.462
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 178,
+          "resolve_rate": 0.477
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 116,
+          "resolve_rate": 0.631
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 103,
+          "resolve_rate": 0.436
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 108,
+          "resolved": 52
+        },
+        {
+          "month": "ส.ค.",
+          "count": 76,
+          "resolved": 44
+        },
+        {
+          "month": "ก.ย.",
+          "count": 124,
+          "resolved": 59
+        },
+        {
+          "month": "ต.ค.",
+          "count": 132,
+          "resolved": 71
+        },
+        {
+          "month": "พ.ย.",
+          "count": 108,
+          "resolved": 46
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 81,
+          "resolved": 49
+        },
+        {
+          "month": "ม.ค.",
+          "count": 144,
+          "resolved": 78
+        },
+        {
+          "month": "ก.พ.",
+          "count": 139,
+          "resolved": 76
+        },
+        {
+          "month": "มี.ค.",
+          "count": 87,
+          "resolved": 39
+        },
+        {
+          "month": "เม.ย.",
+          "count": 99,
+          "resolved": 61
+        },
+        {
+          "month": "พ.ค.",
+          "count": 136,
+          "resolved": 83
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 144,
+          "resolved": 67
+        }
+      ]
+    },
+    "บึงกุ่ม": {
+      "total": 1008,
+      "resolved": 584,
+      "avg_days": 11.7,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 407,
+          "resolve_rate": 0.558
+        },
+        {
+          "type": "ขยะ",
+          "count": 232,
+          "resolve_rate": 0.497
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 165,
+          "resolve_rate": 0.668
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 156,
+          "resolve_rate": 0.655
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 104,
+          "resolve_rate": 0.466
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 77,
+          "resolve_rate": 0.54
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 113,
+          "resolved": 73
+        },
+        {
+          "month": "ส.ค.",
+          "count": 109,
+          "resolved": 71
+        },
+        {
+          "month": "ก.ย.",
+          "count": 74,
+          "resolved": 47
+        },
+        {
+          "month": "ต.ค.",
+          "count": 65,
+          "resolved": 43
+        },
+        {
+          "month": "พ.ย.",
+          "count": 109,
+          "resolved": 56
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 106,
+          "resolved": 60
+        },
+        {
+          "month": "ม.ค.",
+          "count": 76,
+          "resolved": 49
+        },
+        {
+          "month": "ก.พ.",
+          "count": 72,
+          "resolved": 33
+        },
+        {
+          "month": "มี.ค.",
+          "count": 70,
+          "resolved": 37
+        },
+        {
+          "month": "เม.ย.",
+          "count": 109,
+          "resolved": 75
+        },
+        {
+          "month": "พ.ค.",
+          "count": 75,
+          "resolved": 45
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 82,
+          "resolved": 56
+        }
+      ]
+    },
+    "ห้วยขวาง": {
+      "total": 1061,
+      "resolved": 842,
+      "avg_days": 6.0,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 441,
+          "resolve_rate": 0.717
+        },
+        {
+          "type": "ขยะ",
+          "count": 276,
+          "resolve_rate": 0.738
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 125,
+          "resolve_rate": 0.778
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 150,
+          "resolve_rate": 0.749
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 99,
+          "resolve_rate": 0.797
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 70,
+          "resolve_rate": 0.812
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 77,
+          "resolved": 66
+        },
+        {
+          "month": "ส.ค.",
+          "count": 61,
+          "resolved": 56
+        },
+        {
+          "month": "ก.ย.",
+          "count": 95,
+          "resolved": 82
+        },
+        {
+          "month": "ต.ค.",
+          "count": 107,
+          "resolved": 90
+        },
+        {
+          "month": "พ.ย.",
+          "count": 84,
+          "resolved": 55
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 103,
+          "resolved": 76
+        },
+        {
+          "month": "ม.ค.",
+          "count": 81,
+          "resolved": 73
+        },
+        {
+          "month": "ก.พ.",
+          "count": 106,
+          "resolved": 77
+        },
+        {
+          "month": "มี.ค.",
+          "count": 81,
+          "resolved": 61
+        },
+        {
+          "month": "เม.ย.",
+          "count": 86,
+          "resolved": 62
+        },
+        {
+          "month": "พ.ค.",
+          "count": 69,
+          "resolved": 53
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 120,
+          "resolved": 102
+        }
+      ]
+    },
+    "ลาดกระบัง": {
+      "total": 1143,
+      "resolved": 618,
+      "avg_days": 13.6,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 407,
+          "resolve_rate": 0.422
+        },
+        {
+          "type": "ขยะ",
+          "count": 230,
+          "resolve_rate": 0.525
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 165,
+          "resolve_rate": 0.579
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 146,
+          "resolve_rate": 0.528
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 91,
+          "resolve_rate": 0.535
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 92,
+          "resolve_rate": 0.613
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 77,
+          "resolved": 34
+        },
+        {
+          "month": "ส.ค.",
+          "count": 101,
+          "resolved": 57
+        },
+        {
+          "month": "ก.ย.",
+          "count": 89,
+          "resolved": 54
+        },
+        {
+          "month": "ต.ค.",
+          "count": 116,
+          "resolved": 67
+        },
+        {
+          "month": "พ.ย.",
+          "count": 81,
+          "resolved": 38
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 68,
+          "resolved": 33
+        },
+        {
+          "month": "ม.ค.",
+          "count": 98,
+          "resolved": 60
+        },
+        {
+          "month": "ก.พ.",
+          "count": 71,
+          "resolved": 37
+        },
+        {
+          "month": "มี.ค.",
+          "count": 108,
+          "resolved": 51
+        },
+        {
+          "month": "เม.ย.",
+          "count": 113,
+          "resolved": 61
+        },
+        {
+          "month": "พ.ค.",
+          "count": 82,
+          "resolved": 47
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 67,
+          "resolved": 39
+        }
+      ]
+    },
+    "ประเวศ": {
+      "total": 1059,
+      "resolved": 657,
+      "avg_days": 9.5,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 322,
+          "resolve_rate": 0.731
+        },
+        {
+          "type": "ขยะ",
+          "count": 234,
+          "resolve_rate": 0.513
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 133,
+          "resolve_rate": 0.704
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 135,
+          "resolve_rate": 0.693
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 101,
+          "resolve_rate": 0.738
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 76,
+          "resolve_rate": 0.729
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 116,
+          "resolved": 75
+        },
+        {
+          "month": "ส.ค.",
+          "count": 106,
+          "resolved": 65
+        },
+        {
+          "month": "ก.ย.",
+          "count": 113,
+          "resolved": 71
+        },
+        {
+          "month": "ต.ค.",
+          "count": 117,
+          "resolved": 79
+        },
+        {
+          "month": "พ.ย.",
+          "count": 91,
+          "resolved": 51
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 77,
+          "resolved": 50
+        },
+        {
+          "month": "ม.ค.",
+          "count": 109,
+          "resolved": 68
+        },
+        {
+          "month": "ก.พ.",
+          "count": 100,
+          "resolved": 56
+        },
+        {
+          "month": "มี.ค.",
+          "count": 66,
+          "resolved": 37
+        },
+        {
+          "month": "เม.ย.",
+          "count": 78,
+          "resolved": 44
+        },
+        {
+          "month": "พ.ค.",
+          "count": 95,
+          "resolved": 50
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 76,
+          "resolved": 50
+        }
+      ]
+    },
+    "บางกะปิ": {
+      "total": 1019,
+      "resolved": 679,
+      "avg_days": 7.7,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 362,
+          "resolve_rate": 0.646
+        },
+        {
+          "type": "ขยะ",
+          "count": 197,
+          "resolve_rate": 0.647
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 165,
+          "resolve_rate": 0.687
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 142,
+          "resolve_rate": 0.752
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 101,
+          "resolve_rate": 0.638
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 57,
+          "resolve_rate": 0.631
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 104,
+          "resolved": 79
+        },
+        {
+          "month": "ส.ค.",
+          "count": 116,
+          "resolved": 74
+        },
+        {
+          "month": "ก.ย.",
+          "count": 103,
+          "resolved": 69
+        },
+        {
+          "month": "ต.ค.",
+          "count": 95,
+          "resolved": 56
+        },
+        {
+          "month": "พ.ย.",
+          "count": 72,
+          "resolved": 46
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 61,
+          "resolved": 37
+        },
+        {
+          "month": "ม.ค.",
+          "count": 99,
+          "resolved": 63
+        },
+        {
+          "month": "ก.พ.",
+          "count": 69,
+          "resolved": 45
+        },
+        {
+          "month": "มี.ค.",
+          "count": 67,
+          "resolved": 46
+        },
+        {
+          "month": "เม.ย.",
+          "count": 61,
+          "resolved": 38
+        },
+        {
+          "month": "พ.ค.",
+          "count": 92,
+          "resolved": 49
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 97,
+          "resolved": 55
+        }
+      ]
+    },
+    "สะพานสูง": {
+      "total": 929,
+      "resolved": 543,
+      "avg_days": 9.9,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 287,
+          "resolve_rate": 0.543
+        },
+        {
+          "type": "ขยะ",
+          "count": 225,
+          "resolve_rate": 0.556
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 143,
+          "resolve_rate": 0.665
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 108,
+          "resolve_rate": 0.485
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 67,
+          "resolve_rate": 0.594
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 78,
+          "resolve_rate": 0.549
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 89,
+          "resolved": 57
+        },
+        {
+          "month": "ส.ค.",
+          "count": 89,
+          "resolved": 57
+        },
+        {
+          "month": "ก.ย.",
+          "count": 105,
+          "resolved": 54
+        },
+        {
+          "month": "ต.ค.",
+          "count": 55,
+          "resolved": 27
+        },
+        {
+          "month": "พ.ย.",
+          "count": 61,
+          "resolved": 38
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 84,
+          "resolved": 43
+        },
+        {
+          "month": "ม.ค.",
+          "count": 92,
+          "resolved": 59
+        },
+        {
+          "month": "ก.พ.",
+          "count": 63,
+          "resolved": 38
+        },
+        {
+          "month": "มี.ค.",
+          "count": 94,
+          "resolved": 46
+        },
+        {
+          "month": "เม.ย.",
+          "count": 98,
+          "resolved": 67
+        },
+        {
+          "month": "พ.ค.",
+          "count": 60,
+          "resolved": 28
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 71,
+          "resolved": 44
+        }
+      ]
+    },
+    "คันนายาว": {
+      "total": 1046,
+      "resolved": 627,
+      "avg_days": 11.6,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 304,
+          "resolve_rate": 0.645
+        },
+        {
+          "type": "ขยะ",
+          "count": 241,
+          "resolve_rate": 0.504
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 162,
+          "resolve_rate": 0.684
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 141,
+          "resolve_rate": 0.509
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 112,
+          "resolve_rate": 0.667
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 68,
+          "resolve_rate": 0.582
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 83,
+          "resolved": 49
+        },
+        {
+          "month": "ส.ค.",
+          "count": 81,
+          "resolved": 55
+        },
+        {
+          "month": "ก.ย.",
+          "count": 111,
+          "resolved": 56
+        },
+        {
+          "month": "ต.ค.",
+          "count": 119,
+          "resolved": 75
+        },
+        {
+          "month": "พ.ย.",
+          "count": 111,
+          "resolved": 72
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 87,
+          "resolved": 57
+        },
+        {
+          "month": "ม.ค.",
+          "count": 119,
+          "resolved": 64
+        },
+        {
+          "month": "ก.พ.",
+          "count": 110,
+          "resolved": 66
+        },
+        {
+          "month": "มี.ค.",
+          "count": 90,
+          "resolved": 52
+        },
+        {
+          "month": "เม.ย.",
+          "count": 105,
+          "resolved": 57
+        },
+        {
+          "month": "พ.ค.",
+          "count": 112,
+          "resolved": 76
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 66,
+          "resolved": 45
+        }
+      ]
+    },
+    "ดินแดง": {
+      "total": 830,
+      "resolved": 627,
+      "avg_days": 7.2,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 276,
+          "resolve_rate": 0.643
+        },
+        {
+          "type": "ขยะ",
+          "count": 208,
+          "resolve_rate": 0.68
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 102,
+          "resolve_rate": 0.828
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 101,
+          "resolve_rate": 0.848
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 80,
+          "resolve_rate": 0.703
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 46,
+          "resolve_rate": 0.864
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 52,
+          "resolved": 42
+        },
+        {
+          "month": "ส.ค.",
+          "count": 72,
+          "resolved": 60
+        },
+        {
+          "month": "ก.ย.",
+          "count": 81,
+          "resolved": 64
+        },
+        {
+          "month": "ต.ค.",
+          "count": 72,
+          "resolved": 60
+        },
+        {
+          "month": "พ.ย.",
+          "count": 52,
+          "resolved": 34
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 81,
+          "resolved": 56
+        },
+        {
+          "month": "ม.ค.",
+          "count": 76,
+          "resolved": 56
+        },
+        {
+          "month": "ก.พ.",
+          "count": 74,
+          "resolved": 54
+        },
+        {
+          "month": "มี.ค.",
+          "count": 84,
+          "resolved": 59
+        },
+        {
+          "month": "เม.ย.",
+          "count": 82,
+          "resolved": 56
+        },
+        {
+          "month": "พ.ค.",
+          "count": 60,
+          "resolved": 38
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 57,
+          "resolved": 36
+        }
+      ]
+    },
+    "หลักสี่": {
+      "total": 889,
+      "resolved": 592,
+      "avg_days": 9.1,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 275,
+          "resolve_rate": 0.662
+        },
+        {
+          "type": "ขยะ",
+          "count": 213,
+          "resolve_rate": 0.781
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 125,
+          "resolve_rate": 0.614
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 97,
+          "resolve_rate": 0.593
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 71,
+          "resolve_rate": 0.589
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 50,
+          "resolve_rate": 0.674
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 66,
+          "resolved": 52
+        },
+        {
+          "month": "ส.ค.",
+          "count": 80,
+          "resolved": 57
+        },
+        {
+          "month": "ก.ย.",
+          "count": 58,
+          "resolved": 44
+        },
+        {
+          "month": "ต.ค.",
+          "count": 77,
+          "resolved": 58
+        },
+        {
+          "month": "พ.ย.",
+          "count": 81,
+          "resolved": 53
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 74,
+          "resolved": 43
+        },
+        {
+          "month": "ม.ค.",
+          "count": 54,
+          "resolved": 42
+        },
+        {
+          "month": "ก.พ.",
+          "count": 76,
+          "resolved": 57
+        },
+        {
+          "month": "มี.ค.",
+          "count": 72,
+          "resolved": 39
+        },
+        {
+          "month": "เม.ย.",
+          "count": 84,
+          "resolved": 45
+        },
+        {
+          "month": "พ.ค.",
+          "count": 59,
+          "resolved": 40
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 67,
+          "resolved": 53
+        }
+      ]
+    },
+    "หนองจอก": {
+      "total": 761,
+      "resolved": 400,
+      "avg_days": 15.7,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 297,
+          "resolve_rate": 0.461
+        },
+        {
+          "type": "ขยะ",
+          "count": 168,
+          "resolve_rate": 0.515
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 104,
+          "resolve_rate": 0.613
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 118,
+          "resolve_rate": 0.48
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 71,
+          "resolve_rate": 0.553
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 58,
+          "resolve_rate": 0.634
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 53,
+          "resolved": 24
+        },
+        {
+          "month": "ส.ค.",
+          "count": 73,
+          "resolved": 33
+        },
+        {
+          "month": "ก.ย.",
+          "count": 52,
+          "resolved": 22
+        },
+        {
+          "month": "ต.ค.",
+          "count": 44,
+          "resolved": 22
+        },
+        {
+          "month": "พ.ย.",
+          "count": 70,
+          "resolved": 33
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 54,
+          "resolved": 30
+        },
+        {
+          "month": "ม.ค.",
+          "count": 75,
+          "resolved": 38
+        },
+        {
+          "month": "ก.พ.",
+          "count": 74,
+          "resolved": 45
+        },
+        {
+          "month": "มี.ค.",
+          "count": 79,
+          "resolved": 43
+        },
+        {
+          "month": "เม.ย.",
+          "count": 73,
+          "resolved": 45
+        },
+        {
+          "month": "พ.ค.",
+          "count": 63,
+          "resolved": 33
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 73,
+          "resolved": 44
+        }
+      ]
+    },
+    "บางพลัด": {
+      "total": 900,
+      "resolved": 627,
+      "avg_days": 6.5,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 290,
+          "resolve_rate": 0.757
+        },
+        {
+          "type": "ขยะ",
+          "count": 203,
+          "resolve_rate": 0.646
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 107,
+          "resolve_rate": 0.742
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 126,
+          "resolve_rate": 0.803
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 81,
+          "resolve_rate": 0.696
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 52,
+          "resolve_rate": 0.587
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 75,
+          "resolved": 48
+        },
+        {
+          "month": "ส.ค.",
+          "count": 65,
+          "resolved": 37
+        },
+        {
+          "month": "ก.ย.",
+          "count": 103,
+          "resolved": 81
+        },
+        {
+          "month": "ต.ค.",
+          "count": 82,
+          "resolved": 67
+        },
+        {
+          "month": "พ.ย.",
+          "count": 104,
+          "resolved": 77
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 66,
+          "resolved": 37
+        },
+        {
+          "month": "ม.ค.",
+          "count": 92,
+          "resolved": 63
+        },
+        {
+          "month": "ก.พ.",
+          "count": 86,
+          "resolved": 69
+        },
+        {
+          "month": "มี.ค.",
+          "count": 62,
+          "resolved": 44
+        },
+        {
+          "month": "เม.ย.",
+          "count": 85,
+          "resolved": 59
+        },
+        {
+          "month": "พ.ค.",
+          "count": 57,
+          "resolved": 37
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 69,
+          "resolved": 51
+        }
+      ]
+    },
+    "คลองเตย": {
+      "total": 896,
+      "resolved": 602,
+      "avg_days": 9.4,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 287,
+          "resolve_rate": 0.78
+        },
+        {
+          "type": "ขยะ",
+          "count": 221,
+          "resolve_rate": 0.685
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 123,
+          "resolve_rate": 0.628
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 108,
+          "resolve_rate": 0.786
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 77,
+          "resolve_rate": 0.676
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 74,
+          "resolve_rate": 0.711
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 80,
+          "resolved": 51
+        },
+        {
+          "month": "ส.ค.",
+          "count": 62,
+          "resolved": 39
+        },
+        {
+          "month": "ก.ย.",
+          "count": 91,
+          "resolved": 64
+        },
+        {
+          "month": "ต.ค.",
+          "count": 91,
+          "resolved": 53
+        },
+        {
+          "month": "พ.ย.",
+          "count": 80,
+          "resolved": 63
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 75,
+          "resolved": 54
+        },
+        {
+          "month": "ม.ค.",
+          "count": 58,
+          "resolved": 46
+        },
+        {
+          "month": "ก.พ.",
+          "count": 84,
+          "resolved": 50
+        },
+        {
+          "month": "มี.ค.",
+          "count": 60,
+          "resolved": 41
+        },
+        {
+          "month": "เม.ย.",
+          "count": 81,
+          "resolved": 45
+        },
+        {
+          "month": "พ.ค.",
+          "count": 104,
+          "resolved": 81
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 76,
+          "resolved": 43
+        }
+      ]
+    },
+    "พระโขนง": {
+      "total": 868,
+      "resolved": 624,
+      "avg_days": 8.5,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 304,
+          "resolve_rate": 0.665
+        },
+        {
+          "type": "ขยะ",
+          "count": 216,
+          "resolve_rate": 0.835
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 109,
+          "resolve_rate": 0.732
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 107,
+          "resolve_rate": 0.821
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 78,
+          "resolve_rate": 0.811
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 69,
+          "resolve_rate": 0.666
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 90,
+          "resolved": 62
+        },
+        {
+          "month": "ส.ค.",
+          "count": 97,
+          "resolved": 70
+        },
+        {
+          "month": "ก.ย.",
+          "count": 92,
+          "resolved": 60
+        },
+        {
+          "month": "ต.ค.",
+          "count": 65,
+          "resolved": 48
+        },
+        {
+          "month": "พ.ย.",
+          "count": 101,
+          "resolved": 72
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 58,
+          "resolved": 42
+        },
+        {
+          "month": "ม.ค.",
+          "count": 68,
+          "resolved": 49
+        },
+        {
+          "month": "ก.พ.",
+          "count": 78,
+          "resolved": 55
+        },
+        {
+          "month": "มี.ค.",
+          "count": 66,
+          "resolved": 41
+        },
+        {
+          "month": "เม.ย.",
+          "count": 85,
+          "resolved": 62
+        },
+        {
+          "month": "พ.ค.",
+          "count": 62,
+          "resolved": 49
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 52,
+          "resolved": 41
+        }
+      ]
+    },
+    "สวนหลวง": {
+      "total": 817,
+      "resolved": 572,
+      "avg_days": 9.0,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 304,
+          "resolve_rate": 0.778
+        },
+        {
+          "type": "ขยะ",
+          "count": 214,
+          "resolve_rate": 0.7
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 93,
+          "resolve_rate": 0.702
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 110,
+          "resolve_rate": 0.79
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 84,
+          "resolve_rate": 0.687
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 57,
+          "resolve_rate": 0.691
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 82,
+          "resolved": 55
+        },
+        {
+          "month": "ส.ค.",
+          "count": 78,
+          "resolved": 47
+        },
+        {
+          "month": "ก.ย.",
+          "count": 70,
+          "resolved": 58
+        },
+        {
+          "month": "ต.ค.",
+          "count": 63,
+          "resolved": 47
+        },
+        {
+          "month": "พ.ย.",
+          "count": 78,
+          "resolved": 62
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 88,
+          "resolved": 70
+        },
+        {
+          "month": "ม.ค.",
+          "count": 65,
+          "resolved": 42
+        },
+        {
+          "month": "ก.พ.",
+          "count": 81,
+          "resolved": 62
+        },
+        {
+          "month": "มี.ค.",
+          "count": 89,
+          "resolved": 50
+        },
+        {
+          "month": "เม.ย.",
+          "count": 50,
+          "resolved": 36
+        },
+        {
+          "month": "พ.ค.",
+          "count": 91,
+          "resolved": 76
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 83,
+          "resolved": 56
+        }
+      ]
+    },
+    "ราษฎร์บูรณะ": {
+      "total": 659,
+      "resolved": 437,
+      "avg_days": 11.3,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 225,
+          "resolve_rate": 0.71
+        },
+        {
+          "type": "ขยะ",
+          "count": 168,
+          "resolve_rate": 0.554
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 103,
+          "resolve_rate": 0.614
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 81,
+          "resolve_rate": 0.578
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 60,
+          "resolve_rate": 0.679
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 51,
+          "resolve_rate": 0.584
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 41,
+          "resolved": 31
+        },
+        {
+          "month": "ส.ค.",
+          "count": 62,
+          "resolved": 36
+        },
+        {
+          "month": "ก.ย.",
+          "count": 73,
+          "resolved": 41
+        },
+        {
+          "month": "ต.ค.",
+          "count": 56,
+          "resolved": 33
+        },
+        {
+          "month": "พ.ย.",
+          "count": 48,
+          "resolved": 25
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 69,
+          "resolved": 53
+        },
+        {
+          "month": "ม.ค.",
+          "count": 64,
+          "resolved": 36
+        },
+        {
+          "month": "ก.พ.",
+          "count": 55,
+          "resolved": 34
+        },
+        {
+          "month": "มี.ค.",
+          "count": 61,
+          "resolved": 42
+        },
+        {
+          "month": "เม.ย.",
+          "count": 54,
+          "resolved": 32
+        },
+        {
+          "month": "พ.ค.",
+          "count": 70,
+          "resolved": 40
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 53,
+          "resolved": 34
+        }
+      ]
+    },
+    "จอมทอง": {
+      "total": 672,
+      "resolved": 428,
+      "avg_days": 10.9,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 281,
+          "resolve_rate": 0.588
+        },
+        {
+          "type": "ขยะ",
+          "count": 176,
+          "resolve_rate": 0.675
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 85,
+          "resolve_rate": 0.653
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 93,
+          "resolve_rate": 0.696
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 49,
+          "resolve_rate": 0.663
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 46,
+          "resolve_rate": 0.734
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 50,
+          "resolved": 35
+        },
+        {
+          "month": "ส.ค.",
+          "count": 62,
+          "resolved": 37
+        },
+        {
+          "month": "ก.ย.",
+          "count": 64,
+          "resolved": 42
+        },
+        {
+          "month": "ต.ค.",
+          "count": 65,
+          "resolved": 45
+        },
+        {
+          "month": "พ.ย.",
+          "count": 65,
+          "resolved": 47
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 63,
+          "resolved": 46
+        },
+        {
+          "month": "ม.ค.",
+          "count": 64,
+          "resolved": 37
+        },
+        {
+          "month": "ก.พ.",
+          "count": 56,
+          "resolved": 36
+        },
+        {
+          "month": "มี.ค.",
+          "count": 67,
+          "resolved": 35
+        },
+        {
+          "month": "เม.ย.",
+          "count": 50,
+          "resolved": 35
+        },
+        {
+          "month": "พ.ค.",
+          "count": 46,
+          "resolved": 24
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 60,
+          "resolved": 45
+        }
+      ]
+    },
+    "บางนา": {
+      "total": 716,
+      "resolved": 530,
+      "avg_days": 9.5,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 226,
+          "resolve_rate": 0.819
+        },
+        {
+          "type": "ขยะ",
+          "count": 156,
+          "resolve_rate": 0.815
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 110,
+          "resolve_rate": 0.703
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 78,
+          "resolve_rate": 0.852
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 55,
+          "resolve_rate": 0.853
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 57,
+          "resolve_rate": 0.795
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 82,
+          "resolved": 72
+        },
+        {
+          "month": "ส.ค.",
+          "count": 75,
+          "resolved": 52
+        },
+        {
+          "month": "ก.ย.",
+          "count": 74,
+          "resolved": 44
+        },
+        {
+          "month": "ต.ค.",
+          "count": 64,
+          "resolved": 46
+        },
+        {
+          "month": "พ.ย.",
+          "count": 69,
+          "resolved": 54
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 66,
+          "resolved": 55
+        },
+        {
+          "month": "ม.ค.",
+          "count": 81,
+          "resolved": 50
+        },
+        {
+          "month": "ก.พ.",
+          "count": 51,
+          "resolved": 30
+        },
+        {
+          "month": "มี.ค.",
+          "count": 78,
+          "resolved": 59
+        },
+        {
+          "month": "เม.ย.",
+          "count": 79,
+          "resolved": 52
+        },
+        {
+          "month": "พ.ค.",
+          "count": 44,
+          "resolved": 36
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 79,
+          "resolved": 53
+        }
+      ]
+    },
+    "วัฒนา": {
+      "total": 671,
+      "resolved": 499,
+      "avg_days": 7.8,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 216,
+          "resolve_rate": 0.742
+        },
+        {
+          "type": "ขยะ",
+          "count": 123,
+          "resolve_rate": 0.837
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 80,
+          "resolve_rate": 0.733
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 93,
+          "resolve_rate": 0.802
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 71,
+          "resolve_rate": 0.725
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 51,
+          "resolve_rate": 0.661
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 55,
+          "resolved": 34
+        },
+        {
+          "month": "ส.ค.",
+          "count": 58,
+          "resolved": 41
+        },
+        {
+          "month": "ก.ย.",
+          "count": 76,
+          "resolved": 45
+        },
+        {
+          "month": "ต.ค.",
+          "count": 53,
+          "resolved": 38
+        },
+        {
+          "month": "พ.ย.",
+          "count": 76,
+          "resolved": 64
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 43,
+          "resolved": 34
+        },
+        {
+          "month": "ม.ค.",
+          "count": 60,
+          "resolved": 53
+        },
+        {
+          "month": "ก.พ.",
+          "count": 53,
+          "resolved": 37
+        },
+        {
+          "month": "มี.ค.",
+          "count": 46,
+          "resolved": 29
+        },
+        {
+          "month": "เม.ย.",
+          "count": 72,
+          "resolved": 52
+        },
+        {
+          "month": "พ.ค.",
+          "count": 65,
+          "resolved": 51
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 62,
+          "resolved": 37
+        }
+      ]
+    },
+    "ตลิ่งชัน": {
+      "total": 727,
+      "resolved": 424,
+      "avg_days": 10.1,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 261,
+          "resolve_rate": 0.481
+        },
+        {
+          "type": "ขยะ",
+          "count": 176,
+          "resolve_rate": 0.514
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 90,
+          "resolve_rate": 0.673
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 88,
+          "resolve_rate": 0.5
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 75,
+          "resolve_rate": 0.465
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 58,
+          "resolve_rate": 0.499
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 47,
+          "resolved": 24
+        },
+        {
+          "month": "ส.ค.",
+          "count": 49,
+          "resolved": 30
+        },
+        {
+          "month": "ก.ย.",
+          "count": 43,
+          "resolved": 20
+        },
+        {
+          "month": "ต.ค.",
+          "count": 75,
+          "resolved": 39
+        },
+        {
+          "month": "พ.ย.",
+          "count": 56,
+          "resolved": 28
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 44,
+          "resolved": 28
+        },
+        {
+          "month": "ม.ค.",
+          "count": 64,
+          "resolved": 41
+        },
+        {
+          "month": "ก.พ.",
+          "count": 62,
+          "resolved": 40
+        },
+        {
+          "month": "มี.ค.",
+          "count": 64,
+          "resolved": 31
+        },
+        {
+          "month": "เม.ย.",
+          "count": 63,
+          "resolved": 43
+        },
+        {
+          "month": "พ.ค.",
+          "count": 44,
+          "resolved": 28
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 79,
+          "resolved": 46
+        }
+      ]
+    },
+    "ทวีวัฒนา": {
+      "total": 631,
+      "resolved": 401,
+      "avg_days": 10.7,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 218,
+          "resolve_rate": 0.613
+        },
+        {
+          "type": "ขยะ",
+          "count": 149,
+          "resolve_rate": 0.634
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 102,
+          "resolve_rate": 0.534
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 68,
+          "resolve_rate": 0.662
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 46,
+          "resolve_rate": 0.582
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 46,
+          "resolve_rate": 0.648
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 48,
+          "resolved": 36
+        },
+        {
+          "month": "ส.ค.",
+          "count": 56,
+          "resolved": 34
+        },
+        {
+          "month": "ก.ย.",
+          "count": 59,
+          "resolved": 31
+        },
+        {
+          "month": "ต.ค.",
+          "count": 62,
+          "resolved": 45
+        },
+        {
+          "month": "พ.ย.",
+          "count": 60,
+          "resolved": 42
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 63,
+          "resolved": 35
+        },
+        {
+          "month": "ม.ค.",
+          "count": 53,
+          "resolved": 30
+        },
+        {
+          "month": "ก.พ.",
+          "count": 49,
+          "resolved": 30
+        },
+        {
+          "month": "มี.ค.",
+          "count": 52,
+          "resolved": 27
+        },
+        {
+          "month": "เม.ย.",
+          "count": 52,
+          "resolved": 35
+        },
+        {
+          "month": "พ.ค.",
+          "count": 50,
+          "resolved": 27
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 70,
+          "resolved": 36
+        }
+      ]
+    },
+    "บางกอกใหญ่": {
+      "total": 681,
+      "resolved": 435,
+      "avg_days": 7.8,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 261,
+          "resolve_rate": 0.714
+        },
+        {
+          "type": "ขยะ",
+          "count": 153,
+          "resolve_rate": 0.66
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 97,
+          "resolve_rate": 0.598
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 75,
+          "resolve_rate": 0.604
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 65,
+          "resolve_rate": 0.699
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 54,
+          "resolve_rate": 0.692
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 78,
+          "resolved": 51
+        },
+        {
+          "month": "ส.ค.",
+          "count": 53,
+          "resolved": 34
+        },
+        {
+          "month": "ก.ย.",
+          "count": 48,
+          "resolved": 32
+        },
+        {
+          "month": "ต.ค.",
+          "count": 48,
+          "resolved": 25
+        },
+        {
+          "month": "พ.ย.",
+          "count": 73,
+          "resolved": 44
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 70,
+          "resolved": 46
+        },
+        {
+          "month": "ม.ค.",
+          "count": 71,
+          "resolved": 51
+        },
+        {
+          "month": "ก.พ.",
+          "count": 78,
+          "resolved": 56
+        },
+        {
+          "month": "มี.ค.",
+          "count": 64,
+          "resolved": 43
+        },
+        {
+          "month": "เม.ย.",
+          "count": 40,
+          "resolved": 29
+        },
+        {
+          "month": "พ.ค.",
+          "count": 72,
+          "resolved": 41
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 46,
+          "resolved": 31
+        }
+      ]
+    },
+    "บางกอกน้อย": {
+      "total": 565,
+      "resolved": 386,
+      "avg_days": 6.8,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 227,
+          "resolve_rate": 0.7
+        },
+        {
+          "type": "ขยะ",
+          "count": 119,
+          "resolve_rate": 0.598
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 83,
+          "resolve_rate": 0.571
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 80,
+          "resolve_rate": 0.616
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 49,
+          "resolve_rate": 0.646
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 37,
+          "resolve_rate": 0.737
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 58,
+          "resolved": 40
+        },
+        {
+          "month": "ส.ค.",
+          "count": 35,
+          "resolved": 19
+        },
+        {
+          "month": "ก.ย.",
+          "count": 38,
+          "resolved": 27
+        },
+        {
+          "month": "ต.ค.",
+          "count": 55,
+          "resolved": 34
+        },
+        {
+          "month": "พ.ย.",
+          "count": 54,
+          "resolved": 36
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 47,
+          "resolved": 29
+        },
+        {
+          "month": "ม.ค.",
+          "count": 57,
+          "resolved": 32
+        },
+        {
+          "month": "ก.พ.",
+          "count": 47,
+          "resolved": 29
+        },
+        {
+          "month": "มี.ค.",
+          "count": 55,
+          "resolved": 37
+        },
+        {
+          "month": "เม.ย.",
+          "count": 54,
+          "resolved": 30
+        },
+        {
+          "month": "พ.ค.",
+          "count": 45,
+          "resolved": 32
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 33,
+          "resolved": 20
+        }
+      ]
+    },
+    "ดุสิต": {
+      "total": 529,
+      "resolved": 388,
+      "avg_days": 6.1,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 172,
+          "resolve_rate": 0.616
+        },
+        {
+          "type": "ขยะ",
+          "count": 127,
+          "resolve_rate": 0.656
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 70,
+          "resolve_rate": 0.783
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 68,
+          "resolve_rate": 0.814
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 53,
+          "resolve_rate": 0.631
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 42,
+          "resolve_rate": 0.624
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 31,
+          "resolved": 26
+        },
+        {
+          "month": "ส.ค.",
+          "count": 57,
+          "resolved": 43
+        },
+        {
+          "month": "ก.ย.",
+          "count": 48,
+          "resolved": 38
+        },
+        {
+          "month": "ต.ค.",
+          "count": 43,
+          "resolved": 26
+        },
+        {
+          "month": "พ.ย.",
+          "count": 31,
+          "resolved": 21
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 55,
+          "resolved": 42
+        },
+        {
+          "month": "ม.ค.",
+          "count": 56,
+          "resolved": 47
+        },
+        {
+          "month": "ก.พ.",
+          "count": 33,
+          "resolved": 27
+        },
+        {
+          "month": "มี.ค.",
+          "count": 38,
+          "resolved": 28
+        },
+        {
+          "month": "เม.ย.",
+          "count": 47,
+          "resolved": 33
+        },
+        {
+          "month": "พ.ค.",
+          "count": 40,
+          "resolved": 27
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 41,
+          "resolved": 26
+        }
+      ]
+    },
+    "พญาไท": {
+      "total": 571,
+      "resolved": 429,
+      "avg_days": 6.3,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 232,
+          "resolve_rate": 0.715
+        },
+        {
+          "type": "ขยะ",
+          "count": 137,
+          "resolve_rate": 0.828
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 90,
+          "resolve_rate": 0.688
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 63,
+          "resolve_rate": 0.679
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 53,
+          "resolve_rate": 0.814
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 42,
+          "resolve_rate": 0.674
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 59,
+          "resolved": 44
+        },
+        {
+          "month": "ส.ค.",
+          "count": 58,
+          "resolved": 48
+        },
+        {
+          "month": "ก.ย.",
+          "count": 48,
+          "resolved": 42
+        },
+        {
+          "month": "ต.ค.",
+          "count": 52,
+          "resolved": 41
+        },
+        {
+          "month": "พ.ย.",
+          "count": 54,
+          "resolved": 46
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 54,
+          "resolved": 34
+        },
+        {
+          "month": "ม.ค.",
+          "count": 35,
+          "resolved": 25
+        },
+        {
+          "month": "ก.พ.",
+          "count": 43,
+          "resolved": 29
+        },
+        {
+          "month": "มี.ค.",
+          "count": 35,
+          "resolved": 26
+        },
+        {
+          "month": "เม.ย.",
+          "count": 43,
+          "resolved": 31
+        },
+        {
+          "month": "พ.ค.",
+          "count": 35,
+          "resolved": 29
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 35,
+          "resolved": 30
+        }
+      ]
+    },
+    "ปทุมวัน": {
+      "total": 608,
+      "resolved": 505,
+      "avg_days": 5.7,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 209,
+          "resolve_rate": 0.845
+        },
+        {
+          "type": "ขยะ",
+          "count": 149,
+          "resolve_rate": 0.927
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 83,
+          "resolve_rate": 0.906
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 83,
+          "resolve_rate": 0.789
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 54,
+          "resolve_rate": 0.748
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 35,
+          "resolve_rate": 0.736
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 67,
+          "resolved": 52
+        },
+        {
+          "month": "ส.ค.",
+          "count": 60,
+          "resolved": 49
+        },
+        {
+          "month": "ก.ย.",
+          "count": 41,
+          "resolved": 30
+        },
+        {
+          "month": "ต.ค.",
+          "count": 50,
+          "resolved": 40
+        },
+        {
+          "month": "พ.ย.",
+          "count": 54,
+          "resolved": 38
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 48,
+          "resolved": 36
+        },
+        {
+          "month": "ม.ค.",
+          "count": 49,
+          "resolved": 38
+        },
+        {
+          "month": "ก.พ.",
+          "count": 56,
+          "resolved": 51
+        },
+        {
+          "month": "มี.ค.",
+          "count": 58,
+          "resolved": 39
+        },
+        {
+          "month": "เม.ย.",
+          "count": 38,
+          "resolved": 33
+        },
+        {
+          "month": "พ.ค.",
+          "count": 45,
+          "resolved": 40
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 58,
+          "resolved": 56
+        }
+      ]
+    },
+    "ราชเทวี": {
+      "total": 589,
+      "resolved": 461,
+      "avg_days": 6.2,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 176,
+          "resolve_rate": 0.747
+        },
+        {
+          "type": "ขยะ",
+          "count": 153,
+          "resolve_rate": 0.831
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 78,
+          "resolve_rate": 0.806
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 89,
+          "resolve_rate": 0.738
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 50,
+          "resolve_rate": 0.853
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 46,
+          "resolve_rate": 0.824
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 62,
+          "resolved": 53
+        },
+        {
+          "month": "ส.ค.",
+          "count": 57,
+          "resolved": 45
+        },
+        {
+          "month": "ก.ย.",
+          "count": 56,
+          "resolved": 42
+        },
+        {
+          "month": "ต.ค.",
+          "count": 46,
+          "resolved": 34
+        },
+        {
+          "month": "พ.ย.",
+          "count": 40,
+          "resolved": 27
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 66,
+          "resolved": 51
+        },
+        {
+          "month": "ม.ค.",
+          "count": 42,
+          "resolved": 28
+        },
+        {
+          "month": "ก.พ.",
+          "count": 37,
+          "resolved": 32
+        },
+        {
+          "month": "มี.ค.",
+          "count": 37,
+          "resolved": 32
+        },
+        {
+          "month": "เม.ย.",
+          "count": 63,
+          "resolved": 56
+        },
+        {
+          "month": "พ.ค.",
+          "count": 35,
+          "resolved": 25
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 60,
+          "resolved": 40
+        }
+      ]
+    },
+    "หนองแขม": {
+      "total": 491,
+      "resolved": 268,
+      "avg_days": 13.5,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 190,
+          "resolve_rate": 0.62
+        },
+        {
+          "type": "ขยะ",
+          "count": 93,
+          "resolve_rate": 0.531
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 66,
+          "resolve_rate": 0.589
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 57,
+          "resolve_rate": 0.533
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 40,
+          "resolve_rate": 0.606
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 33,
+          "resolve_rate": 0.554
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 37,
+          "resolved": 22
+        },
+        {
+          "month": "ส.ค.",
+          "count": 42,
+          "resolved": 26
+        },
+        {
+          "month": "ก.ย.",
+          "count": 39,
+          "resolved": 25
+        },
+        {
+          "month": "ต.ค.",
+          "count": 56,
+          "resolved": 30
+        },
+        {
+          "month": "พ.ย.",
+          "count": 36,
+          "resolved": 18
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 43,
+          "resolved": 27
+        },
+        {
+          "month": "ม.ค.",
+          "count": 52,
+          "resolved": 31
+        },
+        {
+          "month": "ก.พ.",
+          "count": 32,
+          "resolved": 15
+        },
+        {
+          "month": "มี.ค.",
+          "count": 47,
+          "resolved": 29
+        },
+        {
+          "month": "เม.ย.",
+          "count": 44,
+          "resolved": 20
+        },
+        {
+          "month": "พ.ค.",
+          "count": 52,
+          "resolved": 32
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 36,
+          "resolved": 21
+        }
+      ]
+    },
+    "ธนบุรี": {
+      "total": 465,
+      "resolved": 353,
+      "avg_days": 6.5,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 158,
+          "resolve_rate": 0.868
+        },
+        {
+          "type": "ขยะ",
+          "count": 90,
+          "resolve_rate": 0.749
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 61,
+          "resolve_rate": 0.647
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 49,
+          "resolve_rate": 0.761
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 37,
+          "resolve_rate": 0.879
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 30,
+          "resolve_rate": 0.647
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 52,
+          "resolved": 44
+        },
+        {
+          "month": "ส.ค.",
+          "count": 44,
+          "resolved": 37
+        },
+        {
+          "month": "ก.ย.",
+          "count": 30,
+          "resolved": 20
+        },
+        {
+          "month": "ต.ค.",
+          "count": 49,
+          "resolved": 40
+        },
+        {
+          "month": "พ.ย.",
+          "count": 30,
+          "resolved": 24
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 39,
+          "resolved": 23
+        },
+        {
+          "month": "ม.ค.",
+          "count": 29,
+          "resolved": 19
+        },
+        {
+          "month": "ก.พ.",
+          "count": 49,
+          "resolved": 37
+        },
+        {
+          "month": "มี.ค.",
+          "count": 46,
+          "resolved": 35
+        },
+        {
+          "month": "เม.ย.",
+          "count": 30,
+          "resolved": 20
+        },
+        {
+          "month": "พ.ค.",
+          "count": 35,
+          "resolved": 21
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 38,
+          "resolved": 32
+        }
+      ]
+    },
+    "บางแค": {
+      "total": 483,
+      "resolved": 290,
+      "avg_days": 11.6,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 175,
+          "resolve_rate": 0.485
+        },
+        {
+          "type": "ขยะ",
+          "count": 106,
+          "resolve_rate": 0.539
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 57,
+          "resolve_rate": 0.584
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 65,
+          "resolve_rate": 0.539
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 42,
+          "resolve_rate": 0.641
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 28,
+          "resolve_rate": 0.715
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 30,
+          "resolved": 18
+        },
+        {
+          "month": "ส.ค.",
+          "count": 42,
+          "resolved": 30
+        },
+        {
+          "month": "ก.ย.",
+          "count": 43,
+          "resolved": 24
+        },
+        {
+          "month": "ต.ค.",
+          "count": 41,
+          "resolved": 25
+        },
+        {
+          "month": "พ.ย.",
+          "count": 55,
+          "resolved": 29
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 28,
+          "resolved": 18
+        },
+        {
+          "month": "ม.ค.",
+          "count": 37,
+          "resolved": 24
+        },
+        {
+          "month": "ก.พ.",
+          "count": 45,
+          "resolved": 29
+        },
+        {
+          "month": "มี.ค.",
+          "count": 48,
+          "resolved": 26
+        },
+        {
+          "month": "เม.ย.",
+          "count": 29,
+          "resolved": 17
+        },
+        {
+          "month": "พ.ค.",
+          "count": 51,
+          "resolved": 26
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 50,
+          "resolved": 29
+        }
+      ]
+    },
+    "ภาษีเจริญ": {
+      "total": 497,
+      "resolved": 334,
+      "avg_days": 10.5,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 143,
+          "resolve_rate": 0.739
+        },
+        {
+          "type": "ขยะ",
+          "count": 107,
+          "resolve_rate": 0.624
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 56,
+          "resolve_rate": 0.601
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 52,
+          "resolve_rate": 0.777
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 45,
+          "resolve_rate": 0.791
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 35,
+          "resolve_rate": 0.614
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 50,
+          "resolved": 29
+        },
+        {
+          "month": "ส.ค.",
+          "count": 39,
+          "resolved": 29
+        },
+        {
+          "month": "ก.ย.",
+          "count": 54,
+          "resolved": 33
+        },
+        {
+          "month": "ต.ค.",
+          "count": 32,
+          "resolved": 20
+        },
+        {
+          "month": "พ.ย.",
+          "count": 54,
+          "resolved": 39
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 54,
+          "resolved": 34
+        },
+        {
+          "month": "ม.ค.",
+          "count": 57,
+          "resolved": 38
+        },
+        {
+          "month": "ก.พ.",
+          "count": 43,
+          "resolved": 33
+        },
+        {
+          "month": "มี.ค.",
+          "count": 44,
+          "resolved": 33
+        },
+        {
+          "month": "เม.ย.",
+          "count": 50,
+          "resolved": 27
+        },
+        {
+          "month": "พ.ค.",
+          "count": 46,
+          "resolved": 34
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 44,
+          "resolved": 27
+        }
+      ]
+    },
+    "บางบอน": {
+      "total": 393,
+      "resolved": 230,
+      "avg_days": 12.4,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 143,
+          "resolve_rate": 0.568
+        },
+        {
+          "type": "ขยะ",
+          "count": 93,
+          "resolve_rate": 0.55
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 44,
+          "resolve_rate": 0.675
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 48,
+          "resolve_rate": 0.706
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 32,
+          "resolve_rate": 0.701
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 32,
+          "resolve_rate": 0.484
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 37,
+          "resolved": 20
+        },
+        {
+          "month": "ส.ค.",
+          "count": 41,
+          "resolved": 25
+        },
+        {
+          "month": "ก.ย.",
+          "count": 44,
+          "resolved": 22
+        },
+        {
+          "month": "ต.ค.",
+          "count": 36,
+          "resolved": 23
+        },
+        {
+          "month": "พ.ย.",
+          "count": 23,
+          "resolved": 11
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 40,
+          "resolved": 22
+        },
+        {
+          "month": "ม.ค.",
+          "count": 31,
+          "resolved": 18
+        },
+        {
+          "month": "ก.พ.",
+          "count": 36,
+          "resolved": 22
+        },
+        {
+          "month": "มี.ค.",
+          "count": 44,
+          "resolved": 24
+        },
+        {
+          "month": "เม.ย.",
+          "count": 40,
+          "resolved": 24
+        },
+        {
+          "month": "พ.ค.",
+          "count": 35,
+          "resolved": 19
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 37,
+          "resolved": 19
+        }
+      ]
+    },
+    "คลองสาน": {
+      "total": 371,
+      "resolved": 279,
+      "avg_days": 7.7,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 123,
+          "resolve_rate": 0.768
+        },
+        {
+          "type": "ขยะ",
+          "count": 73,
+          "resolve_rate": 0.696
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 50,
+          "resolve_rate": 0.873
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 44,
+          "resolve_rate": 0.854
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 33,
+          "resolve_rate": 0.663
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 29,
+          "resolve_rate": 0.742
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 41,
+          "resolved": 30
+        },
+        {
+          "month": "ส.ค.",
+          "count": 23,
+          "resolved": 18
+        },
+        {
+          "month": "ก.ย.",
+          "count": 39,
+          "resolved": 27
+        },
+        {
+          "month": "ต.ค.",
+          "count": 29,
+          "resolved": 18
+        },
+        {
+          "month": "พ.ย.",
+          "count": 33,
+          "resolved": 28
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 40,
+          "resolved": 32
+        },
+        {
+          "month": "ม.ค.",
+          "count": 41,
+          "resolved": 32
+        },
+        {
+          "month": "ก.พ.",
+          "count": 38,
+          "resolved": 28
+        },
+        {
+          "month": "มี.ค.",
+          "count": 24,
+          "resolved": 15
+        },
+        {
+          "month": "เม.ย.",
+          "count": 24,
+          "resolved": 20
+        },
+        {
+          "month": "พ.ค.",
+          "count": 22,
+          "resolved": 16
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 29,
+          "resolved": 24
+        }
+      ]
+    },
+    "ทุ่งครุ": {
+      "total": 406,
+      "resolved": 248,
+      "avg_days": 10.6,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 131,
+          "resolve_rate": 0.731
+        },
+        {
+          "type": "ขยะ",
+          "count": 97,
+          "resolve_rate": 0.617
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 62,
+          "resolve_rate": 0.689
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 43,
+          "resolve_rate": 0.725
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 38,
+          "resolve_rate": 0.599
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 30,
+          "resolve_rate": 0.574
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 44,
+          "resolved": 29
+        },
+        {
+          "month": "ส.ค.",
+          "count": 38,
+          "resolved": 20
+        },
+        {
+          "month": "ก.ย.",
+          "count": 46,
+          "resolved": 27
+        },
+        {
+          "month": "ต.ค.",
+          "count": 45,
+          "resolved": 22
+        },
+        {
+          "month": "พ.ย.",
+          "count": 26,
+          "resolved": 13
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 27,
+          "resolved": 15
+        },
+        {
+          "month": "ม.ค.",
+          "count": 40,
+          "resolved": 22
+        },
+        {
+          "month": "ก.พ.",
+          "count": 45,
+          "resolved": 31
+        },
+        {
+          "month": "มี.ค.",
+          "count": 43,
+          "resolved": 23
+        },
+        {
+          "month": "เม.ย.",
+          "count": 38,
+          "resolved": 23
+        },
+        {
+          "month": "พ.ค.",
+          "count": 26,
+          "resolved": 14
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 36,
+          "resolved": 22
+        }
+      ]
+    },
+    "บางขุนเทียน": {
+      "total": 342,
+      "resolved": 203,
+      "avg_days": 12.5,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 127,
+          "resolve_rate": 0.647
+        },
+        {
+          "type": "ขยะ",
+          "count": 78,
+          "resolve_rate": 0.676
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 49,
+          "resolve_rate": 0.672
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 36,
+          "resolve_rate": 0.485
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 32,
+          "resolve_rate": 0.613
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 25,
+          "resolve_rate": 0.658
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 28,
+          "resolved": 17
+        },
+        {
+          "month": "ส.ค.",
+          "count": 29,
+          "resolved": 18
+        },
+        {
+          "month": "ก.ย.",
+          "count": 25,
+          "resolved": 17
+        },
+        {
+          "month": "ต.ค.",
+          "count": 29,
+          "resolved": 19
+        },
+        {
+          "month": "พ.ย.",
+          "count": 33,
+          "resolved": 18
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 21,
+          "resolved": 10
+        },
+        {
+          "month": "ม.ค.",
+          "count": 28,
+          "resolved": 16
+        },
+        {
+          "month": "ก.พ.",
+          "count": 24,
+          "resolved": 14
+        },
+        {
+          "month": "มี.ค.",
+          "count": 26,
+          "resolved": 16
+        },
+        {
+          "month": "เม.ย.",
+          "count": 34,
+          "resolved": 23
+        },
+        {
+          "month": "พ.ค.",
+          "count": 39,
+          "resolved": 19
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 27,
+          "resolved": 16
+        }
+      ]
+    },
+    "บางรัก": {
+      "total": 340,
+      "resolved": 274,
+      "avg_days": 5.2,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 107,
+          "resolve_rate": 0.71
+        },
+        {
+          "type": "ขยะ",
+          "count": 68,
+          "resolve_rate": 0.779
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 49,
+          "resolve_rate": 0.746
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 50,
+          "resolve_rate": 0.725
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 28,
+          "resolve_rate": 0.825
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 22,
+          "resolve_rate": 0.87
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 29,
+          "resolved": 23
+        },
+        {
+          "month": "ส.ค.",
+          "count": 29,
+          "resolved": 21
+        },
+        {
+          "month": "ก.ย.",
+          "count": 20,
+          "resolved": 19
+        },
+        {
+          "month": "ต.ค.",
+          "count": 29,
+          "resolved": 27
+        },
+        {
+          "month": "พ.ย.",
+          "count": 24,
+          "resolved": 18
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 20,
+          "resolved": 16
+        },
+        {
+          "month": "ม.ค.",
+          "count": 37,
+          "resolved": 31
+        },
+        {
+          "month": "ก.พ.",
+          "count": 29,
+          "resolved": 23
+        },
+        {
+          "month": "มี.ค.",
+          "count": 36,
+          "resolved": 28
+        },
+        {
+          "month": "เม.ย.",
+          "count": 37,
+          "resolved": 32
+        },
+        {
+          "month": "พ.ค.",
+          "count": 34,
+          "resolved": 25
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 27,
+          "resolved": 22
+        }
+      ]
+    },
+    "สาทร": {
+      "total": 308,
+      "resolved": 248,
+      "avg_days": 4.8,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 107,
+          "resolve_rate": 0.869
+        },
+        {
+          "type": "ขยะ",
+          "count": 61,
+          "resolve_rate": 0.923
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 46,
+          "resolve_rate": 0.714
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 47,
+          "resolve_rate": 0.78
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 30,
+          "resolve_rate": 0.767
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 25,
+          "resolve_rate": 0.867
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 21,
+          "resolved": 16
+        },
+        {
+          "month": "ส.ค.",
+          "count": 26,
+          "resolved": 17
+        },
+        {
+          "month": "ก.ย.",
+          "count": 20,
+          "resolved": 15
+        },
+        {
+          "month": "ต.ค.",
+          "count": 26,
+          "resolved": 20
+        },
+        {
+          "month": "พ.ย.",
+          "count": 28,
+          "resolved": 22
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 23,
+          "resolved": 19
+        },
+        {
+          "month": "ม.ค.",
+          "count": 20,
+          "resolved": 19
+        },
+        {
+          "month": "ก.พ.",
+          "count": 31,
+          "resolved": 22
+        },
+        {
+          "month": "มี.ค.",
+          "count": 24,
+          "resolved": 21
+        },
+        {
+          "month": "เม.ย.",
+          "count": 27,
+          "resolved": 23
+        },
+        {
+          "month": "พ.ค.",
+          "count": 23,
+          "resolved": 20
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 24,
+          "resolved": 20
+        }
+      ]
+    },
+    "บางคอแหลม": {
+      "total": 366,
+      "resolved": 273,
+      "avg_days": 8.3,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 139,
+          "resolve_rate": 0.794
+        },
+        {
+          "type": "ขยะ",
+          "count": 65,
+          "resolve_rate": 0.742
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 60,
+          "resolve_rate": 0.816
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 52,
+          "resolve_rate": 0.767
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 35,
+          "resolve_rate": 0.768
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 22,
+          "resolve_rate": 0.779
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 34,
+          "resolved": 28
+        },
+        {
+          "month": "ส.ค.",
+          "count": 24,
+          "resolved": 19
+        },
+        {
+          "month": "ก.ย.",
+          "count": 22,
+          "resolved": 19
+        },
+        {
+          "month": "ต.ค.",
+          "count": 23,
+          "resolved": 13
+        },
+        {
+          "month": "พ.ย.",
+          "count": 28,
+          "resolved": 18
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 36,
+          "resolved": 25
+        },
+        {
+          "month": "ม.ค.",
+          "count": 37,
+          "resolved": 32
+        },
+        {
+          "month": "ก.พ.",
+          "count": 39,
+          "resolved": 31
+        },
+        {
+          "month": "มี.ค.",
+          "count": 22,
+          "resolved": 14
+        },
+        {
+          "month": "เม.ย.",
+          "count": 25,
+          "resolved": 17
+        },
+        {
+          "month": "พ.ค.",
+          "count": 35,
+          "resolved": 26
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 28,
+          "resolved": 18
+        }
+      ]
+    },
+    "ยานนาวา": {
+      "total": 337,
+      "resolved": 250,
+      "avg_days": 6.6,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 130,
+          "resolve_rate": 0.797
+        },
+        {
+          "type": "ขยะ",
+          "count": 78,
+          "resolve_rate": 0.791
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 49,
+          "resolve_rate": 0.67
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 39,
+          "resolve_rate": 0.758
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 26,
+          "resolve_rate": 0.858
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 21,
+          "resolve_rate": 0.694
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 23,
+          "resolved": 18
+        },
+        {
+          "month": "ส.ค.",
+          "count": 25,
+          "resolved": 17
+        },
+        {
+          "month": "ก.ย.",
+          "count": 38,
+          "resolved": 31
+        },
+        {
+          "month": "ต.ค.",
+          "count": 25,
+          "resolved": 15
+        },
+        {
+          "month": "พ.ย.",
+          "count": 32,
+          "resolved": 22
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 38,
+          "resolved": 31
+        },
+        {
+          "month": "ม.ค.",
+          "count": 38,
+          "resolved": 31
+        },
+        {
+          "month": "ก.พ.",
+          "count": 25,
+          "resolved": 17
+        },
+        {
+          "month": "มี.ค.",
+          "count": 33,
+          "resolved": 23
+        },
+        {
+          "month": "เม.ย.",
+          "count": 28,
+          "resolved": 18
+        },
+        {
+          "month": "พ.ค.",
+          "count": 29,
+          "resolved": 19
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 30,
+          "resolved": 26
+        }
+      ]
+    },
+    "พระนคร": {
+      "total": 296,
+      "resolved": 234,
+      "avg_days": 5.8,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 107,
+          "resolve_rate": 0.732
+        },
+        {
+          "type": "ขยะ",
+          "count": 69,
+          "resolve_rate": 0.801
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 43,
+          "resolve_rate": 0.686
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 37,
+          "resolve_rate": 0.846
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 22,
+          "resolve_rate": 0.859
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 16,
+          "resolve_rate": 0.806
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 33,
+          "resolved": 25
+        },
+        {
+          "month": "ส.ค.",
+          "count": 33,
+          "resolved": 30
+        },
+        {
+          "month": "ก.ย.",
+          "count": 25,
+          "resolved": 17
+        },
+        {
+          "month": "ต.ค.",
+          "count": 33,
+          "resolved": 24
+        },
+        {
+          "month": "พ.ย.",
+          "count": 28,
+          "resolved": 25
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 18,
+          "resolved": 14
+        },
+        {
+          "month": "ม.ค.",
+          "count": 26,
+          "resolved": 22
+        },
+        {
+          "month": "ก.พ.",
+          "count": 33,
+          "resolved": 30
+        },
+        {
+          "month": "มี.ค.",
+          "count": 20,
+          "resolved": 18
+        },
+        {
+          "month": "เม.ย.",
+          "count": 20,
+          "resolved": 18
+        },
+        {
+          "month": "พ.ค.",
+          "count": 34,
+          "resolved": 25
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 25,
+          "resolved": 23
+        }
+      ]
+    },
+    "ป้อมปราบศัตรูพ่าย": {
+      "total": 296,
+      "resolved": 261,
+      "avg_days": 6.3,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 83,
+          "resolve_rate": 0.899
+        },
+        {
+          "type": "ขยะ",
+          "count": 54,
+          "resolve_rate": 0.95
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 37,
+          "resolve_rate": 0.95
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 39,
+          "resolve_rate": 0.881
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 31,
+          "resolve_rate": 0.95
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 20,
+          "resolve_rate": 0.809
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 19,
+          "resolved": 14
+        },
+        {
+          "month": "ส.ค.",
+          "count": 25,
+          "resolved": 19
+        },
+        {
+          "month": "ก.ย.",
+          "count": 20,
+          "resolved": 19
+        },
+        {
+          "month": "ต.ค.",
+          "count": 30,
+          "resolved": 27
+        },
+        {
+          "month": "พ.ย.",
+          "count": 30,
+          "resolved": 23
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 32,
+          "resolved": 32
+        },
+        {
+          "month": "ม.ค.",
+          "count": 31,
+          "resolved": 27
+        },
+        {
+          "month": "ก.พ.",
+          "count": 18,
+          "resolved": 16
+        },
+        {
+          "month": "มี.ค.",
+          "count": 20,
+          "resolved": 15
+        },
+        {
+          "month": "เม.ย.",
+          "count": 22,
+          "resolved": 17
+        },
+        {
+          "month": "พ.ค.",
+          "count": 21,
+          "resolved": 16
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 30,
+          "resolved": 30
+        }
+      ]
+    },
+    "สัมพันธวงศ์": {
+      "total": 225,
+      "resolved": 180,
+      "avg_days": 4.9,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 83,
+          "resolve_rate": 0.849
+        },
+        {
+          "type": "ขยะ",
+          "count": 40,
+          "resolve_rate": 0.711
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 29,
+          "resolve_rate": 0.78
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 29,
+          "resolve_rate": 0.897
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 21,
+          "resolve_rate": 0.757
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 13,
+          "resolve_rate": 0.902
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 16,
+          "resolved": 13
+        },
+        {
+          "month": "ส.ค.",
+          "count": 16,
+          "resolved": 10
+        },
+        {
+          "month": "ก.ย.",
+          "count": 15,
+          "resolved": 13
+        },
+        {
+          "month": "ต.ค.",
+          "count": 21,
+          "resolved": 16
+        },
+        {
+          "month": "พ.ย.",
+          "count": 20,
+          "resolved": 15
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 20,
+          "resolved": 17
+        },
+        {
+          "month": "ม.ค.",
+          "count": 15,
+          "resolved": 10
+        },
+        {
+          "month": "ก.พ.",
+          "count": 23,
+          "resolved": 21
+        },
+        {
+          "month": "มี.ค.",
+          "count": 14,
+          "resolved": 10
+        },
+        {
+          "month": "เม.ย.",
+          "count": 22,
+          "resolved": 14
+        },
+        {
+          "month": "พ.ค.",
+          "count": 20,
+          "resolved": 13
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 20,
+          "resolved": 16
+        }
+      ]
+    },
+    "บางซื่อ": {
+      "total": 837,
+      "resolved": 531,
+      "avg_days": 8.9,
+      "top_problems": [
+        {
+          "type": "ถนน/ทางเท้า",
+          "count": 295,
+          "resolve_rate": 0.543
+        },
+        {
+          "type": "ขยะ",
+          "count": 162,
+          "resolve_rate": 0.655
+        },
+        {
+          "type": "น้ำท่วม",
+          "count": 98,
+          "resolve_rate": 0.637
+        },
+        {
+          "type": "ไฟส่องสว่าง",
+          "count": 122,
+          "resolve_rate": 0.624
+        },
+        {
+          "type": "ความปลอดภัย",
+          "count": 75,
+          "resolve_rate": 0.625
+        },
+        {
+          "type": "อื่นๆ",
+          "count": 48,
+          "resolve_rate": 0.626
+        }
+      ],
+      "monthly": [
+        {
+          "month": "ก.ค.",
+          "count": 88,
+          "resolved": 60
+        },
+        {
+          "month": "ส.ค.",
+          "count": 68,
+          "resolved": 48
+        },
+        {
+          "month": "ก.ย.",
+          "count": 85,
+          "resolved": 55
+        },
+        {
+          "month": "ต.ค.",
+          "count": 51,
+          "resolved": 30
+        },
+        {
+          "month": "พ.ย.",
+          "count": 51,
+          "resolved": 38
+        },
+        {
+          "month": "ธ.ค.",
+          "count": 94,
+          "resolved": 49
+        },
+        {
+          "month": "ม.ค.",
+          "count": 94,
+          "resolved": 48
+        },
+        {
+          "month": "ก.พ.",
+          "count": 68,
+          "resolved": 47
+        },
+        {
+          "month": "มี.ค.",
+          "count": 86,
+          "resolved": 65
+        },
+        {
+          "month": "เม.ย.",
+          "count": 80,
+          "resolved": 49
+        },
+        {
+          "month": "พ.ค.",
+          "count": 97,
+          "resolved": 58
+        },
+        {
+          "month": "มิ.ย.",
+          "count": 91,
+          "resolved": 67
+        }
+      ]
+    }
+  }
+}
