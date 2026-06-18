@@ -54,11 +54,28 @@ function BarRow({ label, count, resolveRate, max, color, delay }) {
 
 const TT = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null
+  const count    = payload.find(p => p.dataKey === 'count')?.value || 0
+  const resolved = payload.find(p => p.dataKey === 'resolved')?.value || 0
+  const pct = count > 0 ? Math.round(resolved / count * 100) : 0
   return (
-    <div style={{ background:'var(--panel)', border:'1px solid var(--line)', borderRadius:9, padding:'8px 13px' }}>
-      <div style={{ fontSize:11, color:'var(--faint)' }}>{label}</div>
-      <div style={{ fontSize:14, fontWeight:600, color:'var(--mint)', fontFamily:'IBM Plex Mono,monospace' }}>
-        {payload[0]?.value?.toLocaleString()} ครั้ง
+    <div style={{
+      background:'var(--panel)', border:'1px solid var(--line)',
+      borderRadius:10, padding:'10px 14px', minWidth:140,
+      boxShadow:'0 8px 24px rgba(0,0,0,0.4)',
+    }}>
+      <div style={{ fontSize:11, color:'var(--faint)', marginBottom:6, fontWeight:600 }}>{label}</div>
+      <div style={{ display:'flex', flexDirection:'column', gap:4 }}>
+        <div style={{ display:'flex', justifyContent:'space-between', gap:16, alignItems:'center' }}>
+          <span style={{ fontSize:11, color:'#5BD1B8' }}>● ร้องเรียน</span>
+          <span style={{ fontSize:13, fontWeight:700, color:'var(--ink)', fontFamily:'IBM Plex Mono,monospace' }}>{count.toLocaleString()}</span>
+        </div>
+        <div style={{ display:'flex', justifyContent:'space-between', gap:16, alignItems:'center' }}>
+          <span style={{ fontSize:11, color:'#F9CA24' }}>● แก้ไขแล้ว</span>
+          <span style={{ fontSize:13, fontWeight:700, color:'#F9CA24', fontFamily:'IBM Plex Mono,monospace' }}>{resolved.toLocaleString()}</span>
+        </div>
+        <div style={{ borderTop:'1px solid var(--line)', marginTop:4, paddingTop:4, fontSize:11, color:'var(--faint)' }}>
+          อัตราแก้ไข <span style={{ color: pct>=70?'#5BD1B8':pct>=50?'#F9CA24':'#EB4D4B', fontWeight:700 }}>{pct}%</span>
+        </div>
       </div>
     </div>
   )
@@ -153,25 +170,85 @@ export default function DistrictDetail({ district, name, cityAvg, onClose }) {
 
       {/* Trend chart */}
       {trend.length > 0 && (
-        <div>
-          <div style={{ fontSize:12, color:'var(--faint)', marginBottom:8 }}>แนวโน้มรายเดือน (6 เดือนล่าสุด)</div>
-          <div style={{ height:80 }}>
+        <div style={{ background:'var(--panel2)', borderRadius:12, padding:'14px 16px', border:'1px solid var(--line)' }}>
+          {/* Chart header */}
+          <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:12 }}>
+            <div>
+              <div style={{ fontSize:13, fontWeight:600, color:'var(--ink)' }}>แนวโน้มรายเดือน</div>
+              <div style={{ fontSize:11, color:'var(--faint)' }}>6 เดือนล่าสุด</div>
+            </div>
+            <div style={{ display:'flex', gap:14 }}>
+              <div style={{ display:'flex', alignItems:'center', gap:5 }}>
+                <span style={{ width:20, height:2, background:'#5BD1B8', display:'inline-block', borderRadius:2 }}/>
+                <span style={{ fontSize:11, color:'var(--faint)' }}>ร้องเรียน</span>
+              </div>
+              <div style={{ display:'flex', alignItems:'center', gap:5 }}>
+                <span style={{ width:20, height:2, background:'#F9CA24', display:'inline-block', borderRadius:2 }}/>
+                <span style={{ fontSize:11, color:'var(--faint)' }}>แก้ไขแล้ว</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Chart */}
+          <div style={{ height:130 }}>
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={trend} margin={{ top:0, right:0, bottom:0, left:0 }}>
+              <AreaChart data={trend} margin={{ top:8, right:4, bottom:0, left:4 }}>
                 <defs>
-                  <linearGradient id="tg" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#5BD1B8" stopOpacity={0.25}/>
-                    <stop offset="95%" stopColor="#5BD1B8" stopOpacity={0}/>
+                  <linearGradient id="gradCount" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"  stopColor="#5BD1B8" stopOpacity={0.35}/>
+                    <stop offset="100%" stopColor="#5BD1B8" stopOpacity={0.02}/>
+                  </linearGradient>
+                  <linearGradient id="gradResolved" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%"  stopColor="#F9CA24" stopOpacity={0.30}/>
+                    <stop offset="100%" stopColor="#F9CA24" stopOpacity={0.02}/>
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="month" tick={{ fill:'#64778C', fontSize:9 }} tickLine={false} axisLine={false}/>
-                <YAxis hide/>
-                <Tooltip content={<TT/>}/>
-                <Area type="monotone" dataKey="count" stroke="#5BD1B8" strokeWidth={1.5}
-                  fill="url(#tg)" dot={false} activeDot={{ r:3, fill:'#5BD1B8', strokeWidth:0 }}/>
+                <XAxis
+                  dataKey="month"
+                  tick={{ fill:'#64778C', fontSize:10, fontFamily:'IBM Plex Sans Thai,sans-serif' }}
+                  tickLine={false}
+                  axisLine={{ stroke:'rgba(255,255,255,0.06)' }}
+                />
+                <YAxis hide domain={['auto','auto']}/>
+                <Tooltip content={<TT/>} cursor={{ stroke:'rgba(255,255,255,0.08)', strokeWidth:1 }}/>
+                {/* Resolved area (below) */}
+                <Area
+                  type="monotone" dataKey="resolved"
+                  stroke="#F9CA24" strokeWidth={2}
+                  fill="url(#gradResolved)"
+                  dot={false}
+                  activeDot={{ r:4, fill:'#F9CA24', stroke:'var(--panel)', strokeWidth:2 }}
+                />
+                {/* Total area (above) */}
+                <Area
+                  type="monotone" dataKey="count"
+                  stroke="#5BD1B8" strokeWidth={2.5}
+                  fill="url(#gradCount)"
+                  dot={false}
+                  activeDot={{ r:5, fill:'#5BD1B8', stroke:'var(--panel)', strokeWidth:2 }}
+                />
               </AreaChart>
             </ResponsiveContainer>
           </div>
+
+          {/* Bottom stat */}
+          {(() => {
+            const first = trend[0], last = trend[trend.length-1]
+            const diff = last.count - first.count
+            const sign = diff >= 0 ? '+' : ''
+            const pct  = first.count > 0 ? Math.round(diff / first.count * 100) : 0
+            return (
+              <div style={{ marginTop:10, paddingTop:10, borderTop:'1px solid var(--line)', display:'flex', justifyContent:'space-between', alignItems:'center' }}>
+                <span style={{ fontSize:11, color:'var(--faint)' }}>เทียบเดือนแรก vs เดือนล่าสุด</span>
+                <span style={{
+                  fontSize:12, fontWeight:700, fontFamily:'IBM Plex Mono,monospace',
+                  color: diff <= 0 ? '#5BD1B8' : '#EB4D4B',
+                }}>
+                  {sign}{pct}% {diff <= 0 ? '▼ ลดลง' : '▲ เพิ่มขึ้น'}
+                </span>
+              </div>
+            )
+          })()}
         </div>
       )}
     </section>

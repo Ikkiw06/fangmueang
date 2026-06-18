@@ -52,7 +52,7 @@ export default function KpiPanel({ data, timeFactor = 1, selectedType }) {
   ]
 
   return (
-    <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:12 }}>
+    <div className="kpi-grid">
       {cards.map(c => <KCard key={c.k} {...c} />)}
     </div>
   )

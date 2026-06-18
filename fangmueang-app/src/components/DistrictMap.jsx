@@ -107,6 +107,7 @@ export default function DistrictMap({ districts = {}, selectedDistrict, onSelect
       .catch((err) => console.error(err))
   }, [])
 
+<<<<<<< HEAD
   const styleFeature = (feature) => {
     const name = feature.properties.dname || feature.properties.name
     const isSelected = name === selectedDistrict
@@ -129,14 +130,29 @@ export default function DistrictMap({ districts = {}, selectedDistrict, onSelect
         weight: isSelected ? 2.5 : 0,
         color: isSelected ? '#3b82f6' : 'transparent',
       }
+=======
+  const counts = Object.values(districts).map(d => d.total || 0)
+  const max    = Math.max(...counts, 1)
+
+  const styleFeature = (feature) => {
+    const name       = feature.properties.dname || feature.properties.name
+    const d          = districts[name]
+    const count      = d?.total || 0
+    const isSelected = name === selectedDistrict
+    return {
+      fillColor:   getBucket(count, max),
+      weight:      isSelected ? 2.5 : 1,
+      color:       isSelected ? '#FFFFFF' : 'rgba(255,255,255,0.35)',
+      fillOpacity: isSelected ? 1 : 0.85,
+>>>>>>> main
     }
   }
 
   const onEachFeature = (feature, layer) => {
-    const name = feature.properties.dname || feature.properties.name
-    const d = districts[name]
+    const name  = feature.properties.dname || feature.properties.name
+    const d     = districts[name]
     const count = d?.total || 0
-    const rr = d ? Math.round((d.resolved / d.total) * 100) : 0
+    const rr    = d ? Math.round((d.resolved / d.total) * 100) : 0
 
     layer.bindTooltip(`
       <div style="font-family:'IBM Plex Sans Thai',sans-serif;padding:8px 14px;
@@ -176,6 +192,13 @@ export default function DistrictMap({ districts = {}, selectedDistrict, onSelect
     })
   }
 
+  /* Selected district stats overlay */
+  const selData   = selectedDistrict ? districts[selectedDistrict] : null
+  const selCount  = selData?.total || 0
+  const selRr     = selData ? Math.round((selData.resolved / selData.total) * 100) : 0
+  const selDays   = selData?.avg_days || 0
+  const rrColor   = selRr >= 70 ? '#5BD1B8' : selRr >= 50 ? '#E9C46A' : '#EB4D4B'
+
   const CARD = {
     background: '#0f172a',
     border: '1px solid rgba(255, 255, 255, 0.05)',
@@ -195,6 +218,7 @@ export default function DistrictMap({ districts = {}, selectedDistrict, onSelect
 
   return (
     <section style={CARD}>
+<<<<<<< HEAD
       {/* ส่วนควบคุมส่วนบน */}
       <div style={{ display: 'flex', justifyContent: 'between', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
@@ -231,9 +255,52 @@ export default function DistrictMap({ districts = {}, selectedDistrict, onSelect
           >
             📊 ความหนาแน่น
           </button>
+=======
+      {/* Header */}
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start' }}>
+        <div>
+          <h2 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: 'var(--ink)' }}>
+            แผนที่ปัญหารายเขต
+          </h2>
+          <div style={{ color: 'var(--faint)', fontSize: 12, marginTop: 2 }}>
+            {selectedDistrict
+              ? `เลือก: เขต${selectedDistrict} · คลิกอีกครั้งเพื่อยกเลิก`
+              : 'คลิกที่เขตเพื่อดูรายละเอียด'}
+          </div>
+>>>>>>> main
         </div>
+        {/* Quick stats badge when selected */}
+        {selData && (
+          <div style={{
+            background:'var(--panel2)', border:'1px solid var(--line)',
+            borderRadius:10, padding:'6px 12px', textAlign:'right',
+          }}>
+            <div style={{ fontSize:10, color:'var(--faint)', marginBottom:2 }}>เขต{selectedDistrict}</div>
+            <div style={{ display:'flex', gap:12, alignItems:'center' }}>
+              <div>
+                <div style={{ fontSize:16, fontWeight:700, fontFamily:'IBM Plex Mono,monospace', color:'var(--ink)' }}>
+                  {selCount.toLocaleString()}
+                </div>
+                <div style={{ fontSize:10, color:'var(--faint)' }}>เรื่อง</div>
+              </div>
+              <div>
+                <div style={{ fontSize:16, fontWeight:700, fontFamily:'IBM Plex Mono,monospace', color:rrColor }}>
+                  {selRr}%
+                </div>
+                <div style={{ fontSize:10, color:'var(--faint)' }}>แก้ไขแล้ว</div>
+              </div>
+              <div>
+                <div style={{ fontSize:16, fontWeight:700, fontFamily:'IBM Plex Mono,monospace', color:'var(--ink)' }}>
+                  {selDays}
+                </div>
+                <div style={{ fontSize:10, color:'var(--faint)' }}>วัน/เรื่อง</div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
+<<<<<<< HEAD
       {/* แถบสีสัญลักษณ์แสดงเฉพาะโหมดวิเคราะห์ */}
       {mapMode === 'analytics' && (
         <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', padding: '4px 0' }}>
@@ -248,12 +315,49 @@ export default function DistrictMap({ districts = {}, selectedDistrict, onSelect
 
       {/* พื้นที่แสดงแผงแผนที่ */}
       <div style={{ flex: 1, borderRadius: 10, overflow: 'hidden', position: 'relative' }}>
+=======
+      {/* Legend */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+        {BUCKETS.map((c, i) => (
+          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            <span style={{
+              display: 'inline-block', width: 12, height: 12,
+              borderRadius: 3, background: c,
+            }} />
+            <span style={{ fontSize: 10, color: 'var(--faint)' }}>{LABELS[i]}</span>
+          </div>
+        ))}
+        {selectedDistrict && (
+          <button
+            onClick={() => onSelectDistrict(null)}
+            style={{
+              marginLeft:'auto', background:'none',
+              border:'1px solid var(--line)', color:'var(--faint)',
+              borderRadius:7, padding:'3px 9px', fontSize:11,
+              fontFamily:'inherit', cursor:'pointer',
+              transition:'all 0.15s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor='var(--mint-d)'; e.currentTarget.style.color='var(--ink)' }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor='var(--line)'; e.currentTarget.style.color='var(--faint)' }}
+          >
+            ยกเลิก ✕
+          </button>
+        )}
+      </div>
+
+      {/* Map */}
+      <div style={{ flex: 1, borderRadius: 10, overflow: 'hidden', minHeight: 380, position: 'relative' }}>
+>>>>>>> main
         <MapContainer
           center={[13.756, 100.502]}
           zoom={10}
           zoomControl={true}
           scrollWheelZoom={true}
+<<<<<<< HEAD
           style={{ height: '100%', width: '100%', background: '#0E141C' }}
+=======
+          style={{ height: '100%', width: '100%', minHeight: 380, background: '#0E141C' }}
+>>>>>>> main
         >
           {geoData && (
             <>
