@@ -1,34 +1,169 @@
 import { useState, useEffect } from 'react'
-import { MapContainer, GeoJSON, useMap } from 'react-leaflet'
+import { MapContainer, GeoJSON, TileLayer, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 
-// vibrant palette: low → high
-const BUCKETS = ['#4ECDC4','#45B7D1','#F9CA24','#F0932B','#EB4D4B']
+/* ── Choropleth palette ─────────────────────────────── */
+const BUCKETS = ['#1B6CA8','#2196A6','#E9C46A','#F4A261','#E63946']
 const LABELS  = ['น้อยมาก','น้อย','ปานกลาง','มาก','มากมาก']
 
 function getBucket(count, max) {
-  if (!count || max <= 0) return '#1C2B3A'
-  const r = count / max
-  const i = Math.min(4, Math.floor(r * 5 - 1e-9))
+  if (!count || max <= 0) return null
+  const i = Math.min(4, Math.floor((count / max) * 5 - 1e-9))
   return BUCKETS[Math.max(0, i)]
 }
 
-// Auto-fit map to Bangkok bounds
+/* ── Dot type config ────────────────────────────────── */
+const TYPE_CONFIG = {
+  'ถนน/ทางเท้า': { color:'#F4A261', icon:'🛣️', grad:'linear-gradient(135deg,#3D2008,#8B4513)', desc:'ถนน ทางเท้า หรือพื้นผิวชำรุด' },
+  'ขยะ':         { color:'#6FC18A', icon:'🗑️', grad:'linear-gradient(135deg,#0D2B1A,#1A5C35)', desc:'ขยะตกค้างหรือปัญหาสุขาภิบาล' },
+  'น้ำท่วม':     { color:'#4F9FE0', icon:'🌊', grad:'linear-gradient(135deg,#071828,#0D47A1)', desc:'น้ำท่วม ท่อระบายอุดตัน' },
+  'ไฟส่องสว่าง': { color:'#E9C46A', icon:'💡', grad:'linear-gradient(135deg,#2A1E00,#7A5800)', desc:'ไฟฟ้าสาธารณะดับหรือชำรุด' },
+  'ความปลอดภัย': { color:'#E63946', icon:'🚨', grad:'linear-gradient(135deg,#2A0808,#8B1010)', desc:'เหตุที่เป็นอันตรายต่อความปลอดภัย' },
+  'อื่นๆ':       { color:'#8DA0B4', icon:'📌', grad:'linear-gradient(135deg,#131A24,#253040)', desc:'ปัญหาทั่วไปในพื้นที่' },
+}
+function getTypeConfig(type) {
+  return TYPE_CONFIG[type] || TYPE_CONFIG['อื่นๆ']
+}
+
+/* ── Fetch dots from local file ─────────────────────── */
+async function fetchAllDots(onProgress) {
+  const res  = await fetch('/dots.json')
+  if (!res.ok) throw new Error('dots.json not found')
+  const json = await res.json()
+  const dots = json.dots || []
+  onProgress(dots.length, dots.length)
+  return dots.map(d => ({ lat:d[0], lng:d[1], type:d[2], state:d[3], district:d[4] }))
+}
+
+/* ── Canvas dot layer ───────────────────────────────── */
+function CanvasDotLayer({ dots }) {
+  const map = useMap()
+
+  useEffect(() => {
+    if (!dots.length || !map) return
+
+    const markers = dots.map(d => {
+      const cfg = getTypeConfig(d.type)
+      const stateColor = d.state === 'ดำเนินการแล้ว' ? '#5BD1B8'
+                       : d.state === 'กำลังดำเนินการ' ? '#E9C46A' : '#E63946'
+      const stateIcon  = d.state === 'ดำเนินการแล้ว' ? '✅' : d.state === 'กำลังดำเนินการ' ? '⏳' : '🔴'
+
+      const m = L.circleMarker([d.lat, d.lng], {
+        radius: 5.5,
+        color: 'rgba(0,0,0,0.5)', weight: 1,
+        fillColor: cfg.color, fillOpacity: 0.88,
+      })
+
+      m.bindTooltip(
+        `<div style="font-family:'IBM Plex Sans Thai',sans-serif;width:210px;
+            background:#111827;border:1px solid rgba(255,255,255,0.12);
+            border-radius:13px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.8);">
+          <div style="height:72px;background:${cfg.grad};
+              display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+              position:relative;">
+            <span style="font-size:30px;line-height:1;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.7));">${cfg.icon}</span>
+            <span style="font-size:10px;color:rgba(255,255,255,0.6);letter-spacing:0.05em;">${cfg.desc}</span>
+          </div>
+          <div style="padding:11px 13px 12px;">
+            <div style="font-size:14px;font-weight:700;color:#F0F6FF;margin-bottom:4px;">${d.type}</div>
+            <div style="display:flex;align-items:center;gap:5px;margin-bottom:9px;">
+              <span style="font-size:11px;color:#64778C;">📍</span>
+              <span style="font-size:11px;color:#8DA0B4;">เขต${d.district}</span>
+            </div>
+            <div style="display:inline-flex;align-items:center;gap:6px;
+                background:${stateColor}1A;border:1px solid ${stateColor}50;
+                border-radius:99px;padding:3px 10px;">
+              <span style="font-size:9px;">${stateIcon}</span>
+              <span style="font-size:10px;font-weight:700;color:${stateColor};letter-spacing:0.03em;">${d.state}</span>
+            </div>
+          </div>
+        </div>`,
+        {
+          sticky: true,
+          opacity: 1,
+          offset: [14, -6],
+          direction: 'right',
+          className: 'dot-tooltip',
+        }
+      )
+
+      m.on('mouseover', function () {
+        this.setRadius(9)
+        this.setStyle({ weight: 2, color: 'rgba(255,255,255,0.6)', fillOpacity: 1 })
+        this.openTooltip()
+      })
+      m.on('mouseout', function () {
+        this.setRadius(5.5)
+        this.setStyle({ weight: 1, color: 'rgba(0,0,0,0.5)', fillOpacity: 0.88 })
+        this.closeTooltip()
+      })
+
+      return m
+    })
+
+    const group = L.layerGroup(markers)
+    group.addTo(map)
+    return () => group.remove()
+  }, [dots, map])
+
+  return null
+}
+
+/* ── FitBounds ──────────────────────────────────────── */
 function FitBounds({ geoData }) {
   const map = useMap()
   useEffect(() => {
     if (!geoData) return
     try {
-      const bounds = L.geoJSON(geoData).getBounds()
-      if (bounds.isValid()) map.fitBounds(bounds, { padding: [16, 16], animate: false })
+      const b = L.geoJSON(geoData).getBounds()
+      if (b.isValid()) map.fitBounds(b, { padding:[16,16], animate:false })
     } catch {}
   }, [geoData, map])
   return null
 }
 
+/* ── District labels ────────────────────────────────── */
+function DistrictLabels({ geoData, districts, selectedDistrict }) {
+  const map = useMap()
+  useEffect(() => {
+    if (!geoData || !map) return
+    const ms = []
+    geoData.features.forEach(f => {
+      const name = f.properties.dname || f.properties.name
+      const d    = districts[name]
+      const isSel = name === selectedDistrict
+      if (!isSel && !(d?.total > 0)) return
+      try {
+        const c = L.geoJSON(f).getBounds().getCenter()
+        const m = L.marker(c, {
+          icon: L.divIcon({
+            className: '',
+            html: `<div style="font-family:'IBM Plex Sans Thai',sans-serif;
+              font-size:${isSel?11:9.5}px;font-weight:${isSel?700:500};
+              color:${isSel?'#FFF':'rgba(231,238,245,0.8)'};
+              text-shadow:0 1px 3px rgba(0,0,0,0.9);white-space:nowrap;
+              pointer-events:none;transform:translate(-50%,-50%);">${name}</div>`,
+            iconSize:[0,0], iconAnchor:[0,0],
+          }),
+          interactive: false,
+          zIndexOffset: isSel ? 1000 : 0,
+        })
+        m.addTo(map); ms.push(m)
+      } catch {}
+    })
+    return () => ms.forEach(m => map.removeLayer(m))
+  }, [geoData, districts, selectedDistrict, map])
+  return null
+}
+
+/* ════════════════════════════════════════════════════ */
 export default function DistrictMap({ districts, selectedDistrict, onSelectDistrict }) {
-  const [geoData, setGeoData] = useState(null)
+  const [geoData,     setGeoData]     = useState(null)
+  const [mapMode,     setMapMode]     = useState('choropleth')
+  const [dots,        setDots]        = useState([])
+  const [dotsLoading, setDotsLoading] = useState(false)
+  const [dotsError,   setDotsError]   = useState(false)
 
   useEffect(() => {
     fetch('/bangkok_districts.geojson')
@@ -37,122 +172,205 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
       .catch(() => {})
   }, [])
 
+  useEffect(() => {
+    if (mapMode !== 'dots' || dots.length > 0 || dotsLoading) return
+    setDotsLoading(true); setDotsError(false)
+    fetchAllDots(() => {})
+      .then(all => setDots(all))
+      .catch(() => setDotsError(true))
+      .finally(() => setDotsLoading(false))
+  }, [mapMode])
+
   const counts = Object.values(districts).map(d => d.total || 0)
-  const max = Math.max(...counts, 1)
+  const max    = Math.max(...counts, 1)
 
   const styleFeature = (feature) => {
-    const name = feature.properties.dname || feature.properties.name
-    const d = districts[name]
-    const count = d?.total || 0
+    const name       = feature.properties.dname || feature.properties.name
+    const d          = districts[name]
     const isSelected = name === selectedDistrict
+    const fill       = getBucket(d?.total || 0, max)
     return {
-      fillColor: getBucket(count, max),
-      weight: isSelected ? 2.5 : 1,
-      color: isSelected ? '#FFFFFF' : 'rgba(255,255,255,0.35)',
-      fillOpacity: isSelected ? 1 : 0.85,
+      fillColor:   fill || 'rgba(255,255,255,0.04)',
+      weight:      isSelected ? 2 : 0.8,
+      color:       isSelected ? '#FFF' : 'rgba(255,255,255,0.22)',
+      fillOpacity: fill ? (isSelected ? 0.80 : 0.63) : 0.12,
     }
   }
 
   const onEachFeature = (feature, layer) => {
-    const name = feature.properties.dname || feature.properties.name
-    const d = districts[name]
+    const name  = feature.properties.dname || feature.properties.name
+    const d     = districts[name]
     const count = d?.total || 0
-    const rr = d ? Math.round((d.resolved / d.total) * 100) : 0
-
+    const rr    = d?.total > 0 ? Math.round((d.resolved / d.total) * 100) : 0
+    const days  = Math.round(d?.avg_days || 0)
+    const rrC   = rr >= 70 ? '#5BD1B8' : rr >= 50 ? '#E9C46A' : '#E63946'
     layer.bindTooltip(`
-      <div style="font-family:'IBM Plex Sans Thai',sans-serif;padding:8px 14px;
-        background:#0E141C;border:1px solid rgba(255,255,255,0.15);
-        border-radius:10px;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.5)">
-        <div style="color:#E7EEF5;font-size:13px;font-weight:600;margin-bottom:3px">เขต${name}</div>
-        <div style="color:#8DA0B4;font-size:11px">
-          ร้องเรียน <span style="color:#F9CA24;font-family:'IBM Plex Mono',monospace;font-size:13px">${count.toLocaleString()}</span> เรื่อง
-        </div>
-        <div style="color:#8DA0B4;font-size:11px">
-          แก้ไขแล้ว <span style="color:#4ECDC4;font-family:'IBM Plex Mono',monospace">${rr}%</span>
+      <div style="font-family:'IBM Plex Sans Thai',sans-serif;padding:10px 14px;
+        background:#0D1117;border:1px solid rgba(255,255,255,0.12);border-radius:10px;
+        white-space:nowrap;box-shadow:0 6px 24px rgba(0,0,0,0.6)">
+        <div style="color:#E7EEF5;font-size:13px;font-weight:700;margin-bottom:6px">เขต${name}</div>
+        <div style="display:grid;grid-template-columns:auto auto;gap:2px 14px">
+          <span style="color:#8DA0B4;font-size:11px">ร้องเรียน</span>
+          <span style="color:#F9CA24;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600">${count.toLocaleString()} เรื่อง</span>
+          <span style="color:#8DA0B4;font-size:11px">แก้ไขแล้ว</span>
+          <span style="color:${rrC};font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600">${rr}%</span>
+          <span style="color:#8DA0B4;font-size:11px">เฉลี่ย</span>
+          <span style="color:#A0B8CC;font-family:'IBM Plex Mono',monospace;font-size:12px">${days} วัน</span>
         </div>
       </div>
     `, { sticky: true, opacity: 1 })
-
     layer.on({
-      click: () => onSelectDistrict(name === selectedDistrict ? null : name),
-      mouseover: e => e.target.setStyle({
-        fillOpacity: 1,
-        weight: 2,
-        color: 'rgba(255,255,255,0.8)',
-      }),
-      mouseout: e => e.target.setStyle(styleFeature(feature)),
+      click:     () => onSelectDistrict(name === selectedDistrict ? null : name),
+      mouseover: e  => { e.target.setStyle({ fillOpacity:0.92, weight:2, color:'rgba(255,255,255,0.7)' }); e.target.bringToFront() },
+      mouseout:  e  => e.target.setStyle(styleFeature(feature)),
     })
   }
 
+  const selData = selectedDistrict ? districts[selectedDistrict] : null
+
   const CARD = {
-    background: 'var(--panel)',
-    border: '1px solid var(--line)',
-    borderRadius: 'var(--radius)',
-    padding: '16px 17px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 10,
+    background:'var(--panel)', border:'1px solid var(--line)',
+    borderRadius:'var(--radius)', padding:'16px 17px',
+    display:'flex', flexDirection:'column', gap:10,
   }
 
   return (
     <section style={CARD}>
-      {/* Header */}
-      <div>
-        <h2 style={{ margin: 0, fontSize: 15, fontWeight: 600, color: 'var(--ink)' }}>
-          แผนที่ปัญหารายเขต
-        </h2>
-        <div style={{ color: 'var(--faint)', fontSize: 12, marginTop: 2 }}>
-          คลิกที่เขตเพื่อดูรายละเอียด
+
+      {/* Header + mode toggle */}
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', flexWrap:'wrap', gap:8 }}>
+        <div>
+          <h2 style={{ margin:0, fontSize:15, fontWeight:600, color:'var(--ink)' }}>
+            {mapMode === 'choropleth' ? 'แผนที่ปัญหารายเขต' : 'จุดปัญหาจาก Traffy Fondue'}
+          </h2>
+          <div style={{ color:'var(--faint)', fontSize:12, marginTop:2 }}>
+            {mapMode === 'choropleth'
+              ? (selectedDistrict ? `เลือก: เขต${selectedDistrict}` : 'คลิกเขตเพื่อดูรายละเอียด')
+              : dotsLoading ? '⏳ กำลังโหลด...'
+              : dotsError   ? '❌ โหลดไม่สำเร็จ'
+              : `${dots.length.toLocaleString()} จุด · hover เพื่อดูรายละเอียด`}
+          </div>
+        </div>
+
+        <div style={{ display:'flex', gap:8, alignItems:'center', flexWrap:'wrap' }}>
+          {/* mode toggle */}
+          <div style={{ display:'flex', background:'var(--panel2)', border:'1px solid var(--line)', borderRadius:10, padding:3, gap:2 }}>
+            {[{ key:'choropleth', label:'🗺️ รายเขต' }, { key:'dots', label:'📍 จุดปัญหา' }].map(m => (
+              <button key={m.key} onClick={() => setMapMode(m.key)} style={{
+                background: mapMode === m.key ? 'var(--panel)' : 'transparent',
+                color:      mapMode === m.key ? 'var(--mint)' : 'var(--faint)',
+                border:'none', borderRadius:7, padding:'4px 12px', fontSize:11,
+                fontFamily:'inherit', fontWeight: mapMode === m.key ? 600 : 400,
+                cursor:'pointer', transition:'all 0.15s',
+                boxShadow: mapMode === m.key ? '0 1px 4px rgba(0,0,0,0.3)' : 'none',
+              }}>{m.label}</button>
+            ))}
+          </div>
+
+          {/* selected district mini-badge */}
+          {selData && mapMode === 'choropleth' && (
+            <div style={{ background:'var(--panel2)', border:'1px solid var(--line)', borderRadius:10, padding:'5px 12px' }}>
+              <div style={{ fontSize:10, color:'var(--faint)' }}>เขต{selectedDistrict}</div>
+              <div style={{ display:'flex', gap:10 }}>
+                {[
+                  { v: selData.total.toLocaleString(), u:'เรื่อง' },
+                  { v: `${Math.round(selData.resolved/selData.total*100)}%`, u:'แก้แล้ว', c: selData.resolved/selData.total >= 0.7 ? '#5BD1B8' : '#E9C46A' },
+                ].map(x => (
+                  <div key={x.u} style={{ textAlign:'center' }}>
+                    <div style={{ fontSize:14, fontWeight:700, fontFamily:'IBM Plex Mono,monospace', color: x.c || 'var(--ink)' }}>{x.v}</div>
+                    <div style={{ fontSize:10, color:'var(--faint)' }}>{x.u}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
       {/* Legend */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-        {BUCKETS.map((c, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-            <span style={{
-              display: 'inline-block', width: 12, height: 12,
-              borderRadius: 3, background: c,
-            }} />
-            <span style={{ fontSize: 10, color: 'var(--faint)' }}>{LABELS[i]}</span>
-          </div>
-        ))}
-      </div>
+      {mapMode === 'choropleth' ? (
+        <div style={{ display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' }}>
+          {BUCKETS.map((c, i) => (
+            <div key={i} style={{ display:'flex', alignItems:'center', gap:4 }}>
+              <span style={{ display:'inline-block', width:12, height:12, borderRadius:3, background:c }}/>
+              <span style={{ fontSize:10, color:'var(--faint)' }}>{LABELS[i]}</span>
+            </div>
+          ))}
+          {selectedDistrict && (
+            <button onClick={() => onSelectDistrict(null)} style={{
+              marginLeft:'auto', background:'none', border:'1px solid var(--line)',
+              color:'var(--faint)', borderRadius:7, padding:'3px 9px',
+              fontSize:11, fontFamily:'inherit', cursor:'pointer',
+            }}>ยกเลิก ✕</button>
+          )}
+        </div>
+      ) : (
+        <div style={{ display:'flex', alignItems:'center', gap:8, flexWrap:'wrap' }}>
+          {Object.entries(TYPE_CONFIG).map(([label, cfg]) => (
+            <div key={label} style={{ display:'flex', alignItems:'center', gap:4 }}>
+              <span style={{ display:'inline-block', width:8, height:8, borderRadius:'50%', background:cfg.color }}/>
+              <span style={{ fontSize:10, color:'var(--faint)' }}>{label}</span>
+            </div>
+          ))}
+        </div>
+      )}
 
       {/* Map */}
-      <div style={{ flex: 1, borderRadius: 10, overflow: 'hidden', minHeight: 400, position: 'relative' }}>
+      <div className="map-container">
         <MapContainer
-          center={[13.756, 100.502]}
-          zoom={10}
-          zoomControl={true}
-          scrollWheelZoom={true}
-          style={{ height: '100%', width: '100%', minHeight: 400, background: '#0E141C' }}
+          center={[13.756, 100.502]} zoom={10}
+          zoomControl scrollWheelZoom
+          style={{ height:'100%', width:'100%', minHeight:400, background:'#0D1117' }}
+          attributionControl={false}
         >
-          {/* NO TileLayer — pure dark background */}
+          {mapMode === 'dots' && (
+            <TileLayer
+              url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+              subdomains="abcd" maxZoom={19} opacity={0.85}
+            />
+          )}
+
           {geoData && (
             <>
               <FitBounds geoData={geoData} />
-              <GeoJSON
-                key={selectedDistrict + '-' + Object.keys(districts).length}
-                data={geoData}
-                style={styleFeature}
-                onEachFeature={onEachFeature}
-              />
+              {mapMode === 'choropleth' && (
+                <>
+                  <GeoJSON
+                    key={selectedDistrict + '-' + Object.keys(districts).length}
+                    data={geoData} style={styleFeature} onEachFeature={onEachFeature}
+                  />
+                  <DistrictLabels geoData={geoData} districts={districts} selectedDistrict={selectedDistrict} />
+                </>
+              )}
+              {mapMode === 'dots' && (
+                <>
+                  <GeoJSON key="outline" data={geoData}
+                    style={() => ({ fillColor:'transparent', fillOpacity:0, weight:0.7, color:'rgba(255,255,255,0.18)' })}
+                  />
+                  {dots.length > 0 && <CanvasDotLayer dots={dots} />}
+                </>
+              )}
             </>
           )}
         </MapContainer>
 
         {/* Loading overlay */}
-        {!geoData && (
+        {(!geoData || (mapMode === 'dots' && dotsLoading)) && (
           <div style={{
-            position: 'absolute', inset: 0, display: 'flex',
-            alignItems: 'center', justifyContent: 'center',
-            background: '#0E141C', borderRadius: 10,
-            color: 'var(--faint)', fontSize: 13,
+            position:'absolute', inset:0, display:'flex', alignItems:'center', justifyContent:'center',
+            background:'rgba(13,17,23,0.88)', borderRadius:10,
+            color:'var(--faint)', fontSize:13,
           }}>
-            กำลังโหลดแผนที่…
+            {dotsLoading ? '⏳ กำลังโหลดจุดปัญหา...' : 'กำลังโหลดแผนที่…'}
           </div>
         )}
+
+        <div style={{
+          position:'absolute', bottom:6, right:8, zIndex:1000,
+          fontSize:9, color:'rgba(141,160,180,0.45)', pointerEvents:'none',
+        }}>
+          © OpenStreetMap · © CARTO · Traffy Fondue
+        </div>
       </div>
     </section>
   )

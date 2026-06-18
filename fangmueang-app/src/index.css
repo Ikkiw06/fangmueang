@@ -30,6 +30,8 @@ body {
 /* Leaflet */
 .leaflet-container { background: var(--bg) !important; font-family: "IBM Plex Sans Thai", sans-serif; }
 .leaflet-tooltip { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+.dot-tooltip.leaflet-tooltip { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
+.dot-tooltip.leaflet-tooltip::before { display: none !important; }
 .leaflet-control-zoom { border: 1px solid var(--line) !important; border-radius: 10px !important; overflow: hidden; box-shadow: none !important; }
 .leaflet-control-zoom-in, .leaflet-control-zoom-out { background: var(--panel) !important; color: var(--muted) !important; border: none !important; border-bottom: 1px solid var(--line) !important; }
 .leaflet-control-zoom-in:hover, .leaflet-control-zoom-out:hover { background: var(--panel2) !important; color: var(--ink) !important; }
@@ -47,3 +49,54 @@ body {
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
 @keyframes fade { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
 @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+
+/* App layout classes */
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.workflow-banner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 8px 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  margin-bottom: 14px;
+  overflow-x: auto;
+}
+
+.insight-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 14px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 860px) {
+  .main-grid { grid-template-columns: 1fr; }
+  .insight-bar { grid-template-columns: 1fr; }
+}
+
+/* Map container */
+.map-container {
+  flex: 1;
+  min-height: 520px;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+}
