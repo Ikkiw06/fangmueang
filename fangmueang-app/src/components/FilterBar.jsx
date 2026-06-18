@@ -1,54 +1,57 @@
-const TYPES = [
-  { label: 'ทั้งหมด',      icon: '🗺️', from:'#3b82f6', to:'#2563eb' },
-  { label: 'ถนน/ทางเท้า', icon: '🛣️', from:'#f97316', to:'#ea580c' },
-  { label: 'น้ำท่วม',      icon: '🌊', from:'#06b6d4', to:'#0891b2' },
-  { label: 'ขยะ',          icon: '🗑️', from:'#10b981', to:'#059669' },
-  { label: 'ไฟส่องสว่าง', icon: '💡', from:'#eab308', to:'#ca8a04' },
-  { label: 'ความปลอดภัย', icon: '🔒', from:'#ef4444', to:'#dc2626' },
-  { label: 'อื่นๆ',        icon: '📋', from:'#8b5cf6', to:'#7c3aed' },
+import { useState } from 'react'
+
+const CATS = [
+  { id:'ทั้งหมด',    label:'ทั้งหมด',       color:null },
+  { id:'ถนน/ทางเท้า', label:'ถนน/ทางเท้า', color:'#E58A53' },
+  { id:'น้ำท่วม',    label:'น้ำท่วม',       color:'#4F9FE0' },
+  { id:'ขยะ',       label:'ขยะ',           color:'#6FC18A' },
+  { id:'ไฟส่องสว่าง',label:'ไฟส่องสว่าง',  color:'#E9C46A' },
+  { id:'ความปลอดภัย',label:'ความปลอดภัย',  color:'#D14B3C' },
+  { id:'อื่นๆ',     label:'อื่นๆ',          color:'#8DA0B4' },
 ]
 
-export default function FilterBar({ selected, onSelect }) {
+export default function FilterBar({ selected, onSelect, timeFactor, onTimeChange }) {
+  const [hov, setHov] = useState(null)
+  const chip = (c) => {
+    const active = selected === c.id
+    const hover = hov === c.id
+    return (
+      <button key={c.id}
+        onClick={() => onSelect(c.id)}
+        onMouseEnter={() => setHov(c.id)}
+        onMouseLeave={() => setHov(null)}
+        style={{
+          cursor:'pointer',
+          border: active ? '1px solid var(--mint)' : `1px solid ${hover?'var(--mint-d)':'var(--line)'}`,
+          background: active ? 'var(--mint)' : hover ? 'var(--panel2)' : 'var(--panel)',
+          color: active ? '#06231d' : hover ? 'var(--ink)' : 'var(--muted)',
+          padding:'6px 14px', borderRadius:999, fontSize:13,
+          fontFamily:'inherit', fontWeight: active ? 600 : 400,
+          display:'flex', alignItems:'center', gap:7,
+          transition:'all 0.15s',
+        }}>
+        {c.color && <span style={{ width:8, height:8, borderRadius:'50%', background:c.color, display:'inline-block', flexShrink:0 }}/>}
+        {c.label}
+      </button>
+    )
+  }
+
   return (
-    <div style={{
-      background:'rgba(15,23,42,0.7)',
-      backdropFilter:'blur(16px)',
-      border:'1px solid rgba(59,130,246,0.15)',
-      borderRadius:16,padding:'16px 20px'
-    }}>
-      <p style={{fontSize:11,color:'#475569',marginBottom:12,fontWeight:600,letterSpacing:'0.1em',textTransform:'uppercase'}}>
-        กรองตามประเภทปัญหา
-      </p>
-      <div style={{display:'flex',flexWrap:'wrap',gap:8}}>
-        {TYPES.map((t, i) => {
-          const active = selected === t.label
-          return (
-            <button
-              key={t.label}
-              onClick={() => onSelect(t.label)}
-              style={{
-                display:'flex',alignItems:'center',gap:8,
-                padding:'8px 16px',borderRadius:12,
-                border: active ? 'none' : '1px solid rgba(71,85,105,0.5)',
-                background: active
-                  ? `linear-gradient(135deg,${t.from},${t.to})`
-                  : 'rgba(30,41,59,0.6)',
-                color: active ? 'white' : '#94a3b8',
-                fontSize:13,fontWeight:active?700:500,
-                cursor:'pointer',
-                transform: active ? 'scale(1.05)' : 'scale(1)',
-                boxShadow: active ? `0 4px 16px ${t.from}44` : 'none',
-                transition:'all 0.2s ease',
-              }}
-              onMouseEnter={e => { if(!active) e.currentTarget.style.background='rgba(51,65,85,0.8)'; e.currentTarget.style.color='white'; e.currentTarget.style.transform='scale(1.03)' }}
-              onMouseLeave={e => { if(!active) { e.currentTarget.style.background='rgba(30,41,59,0.6)'; e.currentTarget.style.color='#94a3b8'; e.currentTarget.style.transform='scale(1)' } }}
-            >
-              <span style={{fontSize:16}}>{t.icon}</span>
-              <span>{t.label}</span>
-            </button>
-          )
-        })}
+    <div style={{ display:'flex', gap:14, flexWrap:'wrap', alignItems:'center', marginBottom:18 }}>
+      <span style={{ fontSize:12, color:'var(--faint)', letterSpacing:'0.02em' }}>ประเภทปัญหา</span>
+      <div style={{ display:'flex', gap:7, flexWrap:'wrap' }}>
+        {CATS.map(chip)}
       </div>
+      <span style={{ fontSize:12, color:'var(--faint)', marginLeft:8 }}>ช่วงเวลา</span>
+      <select value={timeFactor} onChange={e => onTimeChange(parseFloat(e.target.value))} style={{
+        fontFamily:'inherit', background:'var(--panel)', color:'var(--ink)',
+        border:'1px solid var(--line)', borderRadius:9, padding:'6px 11px', fontSize:13,
+      }}>
+        <option value={1}>ทั้งหมด</option>
+        <option value={0.62}>12 เดือนล่าสุด</option>
+        <option value={0.34}>6 เดือนล่าสุด</option>
+        <option value={0.18}>3 เดือนล่าสุด</option>
+      </select>
     </div>
   )
 }
