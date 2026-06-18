@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const CATS = [
   { icon:'🛣️', label:'ถนน/ทางเท้า', color:'#E58A53' },
@@ -29,17 +29,44 @@ const FIELD = {
 
 export default function ReportModal({ onClose, defaultDistrict }) {
   const [visible,   setVisible]   = useState(false)
-  const [step,      setStep]      = useState(1)   // 1=กรอกข้อมูล 2=ยืนยัน/redirect
+  const [step,      setStep]      = useState(1)
   const [selected,  setSelected]  = useState(null)
   const [district,  setDistrict]  = useState(defaultDistrict || '')
   const [otherText, setOtherText] = useState('')
   const [desc,      setDesc]      = useState('')
+  const [images,    setImages]    = useState([])   // [{file, url, name}]
+  const [dragOver,  setDragOver]  = useState(false)
   const [errors,    setErrors]    = useState({})
   const [hov,       setHov]       = useState(null)
+  const fileRef = useRef(null)
 
   useEffect(() => { const t = setTimeout(() => setVisible(true), 30); return () => clearTimeout(t) }, [])
 
+  // cleanup object URLs on unmount
+  useEffect(() => () => images.forEach(img => URL.revokeObjectURL(img.url)), [images])
+
   const handleClose = () => { setVisible(false); setTimeout(onClose, 280) }
+
+  const addFiles = (files) => {
+    const valid = Array.from(files)
+      .filter(f => f.type.startsWith('image/'))
+      .slice(0, 5 - images.length)
+    if (!valid.length) return
+    const newImgs = valid.map(f => ({ file: f, url: URL.createObjectURL(f), name: f.name }))
+    setImages(prev => [...prev, ...newImgs].slice(0, 5))
+  }
+
+  const removeImage = (idx) => {
+    setImages(prev => {
+      URL.revokeObjectURL(prev[idx].url)
+      return prev.filter((_, i) => i !== idx)
+    })
+  }
+
+  const onDrop = (e) => {
+    e.preventDefault(); setDragOver(false)
+    addFiles(e.dataTransfer.files)
+  }
 
   const validate = () => {
     const e = {}
@@ -58,7 +85,6 @@ export default function ReportModal({ onClose, defaultDistrict }) {
   }
 
   const problemLabel = selected === 'อื่นๆ' ? otherText : selected
-
   const focus = e => e.target.style.borderColor = 'var(--mint-d)'
   const blur  = e => e.target.style.borderColor = 'var(--line)'
 
@@ -70,7 +96,7 @@ export default function ReportModal({ onClose, defaultDistrict }) {
       opacity: visible ? 1 : 0, transition:'opacity 0.28s',
     }}>
       <div style={{
-        width:460, maxWidth:'calc(100vw - 32px)', maxHeight:'92vh',
+        width:480, maxWidth:'calc(100vw - 32px)', maxHeight:'92vh',
         background:'var(--panel)', border:'1px solid var(--line)',
         borderRadius:18, overflowY:'auto', overflowX:'hidden',
         transform: visible ? 'scale(1) translateY(0)' : 'scale(0.95) translateY(12px)',
@@ -183,8 +209,95 @@ export default function ReportModal({ onClose, defaultDistrict }) {
                   style={{ ...FIELD, height:72, resize:'none', lineHeight:1.5 }}/>
               </div>
 
+              {/* ── Image upload ── */}
+              <div style={{ marginTop:14 }}>
+                <label style={{ fontSize:12, color:'var(--faint)', display:'block', marginBottom:8 }}>
+                  รูปภาพประกอบ <span style={{ color:'var(--faint)', fontWeight:400 }}>(ไม่บังคับ · สูงสุด 5 รูป)</span>
+                </label>
+
+                {/* Drop zone */}
+                <div
+                  onDragOver={e => { e.preventDefault(); setDragOver(true) }}
+                  onDragLeave={() => setDragOver(false)}
+                  onDrop={onDrop}
+                  onClick={() => images.length < 5 && fileRef.current?.click()}
+                  style={{
+                    border: `2px dashed ${dragOver ? 'var(--mint)' : 'var(--line)'}`,
+                    borderRadius:12,
+                    padding: images.length ? '12px' : '20px 12px',
+                    textAlign:'center',
+                    cursor: images.length >= 5 ? 'default' : 'pointer',
+                    background: dragOver ? 'rgba(91,209,184,0.06)' : 'var(--panel2)',
+                    transition:'all 0.15s',
+                  }}
+                >
+                  {images.length === 0 ? (
+                    <>
+                      <div style={{ fontSize:28, marginBottom:6 }}>📷</div>
+                      <div style={{ fontSize:12, color:'var(--muted)' }}>
+                        คลิกหรือลากรูปมาวางที่นี่
+                      </div>
+                      <div style={{ fontSize:11, color:'var(--faint)', marginTop:4 }}>
+                        รองรับ JPG, PNG, HEIC · ไฟล์ละไม่เกิน 10MB
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* Thumbnails */}
+                      <div style={{ display:'flex', gap:8, flexWrap:'wrap', justifyContent:'flex-start' }}>
+                        {images.map((img, idx) => (
+                          <div key={idx} style={{ position:'relative', width:80, height:80, flexShrink:0 }}>
+                            <img
+                              src={img.url} alt={img.name}
+                              style={{ width:80, height:80, objectFit:'cover', borderRadius:8,
+                                border:'1px solid var(--line)', display:'block' }}
+                            />
+                            {/* remove button */}
+                            <button
+                              onClick={e => { e.stopPropagation(); removeImage(idx) }}
+                              style={{
+                                position:'absolute', top:-6, right:-6,
+                                width:20, height:20, borderRadius:'50%',
+                                background:'#E63946', border:'2px solid var(--panel)',
+                                color:'#fff', fontSize:10, fontWeight:700,
+                                display:'flex', alignItems:'center', justifyContent:'center',
+                                cursor:'pointer', lineHeight:1,
+                              }}>✕</button>
+                          </div>
+                        ))}
+
+                        {/* Add more slot */}
+                        {images.length < 5 && (
+                          <div style={{
+                            width:80, height:80, borderRadius:8, flexShrink:0,
+                            border:'2px dashed var(--line)', display:'flex',
+                            flexDirection:'column', alignItems:'center', justifyContent:'center',
+                            color:'var(--faint)', fontSize:10, gap:4, cursor:'pointer',
+                          }}>
+                            <span style={{ fontSize:20 }}>+</span>
+                            <span>เพิ่มรูป</span>
+                          </div>
+                        )}
+                      </div>
+
+                      {images.length >= 5 && (
+                        <div style={{ fontSize:11, color:'var(--faint)', marginTop:8, textAlign:'left' }}>
+                          ครบ 5 รูปแล้ว
+                        </div>
+                      )}
+                    </>
+                  )}
+                </div>
+
+                <input
+                  ref={fileRef} type="file" multiple accept="image/*"
+                  style={{ display:'none' }}
+                  onChange={e => { addFiles(e.target.files); e.target.value = '' }}
+                />
+              </div>
+
               <button onClick={handleNext} style={{
-                width:'100%', marginTop:14, padding:'11px 0', borderRadius:11, border:'none',
+                width:'100%', marginTop:16, padding:'11px 0', borderRadius:11, border:'none',
                 background:'var(--mint)', color:'#06231d', fontSize:13, fontWeight:700,
                 fontFamily:'inherit', cursor:'pointer', transition:'opacity 0.15s',
               }}
@@ -203,21 +316,44 @@ export default function ReportModal({ onClose, defaultDistrict }) {
                 <div style={{ fontSize:12, color:'var(--faint)', marginBottom:10 }}>ข้อมูลที่จะแจ้ง</div>
                 <div style={{ display:'flex', flexDirection:'column', gap:8 }}>
                   <div style={{ display:'flex', gap:10 }}>
-                    <span style={{ fontSize:12, color:'var(--faint)', width:80 }}>เขต</span>
+                    <span style={{ fontSize:12, color:'var(--faint)', width:80, flexShrink:0 }}>เขต</span>
                     <span style={{ fontSize:13, fontWeight:600, color:'var(--ink)' }}>เขต{district}</span>
                   </div>
                   <div style={{ display:'flex', gap:10 }}>
-                    <span style={{ fontSize:12, color:'var(--faint)', width:80 }}>ประเภท</span>
+                    <span style={{ fontSize:12, color:'var(--faint)', width:80, flexShrink:0 }}>ประเภท</span>
                     <span style={{ fontSize:13, fontWeight:600, color:'var(--mint)' }}>{problemLabel}</span>
                   </div>
                   {desc && (
                     <div style={{ display:'flex', gap:10 }}>
-                      <span style={{ fontSize:12, color:'var(--faint)', width:80 }}>รายละเอียด</span>
+                      <span style={{ fontSize:12, color:'var(--faint)', width:80, flexShrink:0 }}>รายละเอียด</span>
                       <span style={{ fontSize:13, color:'var(--ink)' }}>{desc}</span>
+                    </div>
+                  )}
+                  {images.length > 0 && (
+                    <div style={{ display:'flex', gap:10, alignItems:'flex-start' }}>
+                      <span style={{ fontSize:12, color:'var(--faint)', width:80, flexShrink:0 }}>รูปภาพ</span>
+                      <div style={{ display:'flex', gap:6, flexWrap:'wrap' }}>
+                        {images.map((img, idx) => (
+                          <img key={idx} src={img.url} alt=""
+                            style={{ width:52, height:52, objectFit:'cover', borderRadius:7,
+                              border:'1px solid var(--line)' }}
+                          />
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
               </div>
+
+              {/* Image note */}
+              {images.length > 0 && (
+                <div style={{
+                  background:'rgba(233,196,106,0.07)', border:'1px solid rgba(233,196,106,0.25)',
+                  borderRadius:10, padding:'10px 14px', marginBottom:14, fontSize:11, color:'var(--muted)',
+                }}>
+                  📎 รูปภาพ {images.length} ใบ — กรุณาแนบรูปเดิมอีกครั้งเมื่อกรอกฟอร์ม Traffy Fondue
+                </div>
+              )}
 
               {/* Workflow note */}
               <div style={{
