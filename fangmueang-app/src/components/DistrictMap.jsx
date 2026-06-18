@@ -27,24 +27,17 @@ function getDotColor(types) {
   return '#8DA0B4'
 }
 
-/* ── Fetch all pages ──────────────────────────────────── */
-const API = 'https://publicapi.traffy.in.th/teamchadchart-stat-api/geojson/v1'
+/* ── Fetch dots from local file (fast, offline-ready) ── */
 async function fetchAllDots(onProgress) {
-  const all = []
-  let offset = 0
-  const limit = 1000
-  while (true) {
-    const res  = await fetch(`${API}?limit=${limit}&offset=${offset}`)
-    if (!res.ok) break
-    const json = await res.json()
-    const batch = (json.features || []).filter(f => f.geometry?.coordinates?.length === 2)
-    if (!batch.length) break
-    all.push(...batch)
-    onProgress(all.length, json.total || null)
-    if (batch.length < limit) break
-    offset += limit
-  }
-  return all
+  const res  = await fetch('/dots.json')
+  if (!res.ok) throw new Error('dots.json not found')
+  const json = await res.json()
+  const dots = json.dots || []
+  onProgress(dots.length, dots.length)
+  // convert array format [lat, lng, type, state, district] → object
+  return dots.map(d => ({
+    lat: d[0], lng: d[1], type: d[2], state: d[3], district: d[4],
+  }))
 }
 
 /* ── Canvas dot layer (fast — handles 50k+ dots) ─────── */
@@ -55,30 +48,28 @@ function CanvasDotLayer({ dots }) {
     if (!dots.length || !map) return
 
     const canvas  = L.canvas({ padding: 0.5 })
-    const markers = dots.map(f => {
-      const p     = f.properties
-      const color = getDotColor(p.problem_type_fondue)
+    const markers = dots.map(d => {
+      const color = getDotColor([d.type])
       const m     = L.circleMarker(
-        [f.geometry.coordinates[1], f.geometry.coordinates[0]],
+        [d.lat, d.lng],
         { renderer: canvas, radius: 3, color, fillColor: color, fillOpacity: 0.82, weight: 0 }
       )
-      const dist  = p.district || ''
-      const types = (p.problem_type_fondue || []).join(', ') || 'ปัญหาทั่วไป'
-      const desc  = (p.description || '').slice(0, 100)
-      const state = p.state || ''
+      const stateColor = d.state === 'ดำเนินการแล้ว' ? '#5BD1B8' : d.state === 'กำลังดำเนินการ' ? '#E9C46A' : '#E63946'
       m.bindTooltip(
         `<div style="font-family:'IBM Plex Sans Thai',sans-serif;padding:9px 12px;
           background:#0D1117;border:1px solid rgba(255,255,255,0.12);border-radius:10px;
-          max-width:220px;box-shadow:0 6px 24px rgba(0,0,0,0.6);">
-          <div style="color:#E7EEF5;font-size:12px;font-weight:700;margin-bottom:4px;
+          min-width:160px;box-shadow:0 6px 24px rgba(0,0,0,0.6);">
+          <div style="color:#E7EEF5;font-size:12px;font-weight:700;margin-bottom:5px;
             display:flex;align-items:center;gap:6px;">
-            <span style="width:8px;height:8px;border-radius:50%;background:${color};display:inline-block;flex-shrink:0;"></span>
-            ${types}
+            <span style="width:8px;height:8px;border-radius:50%;background:${color};
+              display:inline-block;flex-shrink:0;"></span>
+            ${d.type}
           </div>
-          ${dist ? `<div style="color:#8DA0B4;font-size:11px;margin-bottom:3px;">📍 เขต${dist}</div>` : ''}
-          ${desc ? `<div style="color:#8DA0B4;font-size:11px;line-height:1.5;">${desc}${p.description?.length > 100 ? '…' : ''}</div>` : ''}
-          <div style="color:rgba(255,255,255,0.25);font-size:10px;margin-top:5px;
-            border-top:1px solid rgba(255,255,255,0.07);padding-top:4px;">${state}</div>
+          <div style="color:#8DA0B4;font-size:11px;margin-bottom:3px;">📍 เขต${d.district}</div>
+          <div style="display:inline-block;padding:2px 8px;border-radius:99px;font-size:10px;
+            font-weight:600;background:${stateColor}22;color:${stateColor};border:1px solid ${stateColor}44;">
+            ${d.state}
+          </div>
         </div>`,
         { sticky: true, opacity: 1 }
       )
@@ -252,10 +243,10 @@ export default function DistrictMap({ districts, selectedDistrict, onSelectDistr
             {mapMode === 'choropleth'
               ? (selectedDistrict ? `เลือก: เขต${selectedDistrict} · คลิกอีกครั้งเพื่อยกเลิก` : 'คลิกที่เขตเพื่อดูรายละเอียด')
               : dotsLoading
-                ? `📡 กำลังโหลด... ${dotsLoaded.toLocaleString()}${dotsTotal ? ' / ' + dotsTotal.toLocaleString() : ''} จุด`
+                ? `⏳ กำลังโหลดจุดปัญหา...`
                 : dotsError
-                  ? '❌ โหลดไม่สำเร็จ — ตรวจสอบ internet'
-                  : `${dots.length.toLocaleString()} จุด · zoom เข้าเพื่อดูรายละเอียด`}
+                  ? '❌ โหลดไม่สำเร็จ'
+                  : `${dots.length.toLocaleString()} จุด · hover เพื่อดูรายละเอียด`}
           </div>
         </div>
 
