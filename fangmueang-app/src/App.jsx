@@ -9,7 +9,7 @@ import ReportModal from './components/ReportModal'
 import { useData } from './hooks/useData'
 
 export default function App() {
-  const { data, liveDots, loading, error, source } = useData()
+  const { data, liveDots, loading, error, source, progress } = useData()
   const [selectedType,     setSelectedType]     = useState('ทั้งหมด')
   const [selectedDistrict, setSelectedDistrict] = useState(null)
   const [timeFactor,       setTimeFactor]       = useState(1)
@@ -24,12 +24,26 @@ export default function App() {
   /* ── Loading ── */
   if (loading) return (
     <div style={{ minHeight:'100vh', background:'var(--bg)', display:'flex', alignItems:'center', justifyContent:'center' }}>
-      <div style={{ textAlign:'center' }}>
+      <div style={{ textAlign:'center', width:260 }}>
         <div style={{ position:'relative', width:56, height:56, margin:'0 auto 16px' }}>
           <div style={{ position:'absolute', inset:0, border:'2px solid var(--line)', borderRadius:'50%' }}/>
           <div style={{ position:'absolute', inset:0, border:'2px solid transparent', borderTopColor:'var(--mint)', borderRadius:'50%', animation:'spin 0.9s linear infinite' }}/>
         </div>
-        <p style={{ color:'var(--muted)', fontSize:13 }}>กำลังโหลดข้อมูล Traffy Fondue...</p>
+        <p style={{ color:'var(--muted)', fontSize:13, marginBottom:12 }}>
+          {progress > 0 ? 'กำลังดึงข้อมูลจาก Traffy Fondue...' : 'กำลังเชื่อมต่อ Traffy Fondue...'}
+        </p>
+        {progress > 0 && (
+          <>
+            <div style={{ height:4, background:'var(--line)', borderRadius:99, overflow:'hidden', marginBottom:6 }}>
+              <div style={{
+                height:'100%', background:'var(--mint)', borderRadius:99,
+                width: `${Math.round(progress * 100)}%`,
+                transition:'width 0.3s ease',
+              }}/>
+            </div>
+            <p style={{ color:'var(--faint)', fontSize:11 }}>{Math.round(progress * 100)}%</p>
+          </>
+        )}
       </div>
     </div>
   )
@@ -63,7 +77,7 @@ export default function App() {
   ]
 
   /* ── Metadata ── */
-  const isLive      = data?.metadata?.source?.includes('live')
+  const isLive      = source === 'live'
   const lastUpdated = (() => {
     const d = data?.metadata?.last_updated
     if (!d) return null

@@ -45,7 +45,7 @@ export default function KpiPanel({ data, timeFactor = 1, selectedType }) {
   const topType = Object.entries(agg).sort((a, b) => b[1] - a[1])[0]?.[0] || '—'
 
   const cards = [
-    { k:'เรื่องร้องเรียน', v:total, unit:'ครั้ง' },
+    { k:'เรื่องร้องเรียน', v:total, unit:'เรื่อง' },
     { k:'แก้ไขแล้ว', v:rate, unit:'%' },
     { k:'เวลาเฉลี่ยในการแก้', v:days, unit:'วัน' },
     { k:'ปัญหาที่พบมากสุด', v:selectedType === 'ทั้งหมด' ? topType : selectedType, unit:null },
