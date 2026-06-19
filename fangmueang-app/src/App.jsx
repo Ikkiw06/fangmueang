@@ -6,6 +6,7 @@ import ProblemChart from './components/ProblemChart'
 import DistrictDetail from './components/DistrictDetail'
 import DistrictRanking from './components/DistrictRanking'
 import ReportModal from './components/ReportModal'
+import AlertPanel from './components/AlertPanel'
 import { useData } from './hooks/useData'
 
 export default function App() {
@@ -186,6 +187,9 @@ export default function App() {
             </div>
           ))}
         </div>
+
+        {/* ── AI Alert Panel ── */}
+        <AlertPanel districts={districts} onSelectDistrict={handleSelectDistrict} />
 
         {/* ── Main grid ── */}
         <div className="main-grid">
